@@ -1,5 +1,18 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/ui/*": ["src/ui/*"],
+      "@/helpers/*": ["../../packages/src/helpers/*"],
+      "@/hooks/*": ["../../packages/src/hooks/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/recoil/*": ["src/recoil/*"],
+      "@/atoms/*": ["components/atoms/*"],
+      "@/molecules/*": ["components/molecules/*"],
+      "@/organisms/*": ["components/organisms/*"],
+      "@/templates/*": ["components/templates/*"]
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,6 +26,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "jsxImportSource": "@emotion/react",
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
