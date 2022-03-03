@@ -12,7 +12,7 @@ const style = css`
 export const SampleButton = () => {
   return (
     <Button css={style} variant="contained" startIcon={<Delete />}>
-      Hello Worl
+      Hello World
     </Button>
   )
 }
