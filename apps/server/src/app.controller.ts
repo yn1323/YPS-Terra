@@ -30,6 +30,6 @@ export class AppController {
     //   last: 'Lovelace',
     //   born: 1815
     // });
-    return process?.env?.token_uri ?? 'no';
+    return process?.env;
   }
 }
