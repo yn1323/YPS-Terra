@@ -9,7 +9,7 @@ export default class MyDocument extends Document {
       <Html lang="ja">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
-          {/* {(this.props as any).emotionStyleTags} */}
+          {(this.props as any).emotionStyleTags}
         </Head>
         <body>
           <Main />

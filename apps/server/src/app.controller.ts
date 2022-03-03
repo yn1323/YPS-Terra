@@ -27,6 +27,6 @@ export class AppController {
     //   born: 1815
     // });
 
-    return 'hoge'
+    return 'hog'
   }
 }
