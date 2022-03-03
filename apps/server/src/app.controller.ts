@@ -1,6 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-
+import { Controller, Get } from '@nestjs/common'
+import { AppService } from './app.service'
 
 // import { initializeApp,  applicationDefault, cert } from 'firebase-admin/app';
 // import admin from 'firebase-admin';
@@ -13,14 +12,11 @@ import { AppService } from './app.service';
 //   credential: admin.credential.cert(serviceAccount)
 // });
 
-
 // const db = getFirestore();
-
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
 
   @Get()
   async getHello() {
@@ -30,6 +26,7 @@ export class AppController {
     //   last: 'Lovelace',
     //   born: 1815
     // });
-    return process?.env;
+
+    return 'hoge'
   }
 }
