@@ -6,12 +6,12 @@
       "@/ui/*": ["src/ui/*"],
       "@/helpers/*": ["../../packages/src/helpers/*"],
       "@/hooks/*": ["../../packages/src/hooks/*"],
-      "@/constants/*": ["../../packages/src/constants/*"],
-      "@/recoil/*": ["../../packages/src/recoil/*"],
-      "@/atoms/*": ["../../packages/components/atom/*"],
-      "@/molecules/*": ["../../packages/components/molecule/*"],
-      "@/organisms/*": ["../../packages/components/organism/*"],
-      "@/templates/*": ["../../packages/components/template/*"]
+      "@/constants/*": ["src/constants/*"],
+      "@/recoil/*": ["src/recoil/*"],
+      "@/atoms/*": ["components/atoms/*"],
+      "@/molecules/*": ["components/molecules/*"],
+      "@/organisms/*": ["components/organisms/*"],
+      "@/templates/*": ["components/templates/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
