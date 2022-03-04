@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "ci",
+      "label": "npm ci",
+      "detail": "初回パッケージ読み込み"
+    },
+    {
+      "type": "npm",
+      "script": "generate",
+      "label": "scaffdog generate",
+      "detail": "コンポーネントのファイルを新規生成"
+    }
+  ]
+}
