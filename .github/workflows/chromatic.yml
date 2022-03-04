@@ -12,7 +12,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      # - run: npm ci
-      - run: cd apps/web
-      - run: npm ci
-      - run: npm run chromatic
+      - name: Execute Chromatic
+         working-directory: ./apps/web
+         run: |
+          npm ci
+          npm run chromatic 
+          
