@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js & NestJS",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "started server on .+, url: (https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    },
+    {
+      "name": "Next.js",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd apps/web && npm run dev",
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "started server on .+, url: (https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    },
+    {
+      "name": "NestJS",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd apps/server && npm run dev",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Storybook",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd apps/web && npm run storybook",
+      "console": "integratedTerminal",
+      "serverReadyAction": {
+        "pattern": "started server on .+, url: (https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    },
+    {
+      "name": "Generate Scaffold",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run generate",
+      "console": "internalConsole"
+    }
+  ]
+}
