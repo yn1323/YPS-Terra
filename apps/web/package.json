@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "storycap": "storycap --serverCmd \"npm run storybook\" http://localhost:6006 --serverTimeout 60000"
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -18,7 +19,9 @@
     "@mui/material": "^5.4.4",
     "next": "12.1.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "reg-publish-s3-plugin": "^0.11.0",
+    "reg-suit": "^0.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
@@ -35,6 +38,10 @@
     "babel-plugin-import": "^1.13.3",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
+    "puppeteer": "^13.4.1",
+    "reg-keygen-git-hash-plugin": "^0.11.1",
+    "reg-notify-github-plugin": "^0.11.1",
+    "storycap": "^3.1.5",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "4.6.2"
   }
