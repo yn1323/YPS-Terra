@@ -13,8 +13,8 @@ jobs:
         with:
           node-version: '16'
       - name: Publish to Chromatic
+        working-directory: ./apps/web
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.G_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          working-directory: ./apps/web
