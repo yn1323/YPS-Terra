@@ -15,7 +15,7 @@ jobs:
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.G_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: build-storybook
           # working-directory: ./apps/web
