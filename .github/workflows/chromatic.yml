@@ -17,3 +17,4 @@ jobs:
         with:
           token: ${{ secrets.G_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          working-directory: ./apps/web
