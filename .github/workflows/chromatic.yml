@@ -18,4 +18,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           buildScriptName: build-storybook
-          working-directory: ./apps/web
+          # working-directory: ./apps/web
+          workingDir: ./apps/web
