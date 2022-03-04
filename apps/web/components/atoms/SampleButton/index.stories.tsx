@@ -1,7 +1,8 @@
 import { ComponentMeta } from '@storybook/react'
-import { SampleButton } from '.'
+import { SampleButton as component } from '.'
 
 export default {
-  component: SampleButton,
-} as ComponentMeta<typeof SampleButton>
+  title: 'atoms/SampleButton',
+  component: component,
+} as ComponentMeta<typeof component>
 export const Primary = { args: { primary: true, label: 'ok' } }
