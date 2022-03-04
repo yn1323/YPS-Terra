@@ -1,0 +1,24 @@
+name: Chromatic
+on:
+ pull_request:
+    paths:
+      - 'apps/web/**'
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+   steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: npm 7
+        run: npm i -g npm@7 --registry=https://registry.npmjs.org
+      - name: cache node module
+        uses: actions/cache@preview
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('ほげほげ.package.json') }}
+      - run: cd apps/web
+      - run: npm run chromatic
