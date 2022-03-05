@@ -1,4 +1,4 @@
-name: Chromatic
+name: Next.js Testx
 on:
   pull_request:
     paths:
@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: unit-test
+      - name: Unit Test
         working-directory: ./apps/web
         run: |
           npm ci
