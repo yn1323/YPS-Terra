@@ -9,5 +9,5 @@ test('test-name', async () => {
   await SuccessInput.play({ canvasElement: container })
 
   const input = screen.getByTestId('name') as HTMLInputElement
-  expect(input.value).toEqual('some nam')
+  expect(input.value).toEqual('some name')
 })
