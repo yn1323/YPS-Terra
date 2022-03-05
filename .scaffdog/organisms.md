@@ -4,7 +4,7 @@ root: './apps/web/components/organisms'
 output: []
 ignore: [./apps/web/components]
 questions:
-  component: 'What is Component name??.'
+  component: 'What is Component name??(pacal case)'
 ---
 
 # `{{ inputs.component | pascal }}/index.stories.tsx`
@@ -25,12 +25,16 @@ export const Primary = { args: { primary: true, label: 'ok' } }
 
 ```tsx
 import { css } from '@emotion/react'
+import type { SerializedStyles } from '@emotion/react'
 import { FC } from 'react'
 
-type PropTypes = {}
+type PropTypes = {
+  _css?: SerializedStyles | SerializedStyles[]
+}
 
-export const {{ inputs.component | pascal }}: FC<PropTypes> = () => {
-  return <div></div>
+export const {{ inputs.component | pascal }}: FC<PropTypes> = ({ _css }) => {
+  return <div css={_css}></div>
 }
 const style = {}
+
 ```
