@@ -56,6 +56,18 @@
       "description": "コンポーネント名(部分一致)：複数指定時はスペース区切り",
       "default": "",
       "type": "promptString"
+    },
+    {
+      "id": "schematic",
+      "description": "NestJS Schematic(i.e. controller, class, service): ",
+      "default": "",
+      "type": "promptString"
+    },
+    {
+      "id": "nestElementName",
+      "description": "Nest ElementName: ",
+      "default": "",
+      "type": "promptString"
     }
   ]
 }

@@ -43,13 +43,6 @@
         "uriFormat": "%s",
         "action": "debugWithChrome"
       }
-    },
-    {
-      "name": "Generate Scaffold",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "npm run generate",
-      "console": "internalConsole"
     }
   ]
 }
