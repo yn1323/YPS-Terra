@@ -14,9 +14,11 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: npm cu
-        run: npm ci
+      - name: unit-test
         working-directory: ./apps/web
+        run: |
+        npm ci
+        npm run test
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:

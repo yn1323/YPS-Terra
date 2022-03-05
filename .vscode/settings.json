@@ -16,6 +16,9 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
   // Monokai Extended for "console" color
   "editor.semanticTokenColorCustomizations": {
     "enabled": true,

@@ -10,31 +10,18 @@ questions:
 # `{{ inputs.component | pascal }}/index.stories.tsx`
 
 ```tsx
-import { ComponentMeta } from '@storybook/react'
-import { {{ inputs.component | pascal }} as component } from '.'
-
-export default {
-  title: '{{ document.name }}/{{ inputs.component | pascal }}',
-  component: component,
-} as ComponentMeta<typeof component>
-export const Primary = { args: { primary: true, label: 'ok' } }
-
+{{ 'templates/components/storybook.tsx' | read }}
 ```
 
 # `{{ inputs.component | pascal }}/index.tsx`
 
 ```tsx
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
-import { FC } from 'react'
+{{ 'templates/components/component.tsx' | read }}
+```
 
-type PropTypes = {
-  _css?: SerializedStyles | SerializedStyles[]
-}
+# `{{ inputs.component | pascal }}/index.spec.tsx`
 
-export const {{ inputs.component | pascal }}: FC<PropTypes> = ({ _css }) => {
-  return <div css={_css}></div>
-}
-const style = {}
+```tsx
+{{ 'templates/components/test.tsx' | read }}
 
 ```
