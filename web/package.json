@@ -52,7 +52,6 @@
     "jest": "^27.5.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "prisma": "^3.10.0",
-    "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "4.6.2"
   }
 }
