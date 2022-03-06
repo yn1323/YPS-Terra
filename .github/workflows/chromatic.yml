@@ -15,8 +15,7 @@ jobs:
         with:
           node-version: '16'
       - name: npm ci
-        working-directory: ./web
-        run: npm ci
+        run: npm ci -w web
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:

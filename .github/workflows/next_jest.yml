@@ -15,7 +15,6 @@ jobs:
         with:
           node-version: '16'
       - name: Unit Test
-        working-directory: ./web
         run: |
-          npm ci
-          npm run test
+          npm ci -w web
+          npm run test -w web
