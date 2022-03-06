@@ -1,8 +1,17 @@
 {
-  "extends": [
-    "config:base"
-  ],
-  "schedule": [
-    "before 3am on Monday"
+  "extends": ["config:base"],
+  "timezone": "Asia/Tokyo",
+  "labels": ["renovate"],
+  "baseBranches": ["chore/renovate"],
+  "schedule": ["before 3am"],
+  "packageRules": [
+    {
+      "updateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "automerge": true
+    }
   ]
 }
