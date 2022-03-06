@@ -13,10 +13,10 @@
     "generate": "scaffdog generate"
   },
   "devDependencies": {
-    "eslint-plugin-import": "^2.25.4",
-    "prettier": "^2.5.1",
+    "eslint-plugin-import": "2.25.4",
+    "prettier": "2.5.1",
     "turbo": "latest",
-    "scaffdog": "^1.2.0"
+    "scaffdog": "1.2.0"
   },
   "engines": {
     "npm": ">=7.0.0",
