@@ -3,9 +3,9 @@ import { Delete } from '@mui/icons-material'
 import { Button } from '@mui/material'
 
 const style = css`
-  /* background-color: red; */
+  background-color: red;
   &:hover {
-    /* background-color: red; */
+    background-color: red;
   }
 `
 
