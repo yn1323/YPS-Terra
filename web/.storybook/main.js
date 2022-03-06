@@ -12,6 +12,9 @@ module.exports = {
     interactionsDebugger: true,
   },
   framework: '@storybook/react',
+  core: {
+    builder: 'webpack5',
+  },
   webpackFinal: async config => {
     // StorybookとMUIのemotionのバージョンの違いを吸収
     // https://zenn.dev/enish/articles/ff678649ecb6d9
