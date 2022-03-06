@@ -14,11 +14,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.G_TOKEN }}
         run: |
+          echo git fetch origin chore/renovate
           git fetch origin chore/renovate
+          echo 2
           git fetch origin develop
-          git checkout chore/renovate 
+          echo 3
+          git checkout chore/renovate
+          echo 4
           git pull origin develop
+          echo 5
           git push origin chore/renovate
+          echo 6
           git checkout develop 
+          echo 7
           git pull origin chore/renovate
           git push origin develop
