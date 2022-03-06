@@ -17,6 +17,7 @@ const customJestConfig = {
     '^@/helpers/(.*)$': '<rootDir>/src/helpers/$1',
     '^@/constants/(.*)$': '<rootDir>/src/constants/$1',
     '^@/recoil/(.*)$': '<rootDir>/src/recoil/$1',
+    '^@/config/(.*)$': '<rootDir>/src/config/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
 }
