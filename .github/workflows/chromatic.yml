@@ -15,10 +15,11 @@ jobs:
         with:
           node-version: '16'
       - name: npm ci
-        run: npm ci -w web
+        run: |
+          npm ci -w web
+          cd web
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.G_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: web
