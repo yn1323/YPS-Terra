@@ -19,7 +19,7 @@
       "label": "Next.js: Jest test",
       "detail": "全コンポーネントのテスト",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
     },
     {
@@ -28,7 +28,7 @@
       "label": "Next.js: Jest test",
       "detail": "1コンポーネントのテスト",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
     },
     {
@@ -37,7 +37,7 @@
       "label": "Next.js: Jest watch",
       "detail": "全コンポーネントの監視",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
     },
     {
@@ -46,7 +46,7 @@
       "label": "Next.js: Jest watch",
       "detail": "1コンポーネントの監視",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
     },
     {

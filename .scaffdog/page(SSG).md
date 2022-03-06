@@ -1,6 +1,6 @@
 ---
-name: 'page(SSG)'
-root: './apps/web/pages'
+name: 'component-page(SSG)'
+root: './web/pages'
 output: []
 ignore: []
 questions:

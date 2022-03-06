@@ -1,6 +1,6 @@
 ---
-name: 'GraphQL(NestJS)'
-root: './apps/server/src'
+name: 'NestJS-GraphQL'
+root: './server/src'
 output: []
 ignore: []
 questions:

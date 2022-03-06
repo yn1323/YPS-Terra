@@ -1,11 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/ui/*": ["src/ui/*"],
-      "@/helpers/*": ["../../packages/src/helpers/*"],
-      "@/hooks/*": ["../../packages/src/hooks/*"],
+      "@/helpers/*": ["../packages/src/helpers/*"],
+      "@/hooks/*": ["../packages/src/hooks/*"],
       "@/constants/*": ["src/constants/*"],
       "@/recoil/*": ["src/recoil/*"],
       "@/config/*": ["src/config/*"],

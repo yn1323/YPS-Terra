@@ -1,10 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/helpers/*": ["../../packages/src/helpers/*"],
-      "@/constants/*": ["../../packages/src/constants/*"]
+      "@/helpers/*": ["../packages/src/helpers/*"],
+      "@/constants/*": ["../packages/src/constants/*"]
     },
     "module": "commonjs",
     "declaration": true,

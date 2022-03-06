@@ -1,8 +1,8 @@
 ---
-name: 'atoms'
-root: './apps/web/components/atoms'
+name: 'component-atoms'
+root: './web/components/atoms'
 output: []
-ignore: [./apps/web/components]
+ignore: [./web/components]
 questions:
   component: 'What is Component name??(pacal case)'
 ---

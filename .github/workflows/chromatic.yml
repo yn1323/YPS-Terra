@@ -2,7 +2,7 @@ name: Chromatic
 on:
   pull_request:
     paths:
-      - 'apps/web/**'
+      - 'web/**'
 
 jobs:
   chromatic:
@@ -15,11 +15,11 @@ jobs:
         with:
           node-version: '16'
       - name: npm ci
-        working-directory: ./apps/web
+        working-directory: ./web
         run: npm ci
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.G_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: ./apps/web
+          workingDir: ./web

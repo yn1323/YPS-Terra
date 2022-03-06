@@ -1,6 +1,6 @@
 ---
-name: 'page(SSR)'
-root: './apps/web/pages'
+name: 'component-page(SSR)'
+root: './web/pages'
 output: []
 ignore: []
 questions:

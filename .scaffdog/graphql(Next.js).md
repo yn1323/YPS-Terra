@@ -1,6 +1,6 @@
 ---
-name: 'GraphQL(Next.js)'
-root: './apps/web/graphql'
+name: 'Next.js-GraphQL'
+root: './web/graphql'
 output: []
 ignore: []
 questions:
