@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/ui/*": ["src/ui/*"],
       "@/helpers/*": ["../packages/src/helpers/*"],
-      "@/hooks/*": ["../packages/src/hooks/*"],
-      "@/constants/*": ["src/constants/*"],
+      "@/constants/*": ["../packages/src/constants/*"],
+      "@/ui/*": ["src/ui/*"],
+      "@/hooks/*": ["src/hooks/*"],
       "@/recoil/*": ["src/recoil/*"],
       "@/config/*": ["src/config/*"],
       "@/graphql/*": ["graphql/*"],
