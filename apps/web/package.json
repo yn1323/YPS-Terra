@@ -47,17 +47,11 @@
     "chromatic": "6.5.1",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
-<<<<<<< HEAD
     "graphql-request": "^4.0.0",
     "jest": "^27.5.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "prisma": "^3.10.0",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
-=======
-    "jest": "27.5.1",
-    "postcss-flexbugs-fixes": "5.0.2",
-    "tsconfig-paths-webpack-plugin": "3.5.2",
->>>>>>> 160208bedf11fc68625a650833fbdb333a258dcc
     "typescript": "4.6.2"
   }
 }
