@@ -6,18 +6,17 @@ const createJestConfig = nextJest({
 })
 
 const customJestConfig = {
-  // jest.setup.jsを作成する場合のみ定義。
-  // setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   moduleNameMapper: {
     '^@/atoms/(.*)$': '<rootDir>/components/atoms/$1',
     '^@/molecules/(.*)$': '<rootDir>/components/molecules/$1',
     '^@/organisms/(.*)$': '<rootDir>/components/organisms/$1',
     '^@/templates/(.*)$': '<rootDir>/components/templates/$1',
     '^@/ui/(.*)$': '<rootDir>/src/ui/$1',
-    '^@/helpers/(.*)$': '<rootDir>/src/helpers/$1',
-    '^@/constants/(.*)$': '<rootDir>/src/constants/$1',
+    '^@/helpers/(.*)$': '<rootDir>/../../packages/src/helpers/$1',
+    '^@/constants/(.*)$': '<rootDir>/../../packages/src/constants/$1',
     '^@/recoil/(.*)$': '<rootDir>/src/recoil/$1',
     '^@/config/(.*)$': '<rootDir>/src/config/$1',
+    '^@/graphql/(.*)$': '<rootDir>/graphql/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
 }

@@ -20,10 +20,14 @@ export const {{ inputs.pageName | pascal }}: NextPage<PropTypes> = ({}) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
+  const { data } = await client.query<Recipe>({
+    query: Recipes,
+  })
   return {
     props: {},
   }
 }
 
 export default {{ inputs.pageName | pascal }}
+
 ```

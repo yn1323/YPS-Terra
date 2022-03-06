@@ -1,24 +1,20 @@
-import { gql } from '@apollo/client'
+import { Recipe } from 'graphql/generated'
 import type { GetServerSideProps, NextPage } from 'next'
 import client from '@/config/apollo-client'
+import { useRecipesQuery } from '@/graphql/generated'
+import { Recipes } from '@/graphql/recipe/query'
 
 export const Poge: NextPage = ({}) => {
+  const all = useRecipesQuery({ endpoint: 'http://localhost:3000/graphql' })
+
   return <div></div>
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  console.log('poge')
-  const { data } = await client.query({
-    query: gql`
-      query GetRecipe {
-        recipe(id: "1") {
-          id
-          name
-        }
-      }
-    `,
+  const { data } = await client.query<Recipe>({
+    query: Recipes,
   })
-  console.log(data)
+
   return {
     props: {},
   }
