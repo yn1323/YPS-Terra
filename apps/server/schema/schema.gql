@@ -2,11 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Recipe {
-  id: ID!
-  name: String!
+type Query {
+  findAll: [Todo]!
+  findOneById(id: ID!): Todo!
 }
 
-type Query {
-  recipe(id: String!): Recipe!
+type Todo {
+  description: String
+  id: ID!
+  title: String!
 }

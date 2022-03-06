@@ -46,45 +46,46 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query'
-  recipe: Recipe
+  findAll: Array<Maybe<Todo>>
+  findOneById: Todo
 }
 
-export type QueryRecipeArgs = {
-  id: Scalars['String']
-}
-
-export type Recipe = {
-  __typename?: 'Recipe'
+export type QueryFindOneByIdArgs = {
   id: Scalars['ID']
-  name: Scalars['String']
 }
 
-export type RecipesQueryVariables = Exact<{ [key: string]: never }>
+export type Todo = {
+  __typename?: 'Todo'
+  description?: Maybe<Scalars['String']>
+  id: Scalars['ID']
+  title: Scalars['String']
+}
 
-export type RecipesQuery = {
+export type TomatoQueryVariables = Exact<{ [key: string]: never }>
+
+export type TomatoQuery = {
   __typename?: 'Query'
-  recipe: { __typename?: 'Recipe'; id: string; name: string }
+  findAll: Array<{ __typename?: 'Todo'; id: string } | null>
 }
 
-export const RecipesDocument = `
-    query Recipes {
-  recipe(id: "1") {
+export const TomatoDocument = `
+    query Tomato {
+  findAll {
     id
-    name
   }
 }
     `
-export const useRecipesQuery = <TData = RecipesQuery, TError = unknown>(
+export const useTomatoQuery = <TData = TomatoQuery, TError = unknown>(
   dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables?: RecipesQueryVariables,
-  options?: UseQueryOptions<RecipesQuery, TError, TData>
+  variables?: TomatoQueryVariables,
+  options?: UseQueryOptions<TomatoQuery, TError, TData>
 ) =>
-  useQuery<RecipesQuery, TError, TData>(
-    variables === undefined ? ['Recipes'] : ['Recipes', variables],
-    fetcher<RecipesQuery, RecipesQueryVariables>(
+  useQuery<TomatoQuery, TError, TData>(
+    variables === undefined ? ['Tomato'] : ['Tomato', variables],
+    fetcher<TomatoQuery, TomatoQueryVariables>(
       dataSource.endpoint,
       dataSource.fetchParams || {},
-      RecipesDocument,
+      TomatoDocument,
       variables
     ),
     options

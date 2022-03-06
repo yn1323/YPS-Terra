@@ -48,6 +48,12 @@
       "options": {
         "cwd": "${workspaceFolder}/apps/web"
       }
+    },
+    {
+      "type": "npm",
+      "script": "codegen",
+      "label": "Graphql: web schema render(codegen)",
+      "detail": "CodegenでSchema作成"
     }
   ],
   "inputs": [
