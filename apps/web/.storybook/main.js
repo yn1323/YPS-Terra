@@ -11,6 +11,9 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
   ],
+  features: {
+    interactionsDebugger: true,
+  },
   framework: '@storybook/react',
   //  resolve tsconfig alias
   webpackFinal: async config => {

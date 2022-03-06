@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "ci",
+      "label": "npm ci",
+      "detail": "初回パッケージ読み込み"
+    },
+    {
+      "type": "npm",
+      "script": "generate",
+      "label": "Scaffold: Generatte component",
+      "detail": "コンポーネントのファイルを新規生成"
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "label": "Next.js: Jest test",
+      "detail": "全コンポーネントのテスト",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/web"
+      }
+    },
+    {
+      "type": "shell",
+      "command": "npm run test ${input:componentName}",
+      "label": "Next.js: Jest test",
+      "detail": "1コンポーネントのテスト",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/web"
+      }
+    },
+    {
+      "type": "npm",
+      "script": "watch",
+      "label": "Next.js: Jest watch",
+      "detail": "全コンポーネントの監視",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/web"
+      }
+    },
+    {
+      "type": "shell",
+      "command": "npm run watch ${input:componentName}",
+      "label": "Next.js: Jest watch",
+      "detail": "1コンポーネントの監視",
+      "options": {
+        "cwd": "${workspaceFolder}/apps/web"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "componentName",
+      "description": "コンポーネント名(部分一致)：複数指定時はスペース区切り",
+      "default": "",
+      "type": "promptString"
+    }
+  ]
+}
