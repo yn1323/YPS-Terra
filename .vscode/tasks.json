@@ -19,7 +19,7 @@
       "label": "Next.js: Jest test",
       "detail": "全コンポーネントのテスト",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
     },
     {
@@ -28,7 +28,7 @@
       "label": "Next.js: Jest test",
       "detail": "1コンポーネントのテスト",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
     },
     {
@@ -37,7 +37,7 @@
       "label": "Next.js: Jest watch",
       "detail": "全コンポーネントの監視",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
     },
     {
@@ -46,14 +46,32 @@
       "label": "Next.js: Jest watch",
       "detail": "1コンポーネントの監視",
       "options": {
-        "cwd": "${workspaceFolder}/apps/web"
+        "cwd": "${workspaceFolder}/web"
       }
+    },
+    {
+      "type": "npm",
+      "script": "codegen",
+      "label": "Graphql: web schema render(codegen)",
+      "detail": "CodegenでSchema作成"
     }
   ],
   "inputs": [
     {
       "id": "componentName",
       "description": "コンポーネント名(部分一致)：複数指定時はスペース区切り",
+      "default": "",
+      "type": "promptString"
+    },
+    {
+      "id": "schematic",
+      "description": "NestJS Schematic(i.e. controller, class, service): ",
+      "default": "",
+      "type": "promptString"
+    },
+    {
+      "id": "nestElementName",
+      "description": "Nest ElementName: ",
       "default": "",
       "type": "promptString"
     }

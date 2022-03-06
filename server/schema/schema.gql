@@ -1,0 +1,14 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Query {
+  findAll: [Todo]!
+  findOneById(id: ID!): Todo!
+}
+
+type Todo {
+  description: String
+  id: ID!
+  title: String!
+}

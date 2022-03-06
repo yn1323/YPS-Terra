@@ -1,8 +1,8 @@
 ---
-name: 'templates'
-root: './apps/web/components/templates'
+name: 'component-templates'
+root: './web/components/templates'
 output: []
-ignore: [./apps/web/components]
+ignore: [./web/components]
 questions:
   component: 'What is Component name??(pacal case)'
 ---
