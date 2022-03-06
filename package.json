@@ -15,22 +15,21 @@
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
-    "eslint-plugin-import": "2.25.4",
-    "prettier": "2.5.1",
-    "turbo": "latest",
-    "scaffdog": "^1.2.0",
-    "@graphql-codegen/typescript-react-query": "^3.5.5",
     "@graphql-codegen/cli": "2.6.2",
     "@graphql-codegen/introspection": "2.1.1",
     "@graphql-codegen/typescript": "^2.4.5",
     "@graphql-codegen/typescript-graphql-request": "^4.3.7",
     "@graphql-codegen/typescript-operations": "^2.3.2",
-    "@graphql-codegen/typescript-react-apollo": "3.2.8"
+    "@graphql-codegen/typescript-react-apollo": "3.2.8",
+    "@graphql-codegen/typescript-react-query": "^3.5.5",
+    "eslint-plugin-import": "2.25.4",
+    "prettier": "2.5.1",
+    "scaffdog": "^1.2.0",
+    "turbo": "latest"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "npm@8.5.3",
-  "dependencies": {}
+  "packageManager": "npm@8.5.3"
 }
