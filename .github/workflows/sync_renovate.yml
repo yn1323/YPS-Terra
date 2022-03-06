@@ -1,0 +1,26 @@
+name: sync renovate and develop
+on:
+  schedule:
+    - cron: '30 18 * * *'
+
+jobs:
+  sync_renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Sync Branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.G_TOKEN }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git fetch origin chore/renovate
+          git fetch origin develop
+          git checkout chore/renovate
+          git merge --no-edit origin/develop
+          git push origin chore/renovate
+          git checkout develop 
+          git merge --no-edit origin/chore/renovate
+          git push origin develop

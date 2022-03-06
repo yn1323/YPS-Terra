@@ -15,12 +15,13 @@
   "devDependencies": {
     "eslint-plugin-import": "^2.25.4",
     "prettier": "^2.5.1",
-    "scaffdog": "^1.2.0",
-    "turbo": "latest"
+    "turbo": "latest",
+    "scaffdog": "^1.2.0"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "npm@8.1.0"
+  "packageManager": "npm@8.5.3",
+  "dependencies": {}
 }
