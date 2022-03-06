@@ -21,4 +21,4 @@ jobs:
         with:
           token: ${{ secrets.G_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: ./web
+          workingDir: web
