@@ -1,0 +1,21 @@
+name: Jest
+on:
+  pull_request:
+    paths:
+      - 'apps/web/**'
+
+jobs:
+  nextjs_jest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Unit Test
+        working-directory: ./apps/web
+        run: |
+          npm ci
+          npm run test
