@@ -1,5 +1,4 @@
 name: sync renovate and develop
-
 on:
   pull_request:
     types: [closed]
