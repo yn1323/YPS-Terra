@@ -17,8 +17,8 @@ jobs:
           git fetch origin chore/renovate
           git fetch origin develop
           git checkout chore/renovate
-          git merge --no-edit develop
+          git merge --no-edit origin/develop
           git push origin chore/renovate
           git checkout develop 
-          git merge --no-edit chore/renovate
+          git merge --no-edit origin/chore/renovate
           git push origin develop
