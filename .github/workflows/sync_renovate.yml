@@ -1,0 +1,26 @@
+name: sync renovate and develop
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  sync_renovate:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+        - name: Sync Branch
+          env:
+            GITHUB_TOKEN: ${{ secrets.G_TOKEN }}
+          run: |
+            git fetch origin chore/renovate
+            git fetch origin develop
+            git checkout chore/renovate 
+            git pull origin develop
+            git push origin chore/renovate
+            git checkout develop 
+            git pull origin chore/renovate
+            git push origin develop
