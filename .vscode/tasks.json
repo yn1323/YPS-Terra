@@ -11,7 +11,7 @@
       "type": "npm",
       "script": "generate",
       "label": "Scaffold: Generatte component",
-      "detail": "コンポーネントのファイルを新規生成"
+      "detail": "テンプレートファイルを新規生成"
     },
     {
       "type": "npm",
@@ -32,19 +32,10 @@
       }
     },
     {
-      "type": "npm",
-      "script": "watch",
-      "label": "Next.js: Jest watch",
-      "detail": "全コンポーネントの監視",
-      "options": {
-        "cwd": "${workspaceFolder}/web"
-      }
-    },
-    {
       "type": "shell",
       "command": "npm run watch ${input:componentName}",
       "label": "Next.js: Jest watch",
-      "detail": "1コンポーネントの監視",
+      "detail": "コンポーネントの更新監視テスト",
       "options": {
         "cwd": "${workspaceFolder}/web"
       }
