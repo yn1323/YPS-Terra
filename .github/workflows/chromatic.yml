@@ -6,7 +6,6 @@ on:
 
 jobs:
   chromatic:
-    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,4 +21,4 @@ jobs:
         with:
           token: ${{ secrets.G_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: ./we
+          workingDir: ./web
