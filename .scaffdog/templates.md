@@ -1,5 +1,5 @@
 ---
-name: 'component-templates'
+name: 'templates'
 root: './web/components/templates'
 output: []
 ignore: [./web/components]

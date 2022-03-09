@@ -1,5 +1,5 @@
 ---
-name: 'component-organisms'
+name: 'organisms'
 root: './web/components/organisms'
 output: []
 ignore: [./web/components]

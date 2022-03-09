@@ -1,5 +1,5 @@
 ---
-name: 'component-atoms'
+name: 'atoms'
 root: './web/components/atoms'
 output: []
 ignore: [./web/components]

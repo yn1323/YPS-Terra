@@ -1,5 +1,5 @@
 ---
-name: 'component-molecules'
+name: 'molecules'
 root: './web/components/molecules'
 output: []
 ignore: [./web/components]
