@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'web/**'
+    types: [review_requested, ready_for_review]
 
 jobs:
   nextjs_jest:
