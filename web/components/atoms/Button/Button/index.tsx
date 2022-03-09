@@ -18,7 +18,7 @@ type PropTypes = {
 export const Button: FC<PropTypes> = ({
   _css,
   color = 'primary',
-  variant = 'filled',
+  variant = 'inherit',
   disabled = false,
   size = 'medium',
   startIcon,
