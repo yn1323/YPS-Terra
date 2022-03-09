@@ -5,4 +5,4 @@ export default {
   title: 'templates/Layout',
   component: Layout,
 } as ComponentMeta<typeof Layout>
-export const Primary = {}
+export const Basic = {}

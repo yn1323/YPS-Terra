@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
+import { Button } from '@mui/material'
 import { FC } from 'react'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 
@@ -12,6 +13,7 @@ export const Layout: FC<PropTypes> = ({ _css, children }) => {
   return (
     <div css={[_css, styles.container]}>
       <div css={styles.header}>header</div>
+      <Button></Button>
       <div css={styles.component}>{children}</div>
       {/* <Footer /> */}
     </div>
