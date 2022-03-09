@@ -30,7 +30,7 @@ export const Button: FC<PropTypes> = ({
     <MuiButton
       css={_css}
       color={color}
-      variant={variant}
+      // variant={variant}
       disabled={disabled}
       size={size}
       startIcon={startIcon}
