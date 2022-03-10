@@ -18,4 +18,4 @@ const args = {
   variant: 'standard' as TextFieldProps['variant'],
 }
 
-export const Base: StoryObj = { args }
+export const Basic: StoryObj = { args }
