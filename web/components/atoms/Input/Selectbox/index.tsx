@@ -48,6 +48,7 @@ export const Selectbox: FC<PropTypes> = ({
       {inputLabel && <InputLabel>{inputLabel}</InputLabel>}
 
       <Select
+        css={_css}
         value={val as any}
         onChange={handleChange}
         displayEmpty

@@ -18,7 +18,7 @@ export const SummaryTable: FC<PropTypes> = ({
   spHideColumnIndex = [],
 }) => {
   return (
-    <Table>
+    <Table css={_css}>
       <TableHead>
         <TableRow>
           {header.map((col, i) => (

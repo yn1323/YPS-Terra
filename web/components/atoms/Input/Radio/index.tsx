@@ -27,6 +27,7 @@ type PropTypes = {
 }
 
 export const Radio: FC<PropTypes> = ({
+  _css,
   initialValue,
   groupName,
   options,
@@ -44,6 +45,7 @@ export const Radio: FC<PropTypes> = ({
   }
   return (
     <RadioGroup
+      css={_css}
       name={groupName}
       arial-label={groupName}
       value={value}

@@ -12,7 +12,7 @@ type PropTypes = {
 
 export const HeaderTitle: FC<PropTypes> = ({ _css, children, isLoggedIn }) => {
   return (
-    <Container css={styles.container(isLoggedIn)}>
+    <Container css={[_css, styles.container(isLoggedIn)]}>
       <Image
         css={styles.logo}
         alt="logo"

@@ -11,7 +11,11 @@ type PropTypes = {
   delimeterPosition?: number[]
 }
 
-export const ListMenu: FC<PropTypes> = ({ items, delimeterPosition = [] }) => {
+export const ListMenu: FC<PropTypes> = ({
+  _css,
+  items,
+  delimeterPosition = [],
+}) => {
   const MenuItems = items.reduce(
     (acc: JSX.Element[], { icon, label, link }, i) => {
       acc.push(
@@ -29,7 +33,7 @@ export const ListMenu: FC<PropTypes> = ({ items, delimeterPosition = [] }) => {
     []
   )
 
-  return <>{MenuItems}</>
+  return <div css={_css}>{MenuItems}</div>
 }
 const styles = {
   text: css`
