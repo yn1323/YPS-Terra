@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - 'web/**'
-    types: [edited, reopened, review_requested, ready_for_review, push]
+    types: [edited, reopened, review_requested, ready_for_review, synchronized]
 
 jobs:
   chromatic:
