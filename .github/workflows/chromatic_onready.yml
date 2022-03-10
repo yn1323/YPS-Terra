@@ -1,13 +1,13 @@
-name: Chromatic
+name: Chromatic_onready
 
 on:
   pull_request:
     paths:
       - 'web/**'
-    types: [edited, reopened, review_requested, ready_for_review, synchronized]
+    types: [ready_for_review]
 
 jobs:
-  chromatic:
+  chromatic_onready:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
