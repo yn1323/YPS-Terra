@@ -2,8 +2,8 @@ import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import {
   LocalizationProvider,
-  DesktopDatePicker,
-  MobileDatePicker,
+  DesktopTimePicker,
+  MobileTimePicker,
 } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDayjs'
 import { TextField } from '@mui/material'
@@ -18,36 +18,40 @@ type PropTypes = {
   error?: boolean
   errorMessage?: string
   label?: string
-  defaultDate?: Dayjs
-  format?: string
-  maxDate?: Date
-  minDate?: Date
+  defaultTime?: Dayjs
+  maxTime?: string
+  minTime?: string
+  minutesStep?: number
 }
 
-export const PickerDate: FC<PropTypes> = ({
+export const PickerTime: FC<PropTypes> = ({
   _css,
   error,
   errorMessage,
   label,
-  defaultDate = dayjs(),
+  defaultTime = dayjs(),
   setter,
-  format = 'M/D',
-  maxDate,
-  minDate,
+  maxTime,
+  minTime,
+  minutesStep = 5,
 }) => {
-  const [value, setValue] = useState<Date>(defaultDate.toDate())
+  const [value, setValue] = useState<Dayjs>(defaultTime)
+  const max = maxTime && dayjs(maxTime, 'HH:mm').add(1, 'minutes')
+  const min = minTime && dayjs(minTime, 'HH:mm')
 
   return (
     <LocalizationProvider dateAdapter={DateAdapter} local={ja}>
-      <DesktopDatePicker
-        maxDate={maxDate}
-        minDate={minDate}
+      <DesktopTimePicker
+        ampm={false}
+        inputFormat="HH:mm"
+        maxTime={max}
+        minTime={min}
         label={label}
-        inputFormat={format}
         value={value}
+        minutesStep={minutesStep}
         onChange={newValue => {
           if (newValue) {
-            setter(dayjs(newValue))
+            setter(newValue)
             setValue(newValue)
           }
         }}
@@ -64,15 +68,18 @@ export const PickerDate: FC<PropTypes> = ({
           )
         }}
       />
-      <MobileDatePicker
-        maxDate={maxDate}
-        minDate={minDate}
+      <MobileTimePicker
+        ampm={false}
+        inputFormat="HH:mm"
+        maxTime={max}
+        minTime={min}
         label={label}
-        inputFormat={format}
-        value={defaultDate.toDate()}
+        value={value}
+        minutesStep={minutesStep}
         onChange={newValue => {
           if (newValue) {
-            setter(dayjs(newValue))
+            setter(newValue)
+            setValue(newValue)
           }
         }}
         renderInput={params => {

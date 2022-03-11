@@ -1,4 +1,5 @@
 import CssBaseline from '@mui/material/CssBaseline'
+import { css } from '@emotion/react'
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from '../src/ui/theme'
@@ -6,7 +7,6 @@ import * as nextImage from 'next/image'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
-  layout: 'fullscreen',
   options: {
     storySort: {
       order: ['atom', 'molecule', 'organism', 'template', 'page'],

@@ -12,6 +12,7 @@ const args = {
   initialChecked: true,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setter: () => {},
+  children: 'LABEL',
 }
 
 export const Basic: StoryObj = {

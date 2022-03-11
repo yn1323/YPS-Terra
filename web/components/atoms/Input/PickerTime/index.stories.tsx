@@ -1,21 +1,23 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import dayjs, { Dayjs } from 'dayjs'
-import { PickerDate } from '.'
+import { PickerTime } from '.'
 
-type StoryObj = ComponentStoryObj<typeof PickerDate>
+type StoryObj = ComponentStoryObj<typeof PickerTime>
 export default {
-  title: 'atoms/Input/PickerDate',
-  component: PickerDate,
-} as ComponentMeta<typeof PickerDate>
+  title: 'atoms/Input/PickerTime',
+  component: PickerTime,
+} as ComponentMeta<typeof PickerTime>
 const args = {
   error: false,
   errorMessage: 'error message',
-  defaultDate: dayjs('2022/03/05', 'YYYY/MM/DD'),
+  defaultTime: dayjs('13:35', 'HH:mm'),
   label: 'label',
-  format: 'M月D日',
   setter: (v: Dayjs) => {
     v
   },
+  minutesStep: 5,
+  maxTime: '13:30',
+  minTime: '8:45',
 }
 
 export const Basic: StoryObj = { args }
