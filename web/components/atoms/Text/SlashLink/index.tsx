@@ -15,13 +15,13 @@ type PropTypes = {
 
 export const SlashLink: FC<PropTypes> = ({ _css, links }) => {
   return (
-    <Container css={[styles.container, _css]}>
+    <div css={[styles.container, _css]}>
       {links.map(({ url, rel, text }, i) => (
         <a css={styles.link} href={url} rel={rel} key={i}>
           {text}
         </a>
       ))}
-    </Container>
+    </div>
   )
 }
 const styles = {
