@@ -6,7 +6,7 @@ on:
       - 'web/**'
 
 jobs:
-  nextjs_jest:
+  storybook_interaction:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
