@@ -19,4 +19,4 @@ jobs:
       - name: Interaction Test
         run: |
           npm ci -w web
-          npm run test-storybook:ci
+          npm run test-storybook:ci -w web
