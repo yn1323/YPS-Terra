@@ -18,7 +18,7 @@ export const Demo: StoryObj = {
 
     await userEvent.click(canvas.getByRole('button'))
     await screen.findByText('設定')
-    await screen.findByText('よくあるa質問')
+    await screen.findByText('よくある質問')
     await screen.findByText('ログアウト')
   },
 }
