@@ -5,7 +5,7 @@ import { Button } from '.'
 
 type StoryObj = ComponentStoryObj<typeof Button>
 export default {
-  title: `atoms/Button/Button`,
+  title: 'atoms/Button/Button',
   component: Button,
 } as ComponentMeta<typeof Button>
 
@@ -15,8 +15,9 @@ const args = {
   disabled: false,
   size: 'medium' as ButtonProps['size'],
   startIcon: <KeyboardVoice />,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onClick: () => {},
+  onClick: () => {
+    true
+  },
   children: 'hoge',
 }
 

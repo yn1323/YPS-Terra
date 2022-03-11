@@ -2,7 +2,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { css } from '@emotion/react'
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles'
-import theme from '../src/ui/theme'
+import { theme } from '../src/ui/theme'
 import * as nextImage from 'next/image'
 
 export const parameters = {

@@ -35,6 +35,4 @@ export const themes = {
   },
 }
 
-const theme = createTheme(themes)
-
-export default theme
+export const theme = createTheme(themes)

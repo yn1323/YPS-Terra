@@ -4,7 +4,7 @@ import { Switch } from '.'
 
 type StoryObj = ComponentStoryObj<typeof Switch>
 export default {
-  title: `atoms/Button/Switch`,
+  title: 'atoms/Button/Switch',
   component: Switch,
 } as ComponentMeta<typeof Switch>
 

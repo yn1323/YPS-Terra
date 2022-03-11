@@ -20,9 +20,3 @@ questions:
 {{ 'templates/components/component.tsx' | read }}
 ```
 
-# `{{ inputs.type | pascal }}/{{ inputs.component | pascal }}/index.spec.tsx`
-
-```tsx
-{{ 'templates/components/test.tsx' | read }}
-
-```

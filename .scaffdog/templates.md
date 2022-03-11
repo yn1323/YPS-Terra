@@ -17,10 +17,3 @@ questions:
 ```tsx
 {{ 'templates/components/component.tsx' | read }}
 ```
-
-# `{{ inputs.component | pascal }}/index.spec.tsx`
-
-```tsx
-{{ 'templates/components/test.tsx' | read }}
-
-```
