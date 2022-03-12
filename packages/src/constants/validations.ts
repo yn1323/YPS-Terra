@@ -4,6 +4,12 @@ export const MAX_LENGTH = {
   SHOP_NAME: 64,
 } as const
 
+export const FORM_ERROR_TEXT = {
+  USER_NAME: 'ユーザー名を入力してください',
+  SHOP_ID: '店舗IDを入力してください',
+  SHOP_NAME: '店舗名を入力してください',
+} as const
+
 export const SUBMIT_FREQUENCY = [
   {
     label: '1週間ごと',
