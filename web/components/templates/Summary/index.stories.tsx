@@ -3,7 +3,7 @@ import { Summary } from '.'
 
 type StoryObj = ComponentStoryObj<typeof Summary>
 export default {
-  title: 'templates//Summary',
+  title: 'templates/Summary',
   component: Summary,
 } as ComponentMeta<typeof Summary>
 const args = {
@@ -13,5 +13,4 @@ const args = {
   ] as JSX.Element[],
 }
 
-// なぜか止まるのでコメントアウト
-// export const Basic: StoryObj = { args }
+export const Basic: StoryObj = { args }

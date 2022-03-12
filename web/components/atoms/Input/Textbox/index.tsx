@@ -3,7 +3,7 @@ import { TextField } from '@mui/material'
 import type { TextFieldProps } from '@mui/material'
 import { FC, forwardRef, useState } from 'react'
 
-type PropTypes = {
+export type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
   maxLength?: number
   ref: TextFieldProps['inputRef']

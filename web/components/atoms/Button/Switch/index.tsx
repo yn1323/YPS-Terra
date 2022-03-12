@@ -9,7 +9,7 @@ export type PropTypes = {
   color?: SwitchProps['color']
   disabled?: boolean
   initialChecked: boolean
-  size: SwitchProps['size']
+  size?: SwitchProps['size']
   labelOnFalse?: string
   setter: (v: boolean) => void
   name?: string
