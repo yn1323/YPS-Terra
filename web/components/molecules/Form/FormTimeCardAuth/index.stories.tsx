@@ -1,6 +1,5 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import { FormTimeCardAuth } from '.'
-import { SHOP_CONFIG } from '@/config/appConfigs'
 
 type StoryObj = ComponentStoryObj<typeof FormTimeCardAuth>
 export default {
@@ -8,7 +7,7 @@ export default {
   component: FormTimeCardAuth,
 } as ComponentMeta<typeof FormTimeCardAuth>
 const args = {
-  initialValue: SHOP_CONFIG.shiftSubmitFrequency,
+  initialValue: true,
   setter: () => {
     true
   },

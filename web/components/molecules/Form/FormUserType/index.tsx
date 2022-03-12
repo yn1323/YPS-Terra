@@ -37,6 +37,3 @@ export const FormUserType: FC<PropTypes> = ({ _css, initialValue, setter }) => {
     </Form>
   )
 }
-const styles = {
-  container: css``,
-}

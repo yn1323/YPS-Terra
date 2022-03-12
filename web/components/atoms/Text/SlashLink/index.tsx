@@ -1,6 +1,5 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { Container } from '@mui/material'
 import { FC } from 'react'
 import { themes } from '@/ui/theme'
 

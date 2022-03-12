@@ -1,5 +1,6 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import { FormUserType } from '.'
+import { UserType } from '@/config/appConfigs'
 
 type StoryObj = ComponentStoryObj<typeof FormUserType>
 export default {
@@ -7,7 +8,7 @@ export default {
   component: FormUserType,
 } as ComponentMeta<typeof FormUserType>
 const args = {
-  initialValue: 'admin',
+  initialValue: 'admin' as UserType,
   setter: () => {
     true
   },
