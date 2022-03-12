@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { Container, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import Image from 'next/image'
 import { FC } from 'react'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
@@ -12,7 +12,7 @@ type PropTypes = {
 
 export const HeaderTitle: FC<PropTypes> = ({ _css, children, isLoggedIn }) => {
   return (
-    <Container css={[_css, styles.container(isLoggedIn)]}>
+    <div css={[_css, styles.container(isLoggedIn)]}>
       <Image
         css={styles.logo}
         alt="logo"
@@ -23,7 +23,7 @@ export const HeaderTitle: FC<PropTypes> = ({ _css, children, isLoggedIn }) => {
       <Typography css={styles.title} variant="h6">
         {children}
       </Typography>
-    </Container>
+    </div>
   )
 }
 const styles = {
