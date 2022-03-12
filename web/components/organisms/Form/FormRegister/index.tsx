@@ -67,7 +67,7 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
     const allSuccess = targetValidation?.every(v => v)
     if (!allSuccess) {
       setSuccess({
-        userName: !!userNameRef.current!.value,
+        userName: !!userNameRef.current?.value,
         shopId: !!shopIdRef.current?.value ?? true,
         shopName: !!shopNameRef.current?.value ?? true,
       })
