@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { KeyboardArrowDown } from '@mui/icons-material'
 import { Avatar, Button } from '@mui/material'
-import { FC, useRef, useState } from 'react'
+import { FC, useRef, useState, Fragment } from 'react'
 import { ListMenu } from '@/atoms/List/ListMenu'
 import { Popper } from '@/atoms/Text/Popper'
 import { useScreenSize } from '@/hooks/useScreenSize'
@@ -19,7 +19,7 @@ export const MenuAvatar: FC<PropTypes> = ({ _css }) => {
   const ref = useRef(null)
   const clickHandler = () => setShow(true)
   return (
-    <div css={_css}>
+    <Fragment css={_css}>
       <div css={styles.space} />
       <Button
         css={styles.button}
@@ -39,7 +39,7 @@ export const MenuAvatar: FC<PropTypes> = ({ _css }) => {
       >
         <ListMenu items={USER_MENU} delimeterPosition={[1]} />
       </Popper>
-    </div>
+    </Fragment>
   )
 }
 

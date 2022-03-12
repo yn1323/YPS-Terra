@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { KeyboardArrowDown } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import { FC, useState, useRef } from 'react'
+import { FC, useState, useRef, Fragment } from 'react'
 import { ListMenu } from '@/atoms/List/ListMenu'
 import { Popper } from '@/atoms/Text/Popper'
 import { MenuItem } from '@/ui/layout/menu'
@@ -29,7 +29,7 @@ export const MenuButton: FC<PropTypes> = ({
   const [show, setShow] = useState(false)
   const ref = useRef(null)
   return (
-    <div css={_css}>
+    <Fragment css={_css}>
       <Button
         css={styles.button}
         startIcon={icon}
@@ -46,7 +46,7 @@ export const MenuButton: FC<PropTypes> = ({
           <ListMenu items={items} delimeterPosition={delimeterPosition} />
         </Popper>
       )}
-    </div>
+    </Fragment>
   )
 }
 const styles = {
