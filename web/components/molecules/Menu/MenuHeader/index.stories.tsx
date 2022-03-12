@@ -12,7 +12,10 @@ const args = {
   isAdmin: true,
 }
 
-export const Basic: StoryObj = { args }
+export const Basic: StoryObj = {
+  args,
+  parameters: { chromatic: { viewports: [414, 1080] } },
+}
 
 export const DemoAll: StoryObj = {
   args,
