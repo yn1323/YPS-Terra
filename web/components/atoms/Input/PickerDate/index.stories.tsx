@@ -11,7 +11,7 @@ const args = {
   error: false,
   errorMessage: 'error message',
   defaultDate: dayjs('2022/03/05', 'YYYY/MM/DD'),
-  label: 'label',
+  label: 'PickerDateLabel',
   format: 'M月D日',
   setter: (v: Dayjs) => {
     v
