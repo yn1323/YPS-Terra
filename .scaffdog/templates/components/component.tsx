@@ -7,6 +7,8 @@ type PropTypes = {
 }
 
 export const {{ inputs.component | pascal }}: FC<PropTypes> = ({ _css }) => {
-  return <div css={_css} data-testid="name"></div>
+  return <div css={[_css, styles.container]} data-testid="{{inputs.component | lower}}"></div>
 }
-const style = {}
+const styles = {
+  container: css``,
+}

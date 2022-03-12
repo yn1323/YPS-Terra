@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import createEmotionCache from '@/ui/createEmotionCache'
-import theme from '@/ui/theme'
+import { theme } from '@/ui/theme'
 
 const clientSideEmotionCache = createEmotionCache()
 interface MyAppProps extends AppProps {

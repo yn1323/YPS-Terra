@@ -1,5 +1,5 @@
 ---
-name: 'component-page(SSR)'
+name: 'page(SSR)'
 root: './web/pages'
 output: []
 ignore: []

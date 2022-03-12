@@ -1,0 +1,26 @@
+name: Chromatic_onpush
+
+on:
+  pull_request:
+    paths:
+      - 'web/**'
+
+jobs:
+  chromatic_onpush:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: npm ci
+        run: npm ci -w web
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.G_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ./web

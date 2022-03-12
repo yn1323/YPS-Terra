@@ -1,10 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  stories: [
-    '../components/**/*.stories.mdx',
-    '../components/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
+  stories: ['../components/**/*.stories.tsx'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -16,6 +13,11 @@ module.exports = {
   framework: '@storybook/react',
   core: {
     builder: 'webpack5',
+  },
+  // NOTE: なぜかこれで早くなる
+  // https://github.com/storybookjs/storybook/issues/10784
+  typescript: {
+    reactDocgen: false,
   },
   webpackFinal: async config => {
     config.resolve.alias = {

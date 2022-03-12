@@ -15,8 +15,8 @@
     },
     {
       "type": "npm",
-      "script": "test",
-      "label": "Next.js: Jest test",
+      "script": "test-storybook",
+      "label": "Next.js: Storybook test",
       "detail": "全コンポーネントのテスト",
       "options": {
         "cwd": "${workspaceFolder}/web"
@@ -24,18 +24,9 @@
     },
     {
       "type": "shell",
-      "command": "npm run test ${input:componentName}",
-      "label": "Next.js: Jest test",
+      "command": "npm run test-storybook ${input:componentName}",
+      "label": "Next.js: Storybook test",
       "detail": "1コンポーネントのテスト",
-      "options": {
-        "cwd": "${workspaceFolder}/web"
-      }
-    },
-    {
-      "type": "shell",
-      "command": "npm run watch ${input:componentName}",
-      "label": "Next.js: Jest watch",
-      "detail": "コンポーネントの更新監視テスト",
       "options": {
         "cwd": "${workspaceFolder}/web"
       }

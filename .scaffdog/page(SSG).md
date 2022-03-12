@@ -1,5 +1,5 @@
 ---
-name: 'component-page(SSG)'
+name: 'page(SSG)'
 root: './web/pages'
 output: []
 ignore: []

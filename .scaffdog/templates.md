@@ -1,5 +1,5 @@
 ---
-name: 'component-templates'
+name: 'templates'
 root: './web/components/templates'
 output: []
 ignore: [./web/components]
@@ -16,11 +16,4 @@ questions:
 
 ```tsx
 {{ 'templates/components/component.tsx' | read }}
-```
-
-# `{{ inputs.component | pascal }}/index.spec.tsx`
-
-```tsx
-{{ 'templates/components/test.tsx' | read }}
-
 ```
