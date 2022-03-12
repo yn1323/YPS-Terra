@@ -9,7 +9,11 @@ export default {
 } as ComponentMeta<typeof {{ inputs.component | pascal }}>
 const args = {}
 
-export const Basic: StoryObj = { args }
+export const Basic: StoryObj = {
+  args,
+  parameters: { chromatic: { viewports: [414, 1080] } }, // SP/PCで同じなら削除
+}
+
 
 export const Demo: StoryObj = {
   args,
