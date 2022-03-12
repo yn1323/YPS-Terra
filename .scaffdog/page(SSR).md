@@ -1,6 +1,6 @@
 ---
 name: 'page(SSR)'
-root: './apps/web/pages'
+root: './web/pages'
 output: []
 ignore: []
 questions:
@@ -20,10 +20,14 @@ export const {{ inputs.pageName | pascal }}: NextPage<PropTypes> = ({}) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
+  const { data } = await client.query<Recipe>({
+    query: Recipes,
+  })
   return {
     props: {},
   }
 }
 
 export default {{ inputs.pageName | pascal }}
+
 ```

@@ -1,6 +1,6 @@
 ---
 name: 'page(SSG)'
-root: './apps/web/pages'
+root: './web/pages'
 output: []
 ignore: []
 questions:
@@ -27,6 +27,9 @@ interface Params extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps<PropTypes, Params> = async ({
   params,
 }) => {
+   const { data } = await client.query<Recipe>({
+    query: Recipes,
+  })
   return {
     props: {},
     revalidate: 60 * 60,

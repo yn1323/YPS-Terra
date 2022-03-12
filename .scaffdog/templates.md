@@ -1,8 +1,8 @@
 ---
 name: 'templates'
-root: './apps/web/components/templates'
+root: './web/components/templates'
 output: []
-ignore: [./apps/web/components]
+ignore: [./web/components]
 questions:
   component: 'What is Component name??(pacal case)'
 ---
@@ -16,11 +16,4 @@ questions:
 
 ```tsx
 {{ 'templates/components/component.tsx' | read }}
-```
-
-# `{{ inputs.component | pascal }}/index.spec.tsx`
-
-```tsx
-{{ 'templates/components/test.tsx' | read }}
-
 ```
