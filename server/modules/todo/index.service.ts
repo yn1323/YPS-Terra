@@ -1,7 +1,6 @@
-// src/todo/todo.service.ts
 import { title } from 'process'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { Todo } from './models/todo'
+import { Todo } from '@/models/todo'
 
 @Injectable()
 export class TodoService {

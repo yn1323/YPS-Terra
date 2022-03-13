@@ -1,7 +1,6 @@
-// src/todo/todo.resolver.ts
 import { Args, ID, Query, Resolver } from '@nestjs/graphql'
-import { Todo } from './models/todo'
-import { TodoService } from './todo.service'
+import { Todo } from '@/models/todo'
+import { TodoService } from '@/modules/todo/index.service'
 
 // Resolverデコレータでresolverを定義
 // https://docs.nestjs.com/graphql/resolvers#code-first-resolver

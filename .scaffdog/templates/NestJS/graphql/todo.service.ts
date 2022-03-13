@@ -1,6 +1,6 @@
 import { title } from 'process'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { {{ inputs.query | pascal }} } from './models/{{ inputs.query }}'
+import { {{ inputs.query | pascal }} } from '@/models/{{ inputs.query }}'
 
 @Injectable()
 export class {{ inputs.query | pascal }}Service {

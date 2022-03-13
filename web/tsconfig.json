@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/helpers/*": ["../packages/src/helpers/*"],
+      "@/utils/*": ["../packages/src/utils/*"],
       "@/constants/*": ["../packages/src/constants/*"],
       "@/ui/*": ["src/ui/*"],
       "@/hooks/*": ["src/hooks/*"],

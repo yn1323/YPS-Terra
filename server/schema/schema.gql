@@ -3,8 +3,14 @@
 # ------------------------------------------------------
 
 type Query {
-  findAll: [Todo]!
-  findOneById(id: ID!): Todo!
+  findAll: [RegisterShop]!
+  findOneById(id: ID!): RegisterShop!
+}
+
+type RegisterShop {
+  description: String
+  id: ID!
+  title: String!
 }
 
 type Todo {

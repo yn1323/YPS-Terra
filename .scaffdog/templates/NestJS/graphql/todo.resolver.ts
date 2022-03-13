@@ -1,6 +1,6 @@
 import { Args, ID, Query, Resolver } from '@nestjs/graphql'
-import { {{ inputs.query | pascal }} } from './models/{{ inputs.query }}'
-import { {{ inputs.query | pascal }}Service } from './{{ inputs.query }}.service'
+import { {{ inputs.query | pascal }} } from '@/models/{{ inputs.query }}'
+import { {{ inputs.query | pascal }}Service } from '@/modules/{{ inputs.query }}/index.service'
 
 // Resolverデコレータでresolverを定義
 // https://docs.nestjs.com/graphql/resolvers#code-first-resolver
