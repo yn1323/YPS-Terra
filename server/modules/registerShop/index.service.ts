@@ -8,7 +8,7 @@ export class RegisterShopService {
   async register() {
     const shopId = getRandomId()
     try {
-      await collections.shop.add({
+      await collections.shop.doc(shopId).create({
         shopId,
         first: 'Alan',
         middle: 'Mathison',
