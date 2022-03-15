@@ -1,4 +1,3 @@
-// src/todo/models/todo.models.ts
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 // ObjectTypeデコレータを使用することで、定義したmodelを元にschemaが自動生成される

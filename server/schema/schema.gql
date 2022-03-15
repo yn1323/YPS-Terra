@@ -2,15 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Mutation {
+  registerShop: RegisterShop!
+}
+
 type Query {
-  findAll: [RegisterShop]!
-  findOneById(id: ID!): RegisterShop!
+  findAll: [Todo]!
+  findOneById(id: ID!): Todo!
 }
 
 type RegisterShop {
-  description: String
-  id: ID!
-  title: String!
+  """shopId"""
+  shopId: String!
+  succeeded: Boolean!
 }
 
 type Todo {
