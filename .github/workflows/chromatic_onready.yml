@@ -8,7 +8,7 @@ on:
 
 jobs:
   chromatic_onready:
-    if: github.event.pull_request.draft == false
+    if: (github.event.pull_request.draft == false && github.event.label.name != 'renovate')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
