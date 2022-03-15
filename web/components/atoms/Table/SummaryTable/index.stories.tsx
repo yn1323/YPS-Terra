@@ -15,4 +15,7 @@ const args = {
   spHideColumnIndex: [3],
 }
 
-export const Basic: StoryObj = { args }
+export const Basic: StoryObj = {
+  args,
+  parameters: { chromatic: { viewports: [414, 1080] } },
+}
