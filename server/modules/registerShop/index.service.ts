@@ -4,7 +4,15 @@ import { RegisterShop } from '@/models/registerShop'
 
 @Injectable()
 export class RegisterShopService {
-  private registerShopStatus: RegisterShop = { shopId: null, succeeded: false }
+  private registerShopStatus: RegisterShop = {
+    shopId: null,
+    succeeded: false,
+    openTime: new Date(),
+    closeTime: new Date(),
+    // timeUnit: 5,
+    // submitFrequency: '1w',
+    // useTimeCard: false,
+  }
   async register() {
     const shopId = getRandomId()
     try {

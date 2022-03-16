@@ -10,14 +10,20 @@ export const FORM_ERROR_TEXT = {
   SHOP_NAME: '店舗名を入力してください',
 } as const
 
+export const SHIFT_SUBMIT_FREQUENCY = ['1w', '0.5m', '1m'] as const
+export type ShiftSubmitFrequency = typeof SHIFT_SUBMIT_FREQUENCY[number]
+
+export const SHIFT_TIME_UNIT = [5, 10, 15, 30] as const
+export type ShiftTimeUnit = typeof SHIFT_TIME_UNIT[number]
+
 export const SUBMIT_FREQUENCY = [
   {
     label: '1週間ごと',
     value: '1w',
   },
   {
-    label: '2週間ごと',
-    value: '2w',
+    label: '0.5ヶ月ごと',
+    value: '0.5m',
   },
   {
     label: '1ヶ月ごと',
@@ -25,25 +31,9 @@ export const SUBMIT_FREQUENCY = [
   },
 ]
 
-export const TIME_UNIT = [
-  {
-    label: '5分毎',
-    value: '5',
-  },
-  {
-    label: '10分毎',
-    value: '10',
-  },
-  {
-    label: '15分毎',
-    value: '15',
-  },
-  {
-    label: '20分毎',
-    value: '20',
-  },
-  {
-    label: '30分毎',
-    value: '30',
-  },
-]
+export const TIME_UNIT = (() => {
+  return SHIFT_TIME_UNIT.map(unit => ({
+    label: `${unit}分ごと`,
+    value: unit.toString(),
+  }))
+})()

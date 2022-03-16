@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Mutation {
-  registerShop: RegisterShop!
+  registerShop(openTime: Timestamp!, shopName: String!): RegisterShop!
 }
 
 type Query {
@@ -12,10 +12,17 @@ type Query {
 }
 
 type RegisterShop {
+  date: Timestamp!
+
   """shopId"""
   shopId: String!
   succeeded: Boolean!
 }
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
 
 type Todo {
   description: String

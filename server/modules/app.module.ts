@@ -13,6 +13,9 @@ import { TodoModule } from '@/modules/todo/index.module'
     // For env
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({
+      buildSchemaOptions: {
+        dateScalarMode: 'timestamp',
+      },
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'schema/schema.gql'),
       installSubscriptionHandlers: true,
