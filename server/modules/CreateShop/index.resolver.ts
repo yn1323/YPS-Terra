@@ -27,6 +27,7 @@ export class CreateShopArgs {
 @Resolver(of => Shop)
 export class CreateShopResolver {
   constructor(private createShopService: CreateShopService) {}
+
   @Mutation(type => Shop, { name: 'createShop' })
   createShop(@Args() args: CreateShopArgs) {
     return this.createShopService.register(args)
