@@ -8,28 +8,20 @@ on:
 
 jobs:
   chromatic_onready:
-   if: (github.event.pull_request.draft == false && contains(github.event.pull_request.labels.*.name , 'renovate'))
+    if: (github.event.pull_request.draft == false && !contains(github.event.pull_request.labels.*.name , 'renovate'))
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
       - name: npm ci
-        run: echo ${{github.pull_request.label.name}}
-      - name: npm ci
-        run: echo ${{github.pull_request.label.names}}
-      - name: npm ci
-        run: echo ${{github.pull_request.labels}}
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - uses: actions/checkout@v3
-    #     with:
-    #       fetch-depth: 0
-    #   - uses: actions/setup-node@v3
-    #     with:
-    #       node-version: '16'
-    #   - name: npm ci
-    #     run: npm ci -w web
-    #   - name: Publish to Chromatic
-    #     uses: chromaui/action@v1
-    #     with:
-    #       token: ${{ secrets.G_TOKEN }}
-    #       projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-    #       workingDir: ./web
+        run: npm ci -w web
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          token: ${{ secrets.G_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ./web
