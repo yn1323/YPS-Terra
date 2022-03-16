@@ -1,6 +1,9 @@
 inputs:
-  secrets:
-    description: 'secrets'
+  gtoken:
+    description: 'github token'
+    required: true
+  chromatic:
+    description: 'chromatc token'
     required: true
 runs:
   using: 'Composite'
@@ -20,6 +23,6 @@ runs:
     - name: Publish to Chromatic
       uses: chromaui/action@v1
       with:
-        token: ${{ inputs.secrets.G_TOKEN }}
-        projectToken: ${{ inputs.secrets.CHROMATIC_PROJECT_TOKEN }}
+        token: ${{ inputs.gtoken }}
+        projectToken: ${{ inputs.chromatic }}
         workingDir: ./web

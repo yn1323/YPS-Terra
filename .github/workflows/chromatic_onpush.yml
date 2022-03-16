@@ -16,4 +16,5 @@ jobs:
       - name: storybook test
         uses: ./.github/actions/storybook
         with:
-          secrets: ${{ secrets }}
+          gtoken: ${{ secrets.G_TOKEN }}
+          chromatic: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
