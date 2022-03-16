@@ -3,13 +3,13 @@ import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
-import { RegisterShopModule } from '@/modules/registerShop/index.module'
-import { TodoModule } from '@/modules/todo/index.module'
+import { ReadShopModule } from './ReadShop/index.module'
+import { CreateShopModule } from '@/modules/CreateShop/index.module'
 
 @Module({
   imports: [
-    TodoModule,
-    RegisterShopModule,
+    CreateShopModule,
+    ReadShopModule,
     // For env
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({

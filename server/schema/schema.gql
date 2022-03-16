@@ -3,23 +3,20 @@
 # ------------------------------------------------------
 
 type Mutation {
-  registerShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Float!, useTimeCard: Boolean!): RegisterShop!
+  createShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
 }
 
 type Query {
-  findAll: [Todo]!
-  findOneById(id: ID!): Todo!
+  findShopByShopId(shopId: ID!): Shop!
 }
 
-type RegisterShop {
+type Shop {
   closeTime: Timestamp!
   openTime: Timestamp!
-
-  """shopId"""
-  shopId: String!
+  shopId: ID!
+  shopName: String!
   submitFrequency: String!
-  succeeded: Boolean!
-  timeUnit: Float!
+  timeUnit: Int!
   useTimeCard: Boolean!
 }
 
@@ -27,9 +24,3 @@ type RegisterShop {
 `Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """
 scalar Timestamp
-
-type Todo {
-  description: String
-  id: ID!
-  title: String!
-}

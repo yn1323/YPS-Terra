@@ -1,16 +1,16 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType, Int, ID } from '@nestjs/graphql'
 import type {
   ShiftSubmitFrequency,
   ShiftTimeUnit,
 } from '@/constants/validations'
 
 @ObjectType()
-export class RegisterShop {
-  @Field({ description: 'shopId' })
+export class Shop {
+  @Field(type => ID)
   shopId: string
 
-  @Field({ defaultValue: false })
-  succeeded: boolean
+  @Field()
+  shopName: string
 
   @Field()
   openTime: Date
@@ -18,7 +18,7 @@ export class RegisterShop {
   @Field()
   closeTime: Date
 
-  @Field()
+  @Field(type => Int)
   timeUnit: ShiftTimeUnit
 
   @Field()

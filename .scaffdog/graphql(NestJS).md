@@ -4,21 +4,21 @@ root: './server'
 output: []
 ignore: []
 questions:
-  query: 'What is GraphQL query name??(camel)'
+  query: 'What is GraphQL query name??(pascal)'
   any: 'DO NOT forget include module to app.module.ts (enter any character and press enter)'
 ---
 
-# `models/{{ inputs.query }}.ts`
+# `models/{{ inputs.query | pascal }}.ts`
 ```tsx
 {{ 'templates/NestJS/graphql/models/todo.ts' | read }}
 ```
 
-# `modules/{{ inputs.query }}/index.module.ts`
+# `modules/{{ inputs.query | pascal }}/index.module.ts`
 ```tsx
 {{ 'templates/NestJS/graphql/todo.module.ts' | read }}
 ```
 
-# `modules/{{ inputs.query }}/index.resolver.ts`
+# `modules/{{ inputs.query | pascal }}/index.resolver.ts`
 ```tsx
 {{ 'templates/NestJS/graphql/todo.resolver.ts' | read }}
 ```
@@ -28,7 +28,7 @@ questions:
 {{ 'templates/NestJS/graphql/todo.resolver.spec.ts' | read }}
 ``` -->
 
-# `modules/{{ inputs.query }}/index.service.ts`
+# `modules/{{ inputs.query | pascal }}/index.service.ts`
 ```tsx
 {{ 'templates/NestJS/graphql/todo.service.ts' | read }}
 ```
