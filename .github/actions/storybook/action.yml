@@ -1,0 +1,17 @@
+runs:
+  using: 'Composite'
+  steps:
+    - name: install dependency
+      run: npm ci -w web
+      shell: bash
+
+    - name: storybook test
+      run: npm run test-storybook:ci -w web
+      shell: bash
+
+    - name: Publish to Chromatic
+      uses: chromaui/action@v1
+      with:
+        token: ${{ secrets.G_TOKEN }}
+        projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        workingDir: ./web
