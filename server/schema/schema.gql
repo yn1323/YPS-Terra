@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Mutation {
-  registerShop(openTime: Timestamp!, shopName: String!): RegisterShop!
+  registerShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Float!, useTimeCard: Boolean!): RegisterShop!
 }
 
 type Query {
@@ -12,11 +12,15 @@ type Query {
 }
 
 type RegisterShop {
-  date: Timestamp!
+  closeTime: Timestamp!
+  openTime: Timestamp!
 
   """shopId"""
   shopId: String!
+  submitFrequency: String!
   succeeded: Boolean!
+  timeUnit: Float!
+  useTimeCard: Boolean!
 }
 
 """

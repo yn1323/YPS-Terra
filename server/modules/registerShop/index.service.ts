@@ -9,9 +9,9 @@ export class RegisterShopService {
     succeeded: false,
     openTime: new Date(),
     closeTime: new Date(),
-    // timeUnit: 5,
-    // submitFrequency: '1w',
-    // useTimeCard: false,
+    timeUnit: 5,
+    submitFrequency: '1w',
+    useTimeCard: false,
   }
   async register() {
     const shopId = getRandomId()

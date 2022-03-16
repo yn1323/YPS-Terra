@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-// import type {
-//   ShiftSubmitFrequency,
-//   ShiftTimeUnit,
-// } from '@/constants/validations'
+import type {
+  ShiftSubmitFrequency,
+  ShiftTimeUnit,
+} from '@/constants/validations'
 
 @ObjectType()
 export class RegisterShop {
@@ -18,12 +18,12 @@ export class RegisterShop {
   @Field()
   closeTime: Date
 
-  // @Field()
-  // timeUnit: ShiftTimeUnit
+  @Field()
+  timeUnit: ShiftTimeUnit
 
-  // @Field()
-  // submitFrequency: ShiftSubmitFrequency
+  @Field()
+  submitFrequency: ShiftSubmitFrequency
 
-  // @Field()
-  // useTimeCard: boolean
+  @Field()
+  useTimeCard: boolean
 }
