@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '16'
       - name: storybook test
-        uses: ./.github/actions/storybook
+        uses: .github/actions/storybook
