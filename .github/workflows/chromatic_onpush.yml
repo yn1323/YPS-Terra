@@ -7,8 +7,8 @@ on:
 
 jobs:
   chromatic_onpush:
-    if: |
-      (!contains(github.event.label.name , 'renovate') && github.event.pull_request.draft == false)
+    if: !contains(github.event.label.name , 'renovate')
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
