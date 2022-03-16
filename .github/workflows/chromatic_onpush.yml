@@ -7,12 +7,14 @@ on:
 
 jobs:
   chromatic_onpush:
-    - name: npm ci
-      run: echo ${{github.pull_request.label.name}}
-    - name: npm ci
-      run: echo ${{github.pull_request.label.names}}
-    - name: npm ci
-      run: echo ${{github.pull_request.labels}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: npm ci
+        run: echo ${{github.pull_request.label.name}}
+      - name: npm ci
+        run: echo ${{github.pull_request.label.names}}
+      - name: npm ci
+        run: echo ${{github.pull_request.labels}}
     # if: !${{ github.event.pull_request.draft == false }}
     # if: github.event.pull_request.draft == false
     # runs-on: ubuntu-latest
