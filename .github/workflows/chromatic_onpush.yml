@@ -7,8 +7,8 @@ on:
 
 jobs:
   chromatic_onpush:
-    runs-on: ubuntu-latest
     if: !contains(github.event.pull_request.labels.*.name , 'renovate')
+    runs-on: ubuntu-latest
     steps:
       - name: npm ci
         run: echo ${{github.pull_request.label.name}}
