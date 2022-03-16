@@ -1,6 +1,14 @@
+inputs:
+  secrets:
+    description: 'secrets'
+    required: true
 runs:
   using: 'Composite'
   steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
     - name: install dependency
       run: npm ci -w web
       shell: bash
@@ -12,6 +20,6 @@ runs:
     - name: Publish to Chromatic
       uses: chromaui/action@v1
       with:
-        token: ${{ secrets.G_TOKEN }}
-        projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        token: ${{ inputs.secrets.G_TOKEN }}
+        projectToken: ${{ inputs.secrets.CHROMATIC_PROJECT_TOKEN }}
         workingDir: ./web
