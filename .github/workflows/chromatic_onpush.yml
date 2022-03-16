@@ -7,7 +7,7 @@ on:
 
 jobs:
   chromatic_onpush:
-    if: ${{ github.event.label.name == 'renovate2' }}
+    if: !contains(github.event.label.name , 'renovate')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
