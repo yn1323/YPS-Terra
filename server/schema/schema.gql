@@ -20,6 +20,10 @@ type Shop {
   useTimeCard: Boolean!
 }
 
+type Subscription {
+  subscribeOneShop(shopId: ID!): Shop!
+}
+
 """
 `Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """

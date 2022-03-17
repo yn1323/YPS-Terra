@@ -12,7 +12,7 @@ export class ReadShopArgs {
 export class ReadShopResolver {
   constructor(private ReadShopService: ReadShopService) {}
 
-  @Query(type => Shop, { name: 'findShopByShopId' })
+  @Query(returns => Shop, { name: 'findShopByShopId' })
   findShopByShopId(@Args() args: ReadShopArgs) {
     return this.ReadShopService.findOneByShopId(args)
   }
