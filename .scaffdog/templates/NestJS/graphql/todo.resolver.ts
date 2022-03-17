@@ -11,11 +11,11 @@ export class {{ inputs.query | pascal }}Args {
 @Resolver(of => {{ inputs.query | pascal }})
 export class {{ inputs.query | pascal }}Resolver {
   constructor(private {{ inputs.query }}Service: {{ inputs.query | pascal }}Service) {}
-  @Query(type => [{{ inputs.query | pascal }}], { nullable: 'items' })
+  @Query(returns => [{{ inputs.query | pascal }}], { nullable: 'items' })
   findAll() {
     return this.{{ inputs.query }}Service.findAll()
   }
-  @Query(type => {{ inputs.query | pascal }})
+  @Query(returns => {{ inputs.query | pascal }})
   findOneById(@Args()args: {{ inputs.query | pascal }}Args ) {
     return this.{{ inputs.query }}Service.findOneById(args)
   }
