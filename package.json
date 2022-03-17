@@ -23,7 +23,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.2.11",
     "@graphql-codegen/typescript-react-query": "3.5.8",
     "eslint-plugin-import": "2.25.4",
-    "prettier": "2.5.1",
+    "prettier": "2.6.0",
     "scaffdog": "1.2.0",
     "turbo": "latest"
   },
