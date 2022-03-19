@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { login, logout } from 'src/firebase/common'
 import { Button } from '@/atoms/Button/Button'
 import { useShopQuery } from '@/graphql/generated'
 
@@ -10,6 +11,12 @@ const Home: NextPage = () => {
   const onClickHandler = () => {
     console.log(data)
   }
+  const loginHandler = () => {
+    login()
+  }
+  const logoutHandler = () => {
+    logout()
+  }
   return (
     <div>
       <Head>
@@ -18,6 +25,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Button onClick={onClickHandler}>hoge</Button>
+      <Button onClick={loginHandler}>login</Button>
+      <Button onClick={logoutHandler}>logount</Button>
     </div>
   )
 }

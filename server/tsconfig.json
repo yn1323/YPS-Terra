@@ -8,6 +8,7 @@
       "@/models/*": ["models/*"],
       "@/helpers/*": ["helpers/*"],
       "@/firebase/*": ["firebase/*"],
+      "@/gurds/*": ["gurds/*"],
       "@/utils/*": ["../packages/src/utils/*"],
       "@/constants/*": ["../packages/src/constants/*"]
     },
