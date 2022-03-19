@@ -1,0 +1,20 @@
+name: storybook_test_onpush
+
+on:
+  pull_request:
+    paths:
+      - 'web/**'
+
+jobs:
+  storybook_test_onpush:
+    if: (github.event.pull_request.draft == false && !contains(github.event.pull_request.labels.*.name , 'renovate'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: storybook test
+        uses: ./.github/actions/storybook
+        with:
+          gtoken: ${{ secrets.G_TOKEN }}
+          chromatic: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

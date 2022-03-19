@@ -1,0 +1,28 @@
+inputs:
+  gtoken:
+    description: 'github token'
+    required: true
+  chromatic:
+    description: 'chromatc token'
+    required: true
+runs:
+  using: 'Composite'
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: install dependency
+      run: npm ci -w web
+      shell: bash
+
+    - name: storybook test
+      run: npm run test-storybook:ci -w web
+      shell: bash
+
+    - name: Publish to Chromatic
+      uses: chromaui/action@v1
+      with:
+        token: ${{ inputs.gtoken }}
+        projectToken: ${{ inputs.chromatic }}
+        workingDir: ./web

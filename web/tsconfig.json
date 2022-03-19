@@ -3,12 +3,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/helpers/*": ["../packages/src/helpers/*"],
+      "@/utils/*": ["../packages/src/utils/*"],
       "@/constants/*": ["../packages/src/constants/*"],
       "@/ui/*": ["src/ui/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/recoil/*": ["src/recoil/*"],
       "@/config/*": ["src/config/*"],
+      "@/firebase/*": ["src/firebase/*"],
       "@/graphql/*": ["graphql/*"],
       "@/graphql": ["graphql"],
       "@/atoms/*": ["components/atoms/*"],
