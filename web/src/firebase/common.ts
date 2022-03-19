@@ -2,11 +2,11 @@ import { initializeApp } from 'firebase/app'
 import {
   getAuth,
   onAuthStateChanged as onFirebaseAuthStateChanged,
-  signInWithRedirect,
   GoogleAuthProvider,
   signInAnonymously,
   signOut,
 } from 'firebase/auth'
+import { env } from '@/config/env'
 
 export type User = {
   displayName: string | null | undefined
@@ -14,12 +14,12 @@ export type User = {
 }
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyB30ohJVC66S-573ggnuSq6vavzLOelNhE',
-  authDomain: 'yps-development.firebaseapp.com',
-  projectId: 'yps-development',
-  storageBucket: 'yps-development.appspot.com',
-  messagingSenderId: '665154729569',
-  appId: '1:665154729569:web:5bf43467034141e8e0dc20',
+  apiKey: env.apiKey,
+  authDomain: env.authDomain,
+  projectId: env.projectId,
+  storageBucket: env.storageBucket,
+  messagingSenderId: env.messagingSenderId,
+  appId: env.appId,
 }
 
 const app = initializeApp(firebaseConfig)
@@ -43,6 +43,7 @@ export function logout(): Promise<void> {
 
 export const onAuthStateChanged = () => {
   const auth = getAuth(app)
+  // TODO: ログインごとに重複して実行されて増える
   onFirebaseAuthStateChanged(auth, user => {
     const userInfo: User | null = user
       ? {
@@ -50,6 +51,7 @@ export const onAuthStateChanged = () => {
           email: user?.email,
         }
       : null
+    console.log(user)
     // TODO: 脆弱性対策(https://qiita.com/NewGyu/items/0b3111b61405366a76c5)
     user?.getIdToken().then(token => localStorage.setItem('token', token ?? ''))
   })
