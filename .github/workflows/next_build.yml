@@ -1,13 +1,12 @@
-name: Storybook_interaction
+name: next_build
 
 on:
-  pull_request:
+  push:
     paths:
       - 'web/**'
 
 jobs:
-  storybook_interaction:
-    timeout-minutes: 10
+  next_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Interaction Test
-        run: |
-          npm ci -w web
-          npm run test-storybook:ci -w web
+      - name: install dependency
+        run: npm ci -w web
+      - name: nest build
+        run: npm run build -w web

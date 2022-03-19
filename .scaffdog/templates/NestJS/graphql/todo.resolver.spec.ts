@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { {{ inputs.query | pascal }}Resolver } from './{{ inputs.query }}.resolver'
+import { {{ inputs.query | pascal }}Resolver } from '@/modules/{{ inputs.query }}/index.resolver'
 
 describe('{{ inputs.query | pascal }}Resolver', () => {
   let resolver: {{ inputs.query | pascal }}Resolver

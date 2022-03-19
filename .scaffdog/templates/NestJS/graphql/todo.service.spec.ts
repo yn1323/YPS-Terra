@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { {{ inputs.query | pascal }}Service } from './{{ inputs.query }}.service'
+import { {{ inputs.query | pascal }}Service } from '@/modules/{{ inputs.query }}/index.service'
 
 describe('{{ inputs.query | pascal }}Service', () => {
   let service: {{ inputs.query | pascal }}Service

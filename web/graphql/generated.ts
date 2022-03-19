@@ -1,4 +1,5 @@
-import { useQuery, UseQueryOptions } from 'react-query'
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -10,31 +11,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>
 }
-
-function fetcher<TData, TVariables>(
-  endpoint: string,
-  requestInit: RequestInit,
-  query: string,
-  variables?: TVariables
-) {
-  return async (): Promise<TData> => {
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      ...requestInit,
-      body: JSON.stringify({ query, variables }),
-    })
-
-    const json = await res.json()
-
-    if (json.errors) {
-      const { message } = json.errors[0]
-
-      throw new Error(message)
-    }
-
-    return json.data
-  }
-}
+const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -42,51 +19,116 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  /** `Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch. */
+  Timestamp: any
+}
+
+export type Mutation = {
+  __typename?: 'Mutation'
+  shop: Shop
+}
+
+export type MutationShopArgs = {
+  closeTime: Scalars['Timestamp']
+  openTime: Scalars['Timestamp']
+  shopName: Scalars['String']
+  submitFrequency: Scalars['String']
+  timeUnit: Scalars['Int']
+  useTimeCard: Scalars['Boolean']
 }
 
 export type Query = {
   __typename?: 'Query'
-  findAll: Array<Maybe<Todo>>
-  findOneById: Todo
+  shop: Shop
 }
 
-export type QueryFindOneByIdArgs = {
-  id: Scalars['ID']
+export type QueryShopArgs = {
+  shopId: Scalars['ID']
 }
 
-export type Todo = {
-  __typename?: 'Todo'
-  description?: Maybe<Scalars['String']>
-  id: Scalars['ID']
-  title: Scalars['String']
+export type Shop = {
+  __typename?: 'Shop'
+  closeTime: Scalars['Timestamp']
+  openTime: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  shopName: Scalars['String']
+  submitFrequency: Scalars['String']
+  timeUnit: Scalars['Int']
+  useTimeCard: Scalars['Boolean']
 }
 
-export type TomatoQueryVariables = Exact<{ [key: string]: never }>
+export type Subscription = {
+  __typename?: 'Subscription'
+  shop: Shop
+}
 
-export type TomatoQuery = {
+export type SubscriptionShopArgs = {
+  shopId: Scalars['ID']
+}
+
+export type ShopQueryVariables = Exact<{
+  shopId: Scalars['ID']
+}>
+
+export type ShopQuery = {
   __typename?: 'Query'
-  findAll: Array<{ __typename?: 'Todo'; id: string } | null>
-}
-
-export const TomatoDocument = `
-    query Tomato {
-  findAll {
-    id
+  shop: {
+    __typename?: 'Shop'
+    shopId: string
+    shopName: string
+    openTime: any
+    closeTime: any
+    timeUnit: number
+    submitFrequency: string
+    useTimeCard: boolean
   }
 }
-    `
-export const useTomatoQuery = <TData = TomatoQuery, TError = unknown>(
-  dataSource: { endpoint: string; fetchParams?: RequestInit },
-  variables?: TomatoQueryVariables,
-  options?: UseQueryOptions<TomatoQuery, TError, TData>
-) =>
-  useQuery<TomatoQuery, TError, TData>(
-    variables === undefined ? ['Tomato'] : ['Tomato', variables],
-    fetcher<TomatoQuery, TomatoQueryVariables>(
-      dataSource.endpoint,
-      dataSource.fetchParams || {},
-      TomatoDocument,
-      variables
-    ),
+
+export const ShopDocument = gql`
+  query shop($shopId: ID!) {
+    shop(shopId: $shopId) {
+      shopId
+      shopName
+      openTime
+      closeTime
+      timeUnit
+      submitFrequency
+      useTimeCard
+    }
+  }
+`
+
+/**
+ * __useShopQuery__
+ *
+ * To run a query within a React component, call `useShopQuery` and pass it any options that fit your needs.
+ * When your component renders, `useShopQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useShopQuery({
+ *   variables: {
+ *      shopId: // value for 'shopId'
+ *   },
+ * });
+ */
+export function useShopQuery(
+  baseOptions: Apollo.QueryHookOptions<ShopQuery, ShopQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ShopQuery, ShopQueryVariables>(ShopDocument, options)
+}
+export function useShopLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ShopQuery, ShopQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ShopQuery, ShopQueryVariables>(
+    ShopDocument,
     options
   )
+}
+export type ShopQueryHookResult = ReturnType<typeof useShopQuery>
+export type ShopLazyQueryHookResult = ReturnType<typeof useShopLazyQuery>
+export type ShopQueryResult = Apollo.QueryResult<ShopQuery, ShopQueryVariables>

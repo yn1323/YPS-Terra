@@ -2,13 +2,29 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Query {
-  findAll: [Todo]!
-  findOneById(id: ID!): Todo!
+type Mutation {
+  shop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
 }
 
-type Todo {
-  description: String
-  id: ID!
-  title: String!
+type Query {
+  shop(shopId: ID!): Shop!
 }
+
+type Shop {
+  closeTime: Timestamp!
+  openTime: Timestamp!
+  shopId: ID!
+  shopName: String!
+  submitFrequency: String!
+  timeUnit: Int!
+  useTimeCard: Boolean!
+}
+
+type Subscription {
+  shop(shopId: ID!): Shop!
+}
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp

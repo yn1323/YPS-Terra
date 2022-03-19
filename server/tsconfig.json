@@ -1,9 +1,15 @@
+// VSCodeのエラーは無視する
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/helpers/*": ["../packages/src/helpers/*"],
+      "@/modules/*": ["modules/*"],
+      "@/models/*": ["models/*"],
+      "@/helpers/*": ["helpers/*"],
+      "@/firebase/*": ["firebase/*"],
+      "@/gurds/*": ["gurds/*"],
+      "@/utils/*": ["../packages/src/utils/*"],
       "@/constants/*": ["../packages/src/constants/*"]
     },
     "module": "commonjs",
@@ -15,7 +21,6 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    // "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -24,6 +29,6 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
