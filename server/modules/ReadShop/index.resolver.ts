@@ -1,4 +1,3 @@
-import { UnauthorizedException } from '@nestjs/common'
 import { Args, ID, Field, Query, Resolver, ArgsType } from '@nestjs/graphql'
 import { Shop } from '@/models/Shop'
 import { ReadShopService } from '@/modules/ReadShop/index.service'

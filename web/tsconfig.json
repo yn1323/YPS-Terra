@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/utils/*": ["../packages/src/utils/*"],
+      "@/helpers/*": ["../packages/src/helpers/*"],
       "@/constants/*": ["../packages/src/constants/*"],
       "@/ui/*": ["src/ui/*"],
       "@/hooks/*": ["src/hooks/*"],
@@ -33,6 +33,6 @@
     "jsxImportSource": "@emotion/react",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../packages/**/*.ts"],
   "exclude": ["node_modules"]
 }

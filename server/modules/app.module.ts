@@ -28,6 +28,7 @@ import { ReadShopModule } from '@/modules/ReadShop/index.module'
       sortSchema: true,
       debug: true,
       playground: true,
+      context: ({ req, res }) => ({ req, res }),
     }),
   ],
 })

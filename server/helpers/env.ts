@@ -1,5 +1,6 @@
 export const env = () => ({
   port: process.env.VERCEL,
+  env: process.env.VERCEL_ENV,
   client_x509_cert_url: process.env.client_x509_cert_url,
   auth_provider_x509_cert_url: process.env.auth_provider_x509_cert_url,
   token_uri: process.env.token_uri,
