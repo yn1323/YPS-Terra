@@ -17,6 +17,7 @@ import { ReadShopModule } from '@/modules/ReadShop/index.module'
     GraphQLModule.forRoot({
       buildSchemaOptions: {
         dateScalarMode: 'timestamp',
+        numberScalarMode: 'integer',
       },
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'schema/schema.gql'),

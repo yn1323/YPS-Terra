@@ -3,11 +3,11 @@
 # ------------------------------------------------------
 
 type Mutation {
-  createShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
+  shop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
 }
 
 type Query {
-  findShopByShopId(shopId: ID!): Shop!
+  shop(shopId: ID!): Shop!
 }
 
 type Shop {
@@ -21,7 +21,7 @@ type Shop {
 }
 
 type Subscription {
-  subscribeOneShop(shopId: ID!): Shop!
+  shop(shopId: ID!): Shop!
 }
 
 """

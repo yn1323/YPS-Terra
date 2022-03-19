@@ -18,6 +18,12 @@ export class ReadShopService {
         return new NotFoundException()
       }
       ret = snapshot.data() as Shop
+      console.log(ret)
+      console.log({
+        ...ret,
+        openTime: ret.openTime.toDate(),
+        closeTime: ret.closeTime.toDate(),
+      })
     } catch (e) {
       return new BadRequestException()
     }

@@ -24,7 +24,7 @@ export class SubscribeShopResolver {
     this.pubSub = new PubSub()
   }
 
-  subscribeOneShopByFirestore({ shopId }: SubscribeShopArgs) {
+  subscribeOneShopFromFirestore({ shopId }: SubscribeShopArgs) {
     if (this.subscribes[shopId]) {
       this.subscribes[shopId]()
     }
@@ -48,9 +48,10 @@ export class SubscribeShopResolver {
       console.log(payload)
       return payload
     },
+    name: 'shop',
   })
-  subscribeOneShop(@Args() args: SubscribeShopArgs) {
-    this.subscribeOneShopByFirestore(args)
+  subscribeOneShopByShopId(@Args() args: SubscribeShopArgs) {
+    this.subscribeOneShopFromFirestore(args)
     return this.pubSub.asyncIterator('shop')
   }
 }
