@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Announce } from '@/models/announce'
+import { Announce } from '@/models/Announce'
 import { GetAnnounceArgs, AddAnnounceArgs } from '@/modules/Announce/args'
 import { AnnounceService } from '@/modules/Announce/index.service'
 

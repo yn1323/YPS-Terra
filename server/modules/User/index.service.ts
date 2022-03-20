@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common'
 import { collections, getRandomId } from '@/firebase/common'
-import { User } from '@/models/user'
-import { CreateUserArgs, GetUserArgs } from '@/modules/user/args'
+import { User } from '@/models/User'
+import { CreateUserArgs, GetUserArgs } from '@/modules/User/args'
 
 @Injectable()
 export class UserService {
