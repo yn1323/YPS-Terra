@@ -2,19 +2,86 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Announce {
+  announceDateFrom: Timestamp!
+  announceDateTo: Timestamp!
+  message: String!
+  organizationId: ID!
+  shopId: ID!
+}
+
 type Mutation {
+  announce: Announce!
+  operations(shopId: ID!): [Operation!]!
+  organization(organizationName: String!, organizationOwnerId: ID!, shopId: ID!): Organization!
+  requestCondition: RequestCondition!
+  shift: Request!
   shop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
+  temporaryClosed: TemporaryClosed!
+  timeCard: TimeCard!
+  user(shopId: ID!, userName: String!): User!
+}
+
+type Operation {
+  color: String!
+  icon: String!
+  operationId: ID!
+  operationName: String!
+}
+
+type Organization {
+  organizationId: ID!
+  organizationName: String!
+  organizationOwnerIds: [ID!]!
+  shopIds: [ID!]!
 }
 
 type Query {
+  announce(organizationId: ID!, shopId: ID!): [Announce!]!
+  operations(shopId: ID!): [Operation!]!
+  organization(organizationId: ID!): Organization!
+  requestCondition(shopId: ID!, userId: ID!): [RequestCondition!]!
+  shift(shopId: ID!, userId: ID!): [Request!]!
   shop(shopId: ID!): Shop!
+  temporaryClosed(organizationId: ID!, shopId: ID!): [TemporaryClosed!]!
+  timeCard(shopId: ID!, userId: ID!): [TimeCard!]!
+  user(userId: ID!): User!
+}
+
+type Request {
+  breakFrom: Timestamp!
+  breakToFrom: Timestamp!
+  shopId: ID!
+  userId: ID!
+  workFrom: Timestamp!
+  workTo: Timestamp!
+}
+
+type RequestCondition {
+  dateFrom: Timestamp!
+  dateTo: Timestamp!
+  done: Boolean!
+  shopId: ID!
+  userId: ID!
+}
+
+type Shift {
+  breakFrom: Timestamp!
+  breakToFrom: Timestamp!
+  shopId: ID!
+  userId: ID!
+  workFrom: Timestamp!
+  workTo: Timestamp!
 }
 
 type Shop {
+  avatar: String!
   closeTime: Timestamp!
+  closedWeekday: [Int!]!
   openTime: Timestamp!
   shopId: ID!
   shopName: String!
+  shopOwnerIds: [ID!]!
   submitFrequency: String!
   timeUnit: Int!
   useTimeCard: Boolean!
@@ -24,7 +91,29 @@ type Subscription {
   shop(shopId: ID!): Shop!
 }
 
+type TemporaryClosed {
+  date: Timestamp!
+  organizationId: ID!
+  shopId: ID!
+}
+
+type TimeCard {
+  breakFrom: Timestamp!
+  breakToFrom: Timestamp!
+  shopId: ID!
+  userId: ID!
+  workFrom: Timestamp!
+  workTo: Timestamp!
+}
+
 """
 `Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """
 scalar Timestamp
+
+type User {
+  avatar: String!
+  memberOf: [ID!]!
+  userId: ID!
+  userName: String!
+}

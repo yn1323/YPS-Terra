@@ -11,6 +11,26 @@ import { CreateShopArgs, GetShopArgs } from '@/modules/Shop/args'
 @Injectable()
 export class ShopService {
   private subscribes = {}
+
+  async createShop(args: CreateShopArgs) {
+    const shopId = getRandomId()
+    try {
+      await collections.shop.doc(shopId).create({
+        shopId,
+        avatar: '',
+        closedWeekday: [],
+        shopOwnerIds: [],
+        ...args,
+      })
+    } catch (e) {
+      return new BadRequestException()
+    }
+
+    return {
+      shopId,
+      ...args,
+    }
+  }
   async findOneByShopId({ shopId }: GetShopArgs) {
     let ret
 
@@ -28,22 +48,6 @@ export class ShopService {
       ...ret,
       openTime: ret.openTime.toDate(),
       closeTime: ret.closeTime.toDate(),
-    }
-  }
-  async register(args: CreateShopArgs) {
-    const shopId = getRandomId()
-    try {
-      await collections.shop.doc(shopId).create({
-        shopId,
-        ...args,
-      })
-    } catch (e) {
-      return new BadRequestException()
-    }
-
-    return {
-      shopId,
-      ...args,
     }
   }
   subscribeOneShopFromFirestore({ shopId }: GetShopArgs, pubSub: PubSub) {

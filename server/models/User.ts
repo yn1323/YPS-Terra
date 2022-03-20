@@ -1,4 +1,4 @@
-import { Field, ObjectType, ID } from '@nestjs/graphql'
+import { Field, ObjectType, ID, ArgsType } from '@nestjs/graphql'
 
 @ObjectType()
 export class User {
@@ -8,6 +8,12 @@ export class User {
   @Field()
   userName: string
 
+  @Field()
+  avatar: string
+
   @Field(type => [ID])
   memberOf: string[]
 }
+
+@ArgsType()
+export class UserArgs extends User {}

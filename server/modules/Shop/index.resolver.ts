@@ -13,7 +13,7 @@ export class ShopResolver {
 
   @Mutation(returns => Shop, { name: 'shop' })
   createShop(@Args() args: CreateShopArgs) {
-    return this.shopService.register(args)
+    return this.shopService.createShop(args)
   }
   @Query(returns => Shop, { name: 'shop' })
   findShopByShopId(@Args() args: GetShopArgs) {

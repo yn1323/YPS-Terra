@@ -1,29 +1,15 @@
-import { ArgsType, Field, ID } from '@nestjs/graphql'
-import { ShiftSubmitFrequency, ShiftTimeUnit } from '@/constants/validations'
+import { ArgsType, PickType } from '@nestjs/graphql'
+import { ShopArgs } from '@/models/Shop'
 
 @ArgsType()
-export class CreateShopArgs {
-  @Field()
-  shopName: string
-
-  @Field()
-  openTime: Date
-
-  @Field()
-  closeTime: Date
-
-  @Field()
-  timeUnit: ShiftTimeUnit
-
-  @Field()
-  submitFrequency: ShiftSubmitFrequency
-
-  @Field()
-  useTimeCard: boolean
-}
+export class CreateShopArgs extends PickType(ShopArgs, [
+  'shopName',
+  'openTime',
+  'closeTime',
+  'timeUnit',
+  'submitFrequency',
+  'useTimeCard',
+] as const) {}
 
 @ArgsType()
-export class GetShopArgs {
-  @Field(type => ID)
-  shopId: string
-}
+export class GetShopArgs extends PickType(ShopArgs, ['shopId'] as const) {}
