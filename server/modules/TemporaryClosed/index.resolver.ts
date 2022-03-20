@@ -10,13 +10,12 @@ import { TemporaryClosedService } from '@/modules/TemporaryClosed/index.service'
 export class TemporaryClosedResolver {
   constructor(private temporaryClosedService: TemporaryClosedService) {}
 
-  @Query(returns => [TemporaryClosed], { name: 'temporaryClosed' })
-  getTempraryClosed(@Args() args: GetTemporaryClosedArgs) {
-    return this.temporaryClosedService.getTempraryClosed(args)
-  }
-
   @Mutation(returns => TemporaryClosed, { name: 'temporaryClosed' })
   addTemporaryClosed(@Args() args: AddTemporaryClosedArgs) {
     return this.temporaryClosedService.addTemporaryClosed(args)
+  }
+  @Query(returns => [TemporaryClosed], { name: 'temporaryClosed' })
+  getTempraryClosed(@Args() args: GetTemporaryClosedArgs) {
+    return this.temporaryClosedService.getTempraryClosed(args)
   }
 }

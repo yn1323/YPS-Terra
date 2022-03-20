@@ -18,12 +18,39 @@ export class OperationService {
     { operationName: '業務3', icon: 'home', color: '#00f' },
   ]
 
+  async createOperations(args: CreateOperationsArgs) {
+    let ret: Operation[] = []
+    const target = collections.operation
+      .doc(args.shopId)
+      .collection('operation')
+
+    try {
+      for (const { operationName, color, icon } of this.defaultOperations) {
+        const operationId = getRandomId()
+        const d: Operation = {
+          operationId,
+          operationName,
+          color,
+          icon,
+        }
+        await target.doc(operationId).create(d)
+        ret = [...ret, d]
+      }
+    } catch (e) {
+      console.log(e)
+      return new BadRequestException()
+    }
+
+    return ret
+  }
+
   async findAllByShopId(args: GetOperationsArgs) {
     let ret: Operation[] = []
 
     try {
-      const snapshot = await collections.organization
-        .where('shopId', '==', args.shopId)
+      const snapshot = await collections.operation
+        .doc(args.shopId)
+        .collection('operation')
         .get()
       snapshot.forEach(d => {
         ret = [...ret, d.data() as Operation]
@@ -32,31 +59,7 @@ export class OperationService {
         return new NotFoundException()
       }
     } catch (e) {
-      return new BadRequestException()
-    }
-
-    return ret
-  }
-  async createOperations(args: CreateOperationsArgs) {
-    let ret: Operation[] = []
-    const operationId = getRandomId()
-    const target = collections.operation
-      .doc(args.shopId)
-      .collection('operation')
-      .doc(operationId)
-    try {
-      for (const { operationName, color, icon } of this.defaultOperations) {
-        const operationId = getRandomId()
-        const d = {
-          operationId,
-          operationName,
-          color,
-          icon,
-        }
-        await target.create(d)
-        ret = [...ret, d]
-      }
-    } catch (e) {
+      console.log(e)
       return new BadRequestException()
     }
 

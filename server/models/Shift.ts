@@ -18,7 +18,7 @@ export class Shift {
   breakFrom: Date
 
   @Field()
-  breakToFrom: Date
+  breakTo: Date
 }
 
 @ArgsType()

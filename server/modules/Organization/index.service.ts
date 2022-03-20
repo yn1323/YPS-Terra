@@ -32,6 +32,7 @@ export class OrganizationService {
       organizationOwnerIds: [args.organizationOwnerId],
     }
   }
+
   async findOneByOrganizationId(args: GetOrganizationArgs) {
     let ret
 

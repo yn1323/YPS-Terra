@@ -7,12 +7,13 @@ import { AnnounceService } from '@/modules/Announce/index.service'
 export class AnnounceResolver {
   constructor(private announceService: AnnounceService) {}
 
-  @Query(returns => [Announce], { name: 'announce' })
-  getAnnounce(@Args() args: GetAnnounceArgs) {
-    return this.announceService.getAnnounce(args)
-  }
   @Mutation(returns => Announce, { name: 'announce' })
   addAnnounce(@Args() args: AddAnnounceArgs) {
     return this.announceService.addAnnounce(args)
+  }
+
+  @Query(returns => [Announce], { name: 'announce' })
+  getAnnounce(@Args() args: GetAnnounceArgs) {
+    return this.announceService.getAnnounce(args)
   }
 }

@@ -18,7 +18,7 @@ export class TimeCard {
   breakFrom: Date
 
   @Field()
-  breakToFrom: Date
+  breakTo: Date
 }
 
 @ArgsType()

@@ -11,14 +11,15 @@ type Announce {
 }
 
 type Mutation {
-  announce: Announce!
-  operations(shopId: ID!): [Operation!]!
+  announce(announceDateFrom: Timestamp!, announceDateTo: Timestamp!, message: String!, organizationId: ID!, shopId: ID!): Announce!
+  operation(shopId: ID!): [Operation!]!
   organization(organizationName: String!, organizationOwnerId: ID!, shopId: ID!): Organization!
-  requestCondition: RequestCondition!
-  shift: Request!
+  request(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Request!
+  requestCondition(dateFrom: Timestamp!, dateTo: Timestamp!, done: Boolean!, shopId: ID!, userId: ID!): RequestCondition!
+  shift(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Shift!
   shop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
-  temporaryClosed: TemporaryClosed!
-  timeCard: TimeCard!
+  temporaryClosed(date: Timestamp!, organizationId: ID!, shopId: ID!): TemporaryClosed!
+  timeCard(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): TimeCard!
   user(shopId: ID!, userName: String!): User!
 }
 
@@ -40,8 +41,9 @@ type Query {
   announce(organizationId: ID!, shopId: ID!): [Announce!]!
   operations(shopId: ID!): [Operation!]!
   organization(organizationId: ID!): Organization!
+  request(shopId: ID!, userId: ID!): [Request!]!
   requestCondition(shopId: ID!, userId: ID!): [RequestCondition!]!
-  shift(shopId: ID!, userId: ID!): [Request!]!
+  shift(shopId: ID!, userId: ID!): [Shift!]!
   shop(shopId: ID!): Shop!
   temporaryClosed(organizationId: ID!, shopId: ID!): [TemporaryClosed!]!
   timeCard(shopId: ID!, userId: ID!): [TimeCard!]!
@@ -50,7 +52,7 @@ type Query {
 
 type Request {
   breakFrom: Timestamp!
-  breakToFrom: Timestamp!
+  breakTo: Timestamp!
   shopId: ID!
   userId: ID!
   workFrom: Timestamp!
@@ -67,7 +69,7 @@ type RequestCondition {
 
 type Shift {
   breakFrom: Timestamp!
-  breakToFrom: Timestamp!
+  breakTo: Timestamp!
   shopId: ID!
   userId: ID!
   workFrom: Timestamp!
@@ -99,7 +101,7 @@ type TemporaryClosed {
 
 type TimeCard {
   breakFrom: Timestamp!
-  breakToFrom: Timestamp!
+  breakTo: Timestamp!
   shopId: ID!
   userId: ID!
   workFrom: Timestamp!

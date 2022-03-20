@@ -7,12 +7,12 @@ import { ShiftService } from '@/modules/Shift/index.service'
 export class ShiftResolver {
   constructor(private shiftService: ShiftService) {}
 
-  @Query(returns => [Shift], { name: 'shift' })
-  getShift(@Args() args: GetShiftArgs) {
-    return this.shiftService.getShift(args)
-  }
   @Mutation(returns => Shift, { name: 'shift' })
   addShift(@Args() args: AddShiftArgs) {
     return this.shiftService.addShift(args)
+  }
+  @Query(returns => [Shift], { name: 'shift' })
+  getShift(@Args() args: GetShiftArgs) {
+    return this.shiftService.getShift(args)
   }
 }

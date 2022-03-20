@@ -14,22 +14,21 @@ export class ShopService {
 
   async createShop(args: CreateShopArgs) {
     const shopId = getRandomId()
+    const d: Shop = {
+      shopId,
+      avatar: '',
+      closedWeekday: [],
+      shopOwnerIds: [],
+      ...args,
+    }
     try {
-      await collections.shop.doc(shopId).create({
-        shopId,
-        avatar: '',
-        closedWeekday: [],
-        shopOwnerIds: [],
-        ...args,
-      })
+      await collections.shop.doc(shopId).create(d)
     } catch (e) {
+      console.log(e)
       return new BadRequestException()
     }
 
-    return {
-      shopId,
-      ...args,
-    }
+    return d
   }
   async findOneByShopId({ shopId }: GetShopArgs) {
     let ret
@@ -41,6 +40,7 @@ export class ShopService {
       }
       ret = snapshot.data() as Shop
     } catch (e) {
+      console.log(e)
       return new BadRequestException()
     }
 

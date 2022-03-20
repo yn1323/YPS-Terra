@@ -11,11 +11,12 @@ export class OrganizationResolver {
   constructor(private organizationService: OrganizationService) {}
 
   @Mutation(returns => Organization, { name: 'organization' })
-  createShop(@Args() args: CreateOrganizationArgs) {
+  createOrganization(@Args() args: CreateOrganizationArgs) {
     return this.organizationService.createOrganization(args)
   }
+
   @Query(returns => Organization, { name: 'organization' })
-  findShopByShopId(@Args() args: GetOrganizationArgs) {
+  findShopByOrganizationId(@Args() args: GetOrganizationArgs) {
     return this.organizationService.findOneByOrganizationId(args)
   }
 }

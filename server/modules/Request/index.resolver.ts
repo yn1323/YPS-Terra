@@ -7,12 +7,13 @@ import { RequestService } from '@/modules/Request/index.service'
 export class RequestResolver {
   constructor(private requestService: RequestService) {}
 
-  @Query(returns => [Request], { name: 'shift' })
-  getRequest(@Args() args: GetRequestArgs) {
-    return this.requestService.getRequest(args)
-  }
-  @Mutation(returns => Request, { name: 'shift' })
+  @Mutation(returns => Request, { name: 'request' })
   addRequest(@Args() args: AddRequestArgs) {
     return this.requestService.addRequest(args)
+  }
+
+  @Query(returns => [Request], { name: 'request' })
+  getRequest(@Args() args: GetRequestArgs) {
+    return this.requestService.getRequest(args)
   }
 }

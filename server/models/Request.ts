@@ -18,7 +18,7 @@ export class Request {
   breakFrom: Date
 
   @Field()
-  breakToFrom: Date
+  breakTo: Date
 }
 
 @ArgsType()

@@ -10,13 +10,13 @@ import { OperationService } from '@/modules/Operation/index.service'
 export class OperationResolver {
   constructor(private operationService: OperationService) {}
 
+  @Mutation(returns => [Operation], { name: 'operation' })
+  createOperations(@Args() args: CreateOperationsArgs) {
+    return this.operationService.createOperations(args)
+  }
+
   @Query(returns => [Operation], { name: 'operations' })
   getOperations(@Args() args: GetOperationsArgs) {
     return this.operationService.findAllByShopId(args)
-  }
-
-  @Mutation(returns => [Operation], { name: 'operations' })
-  createOperations(@Args() args: CreateOperationsArgs) {
-    return this.operationService.createOperations(args)
   }
 }

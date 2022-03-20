@@ -7,12 +7,13 @@ import { TimeCardService } from '@/modules/TimeCard/index.service'
 export class TimeCardResolver {
   constructor(private timeCardService: TimeCardService) {}
 
-  @Query(returns => [TimeCard], { name: 'timeCard' })
-  getTimeCard(@Args() args: GetTimeCardArgs) {
-    return this.timeCardService.getTimeCard(args)
-  }
   @Mutation(returns => TimeCard, { name: 'timeCard' })
   addTimeCard(@Args() args: AddTimeCardArgs) {
     return this.timeCardService.addTimeCard(args)
+  }
+
+  @Query(returns => [TimeCard], { name: 'timeCard' })
+  getTimeCard(@Args() args: GetTimeCardArgs) {
+    return this.timeCardService.getTimeCard(args)
   }
 }
