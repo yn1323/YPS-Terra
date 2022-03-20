@@ -4,8 +4,6 @@ import { env } from '@/helpers/env'
 
 @Injectable()
 export class AuthGurd implements CanActivate {
-  constructor() {}
-
   canActivate(context: ExecutionContext): Promise<boolean> {
     return new Promise(async (resolve, _) => {
       const isDevelopment = env().env === 'development'
