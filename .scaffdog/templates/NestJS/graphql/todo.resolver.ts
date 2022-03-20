@@ -1,12 +1,7 @@
-import { Args, ID, Query, Resolver, ArgsType, Field } from '@nestjs/graphql'
+import { Args,  Query, Resolver } from '@nestjs/graphql'
 import { {{ inputs.query | pascal }} } from '@/models/{{ inputs.query }}'
 import { {{ inputs.query | pascal }}Service } from '@/modules/{{ inputs.query }}/index.service'
-
-@ArgsType()
-export class {{ inputs.query | pascal }}Args {
-  @Field(type => ID)
-  id: string
-}
+import { {{ inputs.query | pascal }}Args } from '@/modules/{{ inputs.query }}/args/index.ts'
 
 @Resolver(of => {{ inputs.query | pascal }})
 export class {{ inputs.query | pascal }}Resolver {

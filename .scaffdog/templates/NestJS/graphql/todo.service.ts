@@ -2,6 +2,7 @@ import { title } from 'process'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { {{ inputs.query | pascal }}Args } from '@/modules/{{ inputs.query }}/index.resolver'
 import { {{ inputs.query | pascal }} } from '@/models/{{ inputs.query }}'
+import { {{ inputs.query | pascal }}Args } from '@/modules/{{ inputs.query }}/args/index.ts'
 
 @Injectable()
 export class {{ inputs.query | pascal }}Service {
