@@ -9,18 +9,18 @@ export class AuthGurd implements CanActivate {
 
   canActivate(context: ExecutionContext): Promise<boolean> {
     return new Promise(async (resolve, _) => {
-      const { authorization, referer } = context.getArgs()[2].req.headers
+      const isDevelopment = env().env === 'development'
+      const { req } = context.getArgs()[2]
+      const isGraphiQL = !req
+      if (isDevelopment && isGraphiQL) {
+        return resolve(true)
+      }
+
+      const { authorization } = req.headers
       const userAgent = context.getArgs()[2].req.headers['user-agent']
 
-      const isDevelopment = env().env === 'development'
-
-      if (isDevelopment) {
-        // GraphiQL & Postman
-        if (
-          (referer && referer.includes('/graphql')) ||
-          (userAgent && userAgent.includes('Postman'))
-        )
-          return resolve(true)
+      if (isDevelopment && userAgent && userAgent.includes('Postman')) {
+        return resolve(true)
       }
 
       if (!authorization) {
