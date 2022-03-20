@@ -20,7 +20,7 @@
   "ignorePatterns": [".eslintrc.js"],
   "rules": {
     "sort-imports": 0,
-    "import/order": [2, { "alphabetize": { "order": "asc" } }],
+    "import/order": ["warn", { "alphabetize": { "order": "asc" } }],
     "import/no-unresolved": "off",
     "react/display-name": "off",
     "@typescript-eslint/no-unused-vars": [

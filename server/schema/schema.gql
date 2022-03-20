@@ -2,19 +2,88 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Announce {
+  announceDateFrom: Timestamp!
+  announceDateTo: Timestamp!
+  message: String!
+  organizationId: ID!
+  shopId: ID!
+}
+
 type Mutation {
+  announce(announceDateFrom: Timestamp!, announceDateTo: Timestamp!, message: String!, organizationId: ID!, shopId: ID!): Announce!
+  operation(shopId: ID!): [Operation!]!
+  organization(organizationName: String!, organizationOwnerId: ID!, shopId: ID!): Organization!
+  request(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Request!
+  requestCondition(dateFrom: Timestamp!, dateTo: Timestamp!, done: Boolean!, shopId: ID!, userId: ID!): RequestCondition!
+  shift(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Shift!
   shop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
+  temporaryClosed(date: Timestamp!, organizationId: ID!, shopId: ID!): TemporaryClosed!
+  timeCard(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): TimeCard!
+  user(shopId: ID!, userName: String!): User!
+}
+
+type Operation {
+  color: String!
+  icon: String!
+  operationId: ID!
+  operationName: String!
+}
+
+type Organization {
+  organizationId: ID!
+  organizationName: String!
+  organizationOwnerIds: [ID!]!
+  shopIds: [ID!]!
 }
 
 type Query {
+  announce(organizationId: ID!, shopId: ID!): [Announce!]!
+  operations(shopId: ID!): [Operation!]!
+  organization(organizationId: ID!): Organization!
+  request(shopId: ID!, userId: ID!): [Request!]!
+  requestCondition(shopId: ID!, userId: ID!): [RequestCondition!]!
+  shift(shopId: ID!, userId: ID!): [Shift!]!
   shop(shopId: ID!): Shop!
+  temporaryClosed(organizationId: ID!, shopId: ID!): [TemporaryClosed!]!
+  timeCard(shopId: ID!, userId: ID!): [TimeCard!]!
+  user(userId: ID!): User!
+}
+
+type Request {
+  breakFrom: Timestamp!
+  breakTo: Timestamp!
+  shopId: ID!
+  userId: ID!
+  workFrom: Timestamp!
+  workTo: Timestamp!
+}
+
+type RequestCondition {
+  dateFrom: Timestamp!
+  dateTo: Timestamp!
+  done: Boolean!
+  shopId: ID!
+  userId: ID!
+}
+
+type Shift {
+  breakFrom: Timestamp!
+  breakTo: Timestamp!
+  shopId: ID!
+  userId: ID!
+  workFrom: Timestamp!
+  workTo: Timestamp!
 }
 
 type Shop {
+  avatar: String!
   closeTime: Timestamp!
+  closedWeekday: [Int!]!
   openTime: Timestamp!
   shopId: ID!
   shopName: String!
+  shopOwnerIds: [ID!]!
   submitFrequency: String!
   timeUnit: Int!
   useTimeCard: Boolean!
@@ -24,7 +93,29 @@ type Subscription {
   shop(shopId: ID!): Shop!
 }
 
+type TemporaryClosed {
+  date: Timestamp!
+  organizationId: ID!
+  shopId: ID!
+}
+
+type TimeCard {
+  breakFrom: Timestamp!
+  breakTo: Timestamp!
+  shopId: ID!
+  userId: ID!
+  workFrom: Timestamp!
+  workTo: Timestamp!
+}
+
 """
 `Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """
 scalar Timestamp
+
+type User {
+  avatar: String!
+  memberOf: [ID!]!
+  userId: ID!
+  userName: String!
+}

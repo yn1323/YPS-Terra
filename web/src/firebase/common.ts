@@ -52,7 +52,6 @@ export const onAuthStateChanged = () => {
         }
       : null
     console.log(user)
-    // TODO: 脆弱性対策(https://qiita.com/NewGyu/items/0b3111b61405366a76c5)
-    user?.getIdToken().then(token => localStorage.setItem('token', token ?? ''))
+    user?.getIdToken().then(token => (document.cookie = `yps-token=${token}`))
   })
 }

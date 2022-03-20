@@ -1,22 +1,28 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
-import { Reflector } from '@nestjs/core'
 import { getIdToken } from '@/firebase/auth'
+import { env } from '@/helpers/env'
 
 @Injectable()
 export class AuthGurd implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
-
   canActivate(context: ExecutionContext): Promise<boolean> {
     return new Promise(async (resolve, _) => {
-      const { authorization, host } = context.getArgs()[2].req.headers
-
-      // TODO: ADD Environment value
-      if (host === 'localhost:3000') {
-        resolve(true)
+      const isDevelopment = env().env === 'development'
+      const { req } = context.getArgs()[2]
+      const isGraphiQL = !req
+      if (isDevelopment && isGraphiQL) {
+        return resolve(true)
       }
+
+      const { authorization } = req.headers
+      const userAgent = context.getArgs()[2].req.headers['user-agent']
+
+      if (isDevelopment && userAgent && userAgent.includes('Postman')) {
+        return resolve(true)
+      }
+
       if (!authorization) {
         // NOTE: 403FORBIDDENになる
-        resolve(false)
+        return resolve(false)
       }
 
       const decoded = await getIdToken(authorization)

@@ -4,7 +4,7 @@ root: './server'
 output: []
 ignore: []
 questions:
-  query: 'What is GraphQL query name??(pascal)'
+  query: 'What is GraphQL query name??(camel)'
   any: 'DO NOT forget include module to app.module.ts (enter any character and press enter)'
 ---
 
@@ -37,3 +37,8 @@ questions:
 ```tsx
 {{ 'templates/NestJS/graphql/todo.service.spec.ts' | read }}
 ``` -->
+
+# `modules/{{ inputs.query | pascal }}/args/index.ts`
+```tsx
+{{ 'templates/NestJS/graphql/args/index.ts' | read }}
+```
