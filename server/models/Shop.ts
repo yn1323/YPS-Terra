@@ -1,4 +1,4 @@
-import { Field, ObjectType, Int, ID } from '@nestjs/graphql'
+import { Field, ObjectType, Int, ID, ArgsType } from '@nestjs/graphql'
 import type {
   ShiftSubmitFrequency,
   ShiftTimeUnit,
@@ -26,4 +26,16 @@ export class Shop {
 
   @Field()
   useTimeCard: boolean
+
+  @Field()
+  avatar: string
+
+  @Field(type => [Int])
+  closedWeekday: number[]
+
+  @Field(type => [ID])
+  shopOwnerIds: string[]
 }
+
+@ArgsType()
+export class ShopArgs extends Shop {}

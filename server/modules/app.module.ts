@@ -4,17 +4,31 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_GUARD } from '@nestjs/core'
 import { GraphQLModule } from '@nestjs/graphql'
-import { SubscribeShopModule } from './SubscribeShop/index.module'
 import { AuthGurd } from '@/gurds/AuthGurd'
-import { CreateShopModule } from '@/modules/CreateShop/index.module'
-import { ReadShopModule } from '@/modules/ReadShop/index.module'
+import { AnnounceModule } from '@/modules/Announce/index.module'
+import { OperationModule } from '@/modules/Operation/index.module'
+import { OrganizationModule } from '@/modules/Organization/index.module'
+import { RequestModule } from '@/modules/Request/index.module'
+import { RequestConditionModule } from '@/modules/RequestCondition/index.module'
+import { ShiftModule } from '@/modules/Shift/index.module'
+import { ShopModule } from '@/modules/Shop/index.module'
+import { TemporaryClosedModule } from '@/modules/TemporaryClosed/index.module'
+import { TimeCardModule } from '@/modules/TimeCard/index.module'
+import { UserModule } from '@/modules/User/index.module'
 
 @Module({
   providers: [{ provide: APP_GUARD, useClass: AuthGurd }],
   imports: [
-    CreateShopModule,
-    ReadShopModule,
-    SubscribeShopModule,
+    ShopModule,
+    OrganizationModule,
+    UserModule,
+    OperationModule,
+    TemporaryClosedModule,
+    AnnounceModule,
+    ShiftModule,
+    TimeCardModule,
+    RequestModule,
+    RequestConditionModule,
     // For env
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({
@@ -28,6 +42,7 @@ import { ReadShopModule } from '@/modules/ReadShop/index.module'
       sortSchema: true,
       debug: true,
       playground: true,
+      context: ({ req, res }) => ({ req, res }),
     }),
   ],
 })

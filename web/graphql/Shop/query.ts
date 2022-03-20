@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const GetOneShop = gql`
+export const getShop = gql`
   query shop($shopId: ID!) {
     shop(shopId: $shopId) {
       shopId
