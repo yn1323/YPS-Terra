@@ -1,11 +1,10 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
-import { Reflector } from '@nestjs/core'
 import { getIdToken } from '@/firebase/auth'
 import { env } from '@/helpers/env'
 
 @Injectable()
 export class AuthGurd implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor() {}
 
   canActivate(context: ExecutionContext): Promise<boolean> {
     return new Promise(async (resolve, _) => {
