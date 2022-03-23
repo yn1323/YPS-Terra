@@ -2,7 +2,6 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { Button } from '@/atoms/Button/Button'
 import client from '@/config/apollo-client'
-import { login, logout } from '@/firebase/common'
 import { getShop } from '@/graphql/Shop/query'
 import { useShopQuery } from '@/graphql/generated'
 import { getCookieValue } from '@/helpers/string'
@@ -15,10 +14,10 @@ const Home: NextPage = () => {
     console.log(data)
   }
   const loginHandler = () => {
-    login()
+    // login()
   }
   const logoutHandler = () => {
-    logout()
+    // logout()
   }
   return (
     <div>
