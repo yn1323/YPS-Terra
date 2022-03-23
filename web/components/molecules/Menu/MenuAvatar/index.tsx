@@ -49,5 +49,6 @@ const styles = {
   `,
   button: css`
     color: ${themes.palette.text.secondary};
+    padding: 2px 8px;
   `,
 }

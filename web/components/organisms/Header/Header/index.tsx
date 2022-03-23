@@ -4,6 +4,7 @@ import { FC, useMemo, Fragment } from 'react'
 import { HeaderTitle } from '@/atoms/Text/HeaderTitle'
 import { MenuAvatar } from '@/molecules/Menu/MenuAvatar'
 import { MenuHeader } from '@/molecules/Menu/MenuHeader'
+import { mediaQueries } from '@/ui/mixins/breakpoint'
 import { themes } from '@/ui/theme'
 
 type PropTypes = {
@@ -44,11 +45,18 @@ export const Header: FC<PropTypes> = ({
 }
 const styles = {
   container: css`
+    background: ${themes.palette.secondary.main};
     box-shadow: none;
+    ${mediaQueries('sm')} {
+      display: flex;
+      align-items: center;
+    }
   `,
   toolbar: css`
-    background: ${themes.palette.secondary.main};
     color: ${themes.palette.secondary.contrastText};
+    ${mediaQueries('sm')} {
+      width: ${themes.breakpoints.values.lg}px;
+    }
   `,
   toolbarSpace: css`
     padding: 0 16px;

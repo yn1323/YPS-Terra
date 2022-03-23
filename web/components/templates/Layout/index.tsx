@@ -1,21 +1,29 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { Button } from '@mui/material'
 import { FC } from 'react'
+import { Footer } from '@/molecules/Footer'
+import { Header } from '@/organisms/Header/Header'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
+import { themes } from '@/ui/theme'
 
 type PropTypes = {
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
   _css?: SerializedStyles | SerializedStyles[]
 }
 
 export const Layout: FC<PropTypes> = ({ _css, children }) => {
+  const childComponents = Array.isArray(children) ? children : [children]
   return (
     <div css={[_css, styles.container]}>
-      <div css={styles.header}>header</div>
-      <Button></Button>
-      <div css={styles.component}>{children}</div>
-      {/* <Footer /> */}
+      <div css={styles.header}>
+        <Header />
+      </div>
+      <div css={styles.wrapper}>
+        <div css={styles.component}>{childComponents}</div>
+      </div>
+      <div css={styles.footer}>
+        <Footer />
+      </div>
     </div>
   )
 }
@@ -34,11 +42,26 @@ const styles = {
     left: 0;
     width: 100%;
   `,
-  component: css`
+  wrapper: css`
     margin-top: 48px;
     padding-bottom: 56px;
     ${mediaQueries('sm')} {
-      margin-top: 64px;
+      padding-bottom: 56px;
+      display: flex;
+      justify-content: center;
+    }
+  `,
+  component: css`
+    ${mediaQueries('sm')} {
+      width: ${themes.breakpoints.values.lg}px;
+    }
+  `,
+  footer: css`
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    ${mediaQueries('sm')} {
+      bottom: -14px;
     }
   `,
 }
