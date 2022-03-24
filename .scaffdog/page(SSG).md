@@ -14,12 +14,13 @@ questions:
 import { ParsedUrlQuery } from 'querystring'
 import type { GetStaticPaths, GetStaticProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
+import { Animation } from '@/templates/Animation'
 import { Layout } from '@/templates/Layout'
 
 type PropTypes = {}
 
 export const {{ inputs.pageName | pascal }}: NextPageWithLayout<PropTypes> = ({}) => {
-  return <div></div>
+  return <Animation><div></div></Animation>
 }
 
 {{ inputs.pageName | pascal }}.getLayout = (page: ReactElement) => {

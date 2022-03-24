@@ -13,12 +13,13 @@ questions:
 ```tsx
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
+import { Animation } from '@/templates/Animation'
 import { Layout } from '@/templates/Layout'
 
 type PropTypes = {}
 
 export const {{ inputs.pageName | pascal }}: NextPage<PropTypes> = ({}) => {
-  return <div></div>
+  return <Animation><div></div></Animation>
 }
 
 {{ inputs.pageName | pascal }}.getLayout = (page: ReactElement) => {
