@@ -1,9 +1,10 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { Google, MailRounded, Person } from '@mui/icons-material'
+import { Google, Person } from '@mui/icons-material'
 import { FC } from 'react'
 import { Button } from '@/atoms/Button/Button'
 import { useLogIn } from '@/hooks/useLogIn'
+import { FormLoginInput } from '@/molecules/Form/FormLoginInput'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
@@ -14,7 +15,7 @@ export const FormLogin: FC<PropTypes> = ({ _css }) => {
   return (
     <div css={[_css, styles.container]}>
       <p>Login with...</p>
-      <p css={styles.buttons}>
+      <div css={styles.buttons}>
         <Button
           _css={styles.button}
           variant="outlined"
@@ -27,23 +28,14 @@ export const FormLogin: FC<PropTypes> = ({ _css }) => {
           _css={styles.button}
           variant="outlined"
           onClick={() => {
-            signIn('mail')
-          }}
-          endIcon={<MailRounded />}
-        >
-          Mail
-        </Button>
-        <Button
-          _css={styles.button}
-          variant="outlined"
-          onClick={() => {
             signIn('anonymously')
           }}
           endIcon={<Person />}
         >
           Anonymously
         </Button>
-      </p>
+        <FormLoginInput />
+      </div>
     </div>
   )
 }

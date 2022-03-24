@@ -1,16 +1,18 @@
 import { atom } from 'recoil'
 
 export interface UserInfo {
-  jwt: string
+  token: string
   uid: string
+  isAnonymous: boolean
 }
 
-const userInfo = {
-  jwt: '',
+export const defaultUserInfo = {
+  token: '',
   uid: '',
+  isAnonymous: false,
 }
 
 export const userInfoState = atom<UserInfo>({
   key: 'userInfo',
-  default: userInfo,
+  default: defaultUserInfo,
 })

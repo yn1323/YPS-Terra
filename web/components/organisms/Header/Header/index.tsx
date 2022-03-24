@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import { AppBar, Button, Toolbar } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC, useMemo, Fragment } from 'react'
 import { HeaderTitle } from '@/atoms/Text/HeaderTitle'
 import { MenuAvatar } from '@/molecules/Menu/MenuAvatar'
@@ -16,17 +17,23 @@ export const Header: FC<PropTypes> = ({
   isLoggedIn = false,
   isInitialLogin = false,
 }) => {
+  const router = useRouter()
   const headerItems = useMemo(
     () => [
       isLoggedIn && <MenuHeader isAdmin showTimeCard />,
       isLoggedIn && !isInitialLogin && <MenuAvatar />,
       !isLoggedIn && !isInitialLogin && (
-        <Button variant="contained" color="primary" size="small">
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={() => router.push('/login')}
+        >
           ログイン
         </Button>
       ),
     ],
-    [isLoggedIn, isInitialLogin]
+    [isLoggedIn, isInitialLogin, router]
   )
 
   return (

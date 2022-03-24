@@ -8,6 +8,8 @@ export const FORM_ERROR_TEXT = {
   USER_NAME: 'ユーザー名を入力してください',
   SHOP_ID: '店舗IDを入力してください',
   SHOP_NAME: '店舗名を入力してください',
+  EMAIL: 'メールアドレスを入力してください',
+  PASSWORD: 'パスワードを入力してください',
 } as const
 
 export const SHIFT_SUBMIT_FREQUENCY = ['1w', '0.5m', '1m'] as const

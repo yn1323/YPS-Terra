@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { createUser } from '@/firebase/auth/createUser'
+import { forgotPassword } from '@/firebase/auth/forgotPassword'
 import { signInGoogle } from '@/firebase/auth/signInGoogle'
 import { signInMail } from '@/firebase/auth/signInMail'
 import { signInAnonymously } from '@/firebase/auth/singInAnonymously'
@@ -13,19 +15,30 @@ export const useLogIn = () => {
     options: EmailSignIn = { email: '', password: '' }
   ) => {
     setIsLoading(true)
-    let result
     if (type === 'google') {
-      result = await signInGoogle()
+      await signInGoogle()
     } else if (type === 'mail') {
-      result = await signInMail(options)
+      await signInMail(options)
     } else if (type === 'anonymously') {
-      result = await signInAnonymously()
+      await signInAnonymously()
     }
-    console.log(result)
+    setIsLoading(false)
+  }
+  const signUp = async (options: EmailSignIn = { email: '', password: '' }) => {
+    setIsLoading(true)
+    await createUser(options)
+    setIsLoading(false)
+  }
+  const refreshPassword = async ({ email }: { email: string }) => {
+    setIsLoading(true)
+    await forgotPassword({ email })
     setIsLoading(false)
   }
   return {
     isLoading,
     signIn,
+    signUp,
+    forgotPassword,
+    refreshPassword,
   }
 }

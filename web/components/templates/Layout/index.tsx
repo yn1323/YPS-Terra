@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { FC } from 'react'
+import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 import { Footer } from '@/molecules/Footer'
 import { Header } from '@/organisms/Header/Header'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
@@ -13,6 +14,8 @@ type PropTypes = {
 
 export const Layout: FC<PropTypes> = ({ _css, children }) => {
   const childComponents = Array.isArray(children) ? children : [children]
+  useOnAuthStateChanged()
+
   return (
     <div css={[_css, styles.container]}>
       <div css={styles.header}>
