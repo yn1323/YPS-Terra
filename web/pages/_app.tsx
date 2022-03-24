@@ -20,6 +20,7 @@ interface MyAppProps extends AppProps {
 
 function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const getLayout = Component.getLayout ?? (page => page)
   function DebugObserver() {
     const snapshot = useRecoilSnapshot()
     useEffect(() => {
@@ -45,7 +46,7 @@ function MyApp(props: MyAppProps) {
           </Head>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Component {...pageProps} />
+            {getLayout(<Component {...pageProps} />)}
           </ThemeProvider>
         </CacheProvider>
       </RecoilRoot>
