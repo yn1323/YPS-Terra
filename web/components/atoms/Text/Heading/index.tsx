@@ -25,16 +25,16 @@ export const Heading: FC<PropTypes> = ({
   underline = false,
 }) => {
   return (
-    <>
+    <div>
       <div css={[styles.container, _css]} onClick={() => console.log(link)}>
-        <div css={[styles.header, styles.centerize]}>
+        <div css={[styles.header, center && styles.centerize]}>
           {icon && <div css={[styles.icon, link && styles.link]}>{icon}</div>}
           <Typography css={[link && styles.link]}>{children}</Typography>
           {link && <Link css={[styles.linkIcon, link && styles.link]} />}
         </div>
       </div>
       {underline && <div css={styles.underline} />}
-    </>
+    </div>
   )
 }
 
