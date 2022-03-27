@@ -48,13 +48,6 @@ runs:
     - name: Publish to Chromatic
       uses: chromaui/action@v1
       with:
-        env:
-          NEXT_PUBLIC_API_KEY: ${{ inputs.NEXT_PUBLIC_API_KEY }}
-          NEXT_PUBLIC_APP_ID: ${{ inputs.NEXT_PUBLIC_APP_ID }}
-          NEXT_PUBLIC_AUTH_DOMAIN: ${{ inputs.NEXT_PUBLIC_AUTH_DOMAIN }}
-          NEXT_PUBLIC_MESSAGING_SENDER_ID: ${{ inputs.NEXT_PUBLIC_MESSAGING_SENDER_ID }}
-          NEXT_PUBLIC_PROJECT_ID: ${{ inputs.NEXT_PUBLIC_PROJECT_ID }}
-          NEXT_PUBLIC_STORAGE_BUCKET: ${{ inputs.NEXT_PUBLIC_STORAGE_BUCKET }}
         token: ${{ inputs.gtoken }}
         projectToken: ${{ inputs.chromatic }}
         workingDir: ./web
