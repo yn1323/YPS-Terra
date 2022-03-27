@@ -1,0 +1,21 @@
+name: chromatic_develop
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'web/components/**'
+
+jobs:
+  storybook_test_onready:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: storybook test
+        uses: ./.github/actions/storybook
+        with:
+          gtoken: ${{ secrets.G_TOKEN }}
+          chromatic: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

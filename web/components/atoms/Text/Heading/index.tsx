@@ -19,17 +19,23 @@ type PropTypes = {
 export const Heading: FC<PropTypes> = ({
   _css,
   children,
+  variant,
   center = false,
   icon,
   link,
   underline = false,
 }) => {
   return (
-    <div>
-      <div css={[styles.container, _css]} onClick={() => console.log(link)}>
+    <div css={_css}>
+      <div css={[styles.container]} onClick={() => console.log(link)}>
         <div css={[styles.header, center && styles.centerize]}>
           {icon && <div css={[styles.icon, link && styles.link]}>{icon}</div>}
-          <Typography css={[link && styles.link]}>{children}</Typography>
+          <Typography
+            css={[link && styles.link, styles.text]}
+            variant={variant}
+          >
+            {children}
+          </Typography>
           {link && <Link css={[styles.linkIcon, link && styles.link]} />}
         </div>
       </div>
@@ -64,6 +70,9 @@ const styles = {
     display: flex;
     align-items: center;
     padding-right: 10px;
+  `,
+  text: css`
+    font-size: 1.1rem;
   `,
   link: css`
     cursor: pointer;
