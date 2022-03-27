@@ -10,5 +10,4 @@ const args = {}
 
 export const Basic: StoryObj = {
   args,
-  parameters: { chromatic: { viewports: [414, 1080] } }, // SP/PCで同じなら削除
 }
