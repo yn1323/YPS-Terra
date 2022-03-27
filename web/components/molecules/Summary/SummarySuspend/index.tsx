@@ -16,7 +16,7 @@ export const SummarySuspend: FC<PropTypes> = ({ _css }) => {
 
   return (
     <Summary>
-      <Heading type="sub" icon={HeaderIcon} underline link="here">
+      <Heading icon={HeaderIcon} underline link="here">
         承認待ち
       </Heading>
       <div>

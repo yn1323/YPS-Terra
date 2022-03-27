@@ -15,7 +15,7 @@ export const SummaryShift: FC<PropTypes> = ({ _css }) => {
 
   return (
     <Summary>
-      <Heading type="sub" icon={HeaderIcon} underline link="here">
+      <Heading icon={HeaderIcon} underline link="here">
         直近のシフト
       </Heading>
       <div></div>

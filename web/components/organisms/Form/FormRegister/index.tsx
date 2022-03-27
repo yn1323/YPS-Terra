@@ -77,16 +77,12 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
   return (
     <div css={[_css, styles.container]}>
       <section css={styles.section}>
-        <Heading type="sub" underline>
-          YPS初期設定
-        </Heading>
-        <Heading type="description">
-          <p css={styles.description}>
-            YPSユーザーと店舗の設定を行います。
-            <br />
-            設定内容は後からでも変更できます。
-          </p>
-        </Heading>
+        <Heading underline>YPS初期設定</Heading>
+        <p css={styles.description}>
+          YPSユーザーと店舗の設定を行います。
+          <br />
+          設定内容は後からでも変更できます。
+        </p>
         <div css={styles.items}>
           <FormUserType initialValue={userType} setter={setUserType} />
           <FormUserName
@@ -107,9 +103,7 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
 
       {isAdmin && (
         <section css={styles.section}>
-          <Heading type="sub" underline>
-            店舗情報設定
-          </Heading>
+          <Heading underline>店舗情報設定</Heading>
           <div css={styles.items}>
             <FormShopName
               error={!success.shopName}
@@ -122,9 +116,7 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
 
       {isAdmin && (
         <section css={styles.section}>
-          <Heading type="sub" underline>
-            シフト設定
-          </Heading>
+          <Heading underline>シフト設定</Heading>
           <div css={styles.items}>
             <FormShiftRange
               startInitialValue={startShiftTime}
@@ -146,9 +138,7 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
 
       {isAdmin && (
         <section css={styles.section}>
-          <Heading type="sub" underline>
-            権限設定
-          </Heading>
+          <Heading underline>権限設定</Heading>
           <div css={styles.items}>
             <FormTimeCardAuth
               initialValue={timeCardAuth}

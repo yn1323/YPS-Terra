@@ -8,7 +8,7 @@ import { themes } from '@/ui/theme'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
-  variant: TypographyProps['variant']
+  variant?: TypographyProps['variant']
   children: string | JSX.Element
   center?: boolean
   icon?: JSX.Element
@@ -19,7 +19,7 @@ type PropTypes = {
 export const Heading: FC<PropTypes> = ({
   _css,
   children,
-  variant,
+  variant = 'caption',
   center = false,
   icon,
   link,
