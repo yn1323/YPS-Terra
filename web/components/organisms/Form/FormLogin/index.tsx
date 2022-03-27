@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { FC } from 'react'
 import { ButtonAnonymouslyLogin } from '@/molecules/Button/ButtonAnonymouslyLogin'
 import { ButtonGoogleLogin } from '@/molecules/Button/ButtonGoogleLogin'
@@ -14,6 +14,7 @@ type PropTypes = {
 export const FormLogin: FC<PropTypes> = ({ _css }) => {
   return (
     <Box css={[_css, styles.container]}>
+      <Typography>ログイン</Typography>
       <div css={styles.loginButtons}>
         <ButtonGoogleLogin _css={styles.loginButton} />
         <ButtonTwitterLogin _css={styles.loginButton} />
@@ -25,7 +26,9 @@ export const FormLogin: FC<PropTypes> = ({ _css }) => {
   )
 }
 const styles = {
-  container: css``,
+  container: css`
+    width: 100%;
+  `,
   divider: css`
     margin-top: 15px;
   `,

@@ -3,16 +3,13 @@ import type { NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
 import { FormLogin } from '@/organisms/Form/FormLogin'
 import { Animation } from '@/templates/Animation'
-import { Center } from '@/templates/Center'
 import { Layout } from '@/templates/Layout'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 
 export const Login: NextPageWithLayout = () => {
   return (
     <Animation>
-      <Center _css={styles.container}>
-        <FormLogin />
-      </Center>
+      <FormLogin />
     </Animation>
   )
 }
@@ -23,7 +20,7 @@ Login.getLayout = (page: ReactElement) => {
 const styles = {
   container: css`
     ${mediaQueries('sm')} {
-      padding-bottom: 200px;
+      padding-bottom: 300px;
     }
   `,
 }
