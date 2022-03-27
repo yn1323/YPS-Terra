@@ -19,7 +19,6 @@ export const ButtonAnonymouslyLogin: FC<PropTypes> = ({
   return (
     <div css={_css}>
       <Button
-        loading={loading}
         _css={styles.button}
         onClick={() => signIn('anonymously')}
         startIcon={<Person css={styles.icon} />}

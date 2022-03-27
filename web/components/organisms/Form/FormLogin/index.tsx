@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { Box } from '@mui/material'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Heading } from '@/atoms/Text/Heading'
 import { useCheckUserExist } from '@/hooks/useCheckUserExist'
 import { ButtonAnonymouslyLogin } from '@/molecules/Button/ButtonAnonymouslyLogin'
