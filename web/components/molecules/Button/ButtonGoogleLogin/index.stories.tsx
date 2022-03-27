@@ -6,7 +6,9 @@ export default {
   title: 'molecules/Button/ButtonGoogleLogin',
   component: ButtonGoogleLogin,
 } as ComponentMeta<typeof ButtonGoogleLogin>
-const args = {}
+const args = {
+  loading: false,
+}
 
 export const Basic: StoryObj = {
   args,

@@ -1,8 +1,9 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { Box } from '@mui/material'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Heading } from '@/atoms/Text/Heading'
+import { useCheckUserExist } from '@/hooks/useCheckUserExist'
 import { ButtonAnonymouslyLogin } from '@/molecules/Button/ButtonAnonymouslyLogin'
 import { ButtonGoogleLogin } from '@/molecules/Button/ButtonGoogleLogin'
 import { ButtonTwitterLogin } from '@/molecules/Button/ButtonTwitterLogin'
@@ -13,17 +14,21 @@ type PropTypes = {
 }
 
 export const FormLogin: FC<PropTypes> = ({ _css }) => {
+  const { isValidating, data } = useCheckUserExist()
   return (
     <Box css={[_css, styles.container]}>
       <Heading _css={styles.title} center underline variant="h1">
         ログイン
       </Heading>
       <div css={styles.loginButtons}>
-        <ButtonGoogleLogin _css={styles.loginButton} />
-        <ButtonTwitterLogin _css={styles.loginButton} />
-        <ButtonAnonymouslyLogin _css={styles.loginButton} />
+        <ButtonGoogleLogin _css={styles.loginButton} loading={isValidating} />
+        <ButtonTwitterLogin _css={styles.loginButton} loading={isValidating} />
+        <ButtonAnonymouslyLogin
+          _css={styles.loginButton}
+          loading={isValidating}
+        />
         <div css={styles.divider}>or</div>
-        <FormLoginInput />
+        <FormLoginInput loading={isValidating} />
       </div>
     </Box>
   )

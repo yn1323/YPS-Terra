@@ -7,9 +7,13 @@ import { useLogIn } from '@/hooks/useLogIn'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
+  loading?: boolean
 }
 
-export const ButtonTwitterLogin: FC<PropTypes> = ({ _css }) => {
+export const ButtonTwitterLogin: FC<PropTypes> = ({
+  _css,
+  loading = false,
+}) => {
   const { signIn } = useLogIn()
 
   return (
@@ -18,6 +22,7 @@ export const ButtonTwitterLogin: FC<PropTypes> = ({ _css }) => {
         _css={styles.button}
         onClick={() => signIn('twitter')}
         startIcon={<Twitter css={styles.icon} />}
+        loading={loading}
       >
         Twitterでログイン
       </Button>

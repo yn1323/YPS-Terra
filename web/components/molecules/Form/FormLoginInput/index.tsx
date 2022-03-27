@@ -11,9 +11,14 @@ import { mediaQueries } from '@/ui/mixins/breakpoint'
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
   isSignUp?: boolean
+  loading?: boolean
 }
 
-export const FormLoginInput: FC<PropTypes> = ({ _css, isSignUp = false }) => {
+export const FormLoginInput: FC<PropTypes> = ({
+  _css,
+  isSignUp = false,
+  loading = false,
+}) => {
   const { signIn, signUp, refreshPassword } = useLogIn()
   const mailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
@@ -76,11 +81,11 @@ export const FormLoginInput: FC<PropTypes> = ({ _css, isSignUp = false }) => {
 
       <div css={styles.submit}>
         {!isSignUp ? (
-          <Button onClick={handleSignIn} _css={styles.button}>
+          <Button onClick={handleSignIn} _css={styles.button} loading={loading}>
             ログイン
           </Button>
         ) : (
-          <Button onClick={handleSignUp} _css={styles.button}>
+          <Button onClick={handleSignUp} _css={styles.button} loading={loading}>
             登録
           </Button>
         )}

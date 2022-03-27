@@ -7,17 +7,23 @@ import { useLogIn } from '@/hooks/useLogIn'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
+  loading?: boolean
 }
 
-export const ButtonAnonymouslyLogin: FC<PropTypes> = ({ _css }) => {
+export const ButtonAnonymouslyLogin: FC<PropTypes> = ({
+  _css,
+  loading = false,
+}) => {
   const { signIn } = useLogIn()
 
   return (
     <div css={_css}>
       <Button
+        loading={loading}
         _css={styles.button}
         onClick={() => signIn('anonymously')}
         startIcon={<Person css={styles.icon} />}
+        loading={loading}
       >
         ゲストでログイン
       </Button>

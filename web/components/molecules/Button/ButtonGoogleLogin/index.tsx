@@ -7,6 +7,7 @@ import { useLogIn } from '@/hooks/useLogIn'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
+  loading?: boolean
 }
 
 const Icon = () => {
@@ -20,7 +21,7 @@ const Icon = () => {
   )
 }
 
-export const ButtonGoogleLogin: FC<PropTypes> = ({ _css }) => {
+export const ButtonGoogleLogin: FC<PropTypes> = ({ _css, loading = false }) => {
   const { signIn } = useLogIn()
 
   return (
@@ -29,6 +30,7 @@ export const ButtonGoogleLogin: FC<PropTypes> = ({ _css }) => {
         _css={styles.button}
         onClick={() => signIn('twitter')}
         startIcon={<Icon />}
+        loading={loading}
       >
         Googleでログイン
       </Button>
