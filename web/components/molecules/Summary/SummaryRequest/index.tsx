@@ -16,7 +16,7 @@ export const SummaryRequest: FC<PropTypes> = ({ _css }) => {
 
   return (
     <Summary>
-      <Heading type="sub" icon={HeaderIcon} underline link="here">
+      <Heading icon={HeaderIcon} underline link="here">
         申請状況
       </Heading>
       <div>

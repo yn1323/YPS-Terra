@@ -29,7 +29,7 @@ export const SummaryWorkTime: FC<PropTypes> = ({
 
   return (
     <Summary css={_css}>
-      <Heading type="sub" icon={HeaderIcon} underline>
+      <Heading icon={HeaderIcon} underline>
         {title}
       </Heading>
       <div css={styles.description}>

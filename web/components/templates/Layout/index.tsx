@@ -47,6 +47,7 @@ const styles = {
   `,
   wrapper: css`
     margin-top: 48px;
+    padding: 20px 15px;
     padding-bottom: 56px;
     ${mediaQueries('sm')} {
       padding-bottom: 56px;
