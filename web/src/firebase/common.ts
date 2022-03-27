@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth'
 import { env } from '@/config/env'
 
 export type User = {
@@ -18,5 +18,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig)
 
-export const provider = new GoogleAuthProvider()
+export const googleProvider = new GoogleAuthProvider()
+export const twitterProvider = new TwitterAuthProvider()
 export const auth = getAuth()

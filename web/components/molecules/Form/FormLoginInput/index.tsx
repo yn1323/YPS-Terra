@@ -1,11 +1,12 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
+import Link from 'next/link'
 import { FC, useRef, useState } from 'react'
 import { Button } from '@/atoms/Button/Button'
 import { Textbox } from '@/atoms/Input/Textbox'
 import { FORM_ERROR_TEXT } from '@/constants/validations'
 import { useLogIn } from '@/hooks/useLogIn'
-import { useLogout } from '@/hooks/useLogout'
+import { mediaQueries } from '@/ui/mixins/breakpoint'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
@@ -27,7 +28,7 @@ export const FormLoginInput: FC<PropTypes> = ({ _css, isSignUp = false }) => {
     return Object.values(errors).every(result => !result)
   }
 
-  const submit = () => {
+  const handleSignIn = () => {
     if (!checkError) return
     signIn('mail', {
       email: mailRef.current?.value ?? '',
@@ -35,7 +36,7 @@ export const FormLoginInput: FC<PropTypes> = ({ _css, isSignUp = false }) => {
     })
   }
 
-  const signup = () => {
+  const handleSignUp = () => {
     if (!checkError) return
     signUp({
       email: mailRef.current?.value ?? '',
@@ -51,7 +52,7 @@ export const FormLoginInput: FC<PropTypes> = ({ _css, isSignUp = false }) => {
   }
 
   return (
-    <form css={[_css, styles.container]} data-testid="formlogininput">
+    <div css={[_css, styles.container]}>
       <div css={styles.input}>
         <Textbox
           type="mail"
@@ -59,7 +60,7 @@ export const FormLoginInput: FC<PropTypes> = ({ _css, isSignUp = false }) => {
           required
           helperText={FORM_ERROR_TEXT.EMAIL}
           error={error.mail}
-          placeholder="Email"
+          placeholder="Eメール"
         />
       </div>
       <div css={styles.input}>
@@ -69,36 +70,71 @@ export const FormLoginInput: FC<PropTypes> = ({ _css, isSignUp = false }) => {
           required
           helperText={FORM_ERROR_TEXT.PASSWORD}
           error={error.password}
-          placeholder="Password"
+          placeholder="パスワード"
         />
       </div>
 
-      {!isSignUp && (
-        <Button onClick={submit} _css={styles.button}>
-          ログイン
-        </Button>
-      )}
+      <div css={styles.submit}>
+        {!isSignUp ? (
+          <Button onClick={handleSignIn} _css={styles.button}>
+            ログイン
+          </Button>
+        ) : (
+          <Button onClick={handleSignUp} _css={styles.button}>
+            登録
+          </Button>
+        )}
+      </div>
 
+      {!isSignUp && (
+        <div css={styles.emailSubText}>
+          <Link href="/login/register">
+            <a>新規登録</a>
+          </Link>
+          <span onClick={refresh}>パスワードをお忘れの方</span>
+        </div>
+      )}
       {isSignUp && (
-        <Button onClick={signup} _css={styles.button}>
-          登録
-        </Button>
+        <div css={styles.emailSubText}>
+          <Link href="/login">
+            <a>ログイン画面に戻る</a>
+          </Link>
+        </div>
       )}
-
-      {!isSignUp && (
-        <Button onClick={refresh}>パスワードを忘れた方はこちら</Button>
-      )}
-    </form>
+    </div>
   )
 }
+
 const styles = {
   container: css`
-    margin: 20px 0;
+    width: 100%;
+    ${mediaQueries('sm')} {
+      width: 360px;
+    }
   `,
   input: css`
     margin: 20px 0;
   `,
-  button: css`
+  submit: css`
     width: 100%;
+    display: flex;
+    justify-content: center;
+  `,
+  button: css`
+    width: 220px;
+  `,
+  emailSubText: css`
+    margin-top: 20px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+
+    > * {
+      font-size: 0.9rem;
+      margin: 10px 0;
+      cursor: pointer;
+      text-decoration: underline;
+      color: #666;
+    }
   `,
 }

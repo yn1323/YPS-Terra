@@ -6,8 +6,14 @@ export default {
   title: 'molecules/Form/FormLoginInput',
   component: FormLoginInput,
 } as ComponentMeta<typeof FormLoginInput>
-const args = {}
+const args = {
+  isSignUp: false,
+}
 
-export const Basic: StoryObj = {
+export const SingIn: StoryObj = {
   args,
+}
+
+export const SingUp: StoryObj = {
+  args: { ...args, isSignUp: true },
 }

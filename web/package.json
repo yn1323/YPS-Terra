@@ -9,9 +9,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "test-storybook": "test-storybook",
+    "storybook": "start-storybook -p 6006  -s ./public",
+    "build-storybook": "build-storybook  -s ./public",
+    "test-storybook": "test-storybook  -s ./public",
     "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"yarn build-storybook --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && yarn test-storybook\"",
     "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },

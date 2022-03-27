@@ -1,3 +1,4 @@
+import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { Button as MuiButton } from '@mui/material'
 import type { ButtonProps } from '@mui/material'
@@ -28,7 +29,7 @@ export const Button: FC<PropTypes> = ({
 }) => {
   return (
     <MuiButton
-      css={_css}
+      css={[_css, styles.button]}
       color={color}
       variant={variant}
       disabled={disabled}
@@ -40,4 +41,10 @@ export const Button: FC<PropTypes> = ({
       {children}
     </MuiButton>
   )
+}
+
+const styles = {
+  button: css`
+    text-transform: none;
+  `,
 }

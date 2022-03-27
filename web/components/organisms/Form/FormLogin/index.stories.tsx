@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react'
-import { ComponentProps, useEffect } from 'react'
+import { ComponentProps } from 'react'
 import { FormLogin } from '.'
 import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 

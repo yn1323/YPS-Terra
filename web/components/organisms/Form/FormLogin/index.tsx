@@ -1,9 +1,10 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { Google, Person } from '@mui/icons-material'
+import { Box } from '@mui/material'
 import { FC } from 'react'
-import { Button } from '@/atoms/Button/Button'
-import { useLogIn } from '@/hooks/useLogIn'
+import { ButtonAnonymouslyLogin } from '@/molecules/Button/ButtonAnonymouslyLogin'
+import { ButtonGoogleLogin } from '@/molecules/Button/ButtonGoogleLogin'
+import { ButtonTwitterLogin } from '@/molecules/Button/ButtonTwitterLogin'
 import { FormLoginInput } from '@/molecules/Form/FormLoginInput'
 
 type PropTypes = {
@@ -11,43 +12,34 @@ type PropTypes = {
 }
 
 export const FormLogin: FC<PropTypes> = ({ _css }) => {
-  const { signIn } = useLogIn()
   return (
-    <div css={[_css, styles.container]}>
-      <p>Login with...</p>
-      <div css={styles.buttons}>
-        <Button
-          _css={styles.button}
-          variant="outlined"
-          onClick={() => signIn('google')}
-          endIcon={<Google />}
-        >
-          Google
-        </Button>
-        <Button
-          _css={styles.button}
-          variant="outlined"
-          onClick={() => {
-            signIn('anonymously')
-          }}
-          endIcon={<Person />}
-        >
-          Anonymously
-        </Button>
+    <Box css={[_css, styles.container]}>
+      <div css={styles.loginButtons}>
+        <ButtonGoogleLogin _css={styles.loginButton} />
+        <ButtonTwitterLogin _css={styles.loginButton} />
+        <ButtonAnonymouslyLogin _css={styles.loginButton} />
+        <div css={styles.divider}>or</div>
         <FormLoginInput />
       </div>
-    </div>
+    </Box>
   )
 }
 const styles = {
   container: css``,
-  buttons: css`
+  divider: css`
+    margin-top: 15px;
+  `,
+  loginButtons: css`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+  `,
+  loginButton: css`
+    margin: 7px 0;
   `,
   button: css`
-    width: 200px;
+    width: 400px;
     margin: 10px 0;
     padding-right: 40px;
     padding-left: 40px;
