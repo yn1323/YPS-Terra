@@ -1,9 +1,11 @@
 import CssBaseline from '@mui/material/CssBaseline'
 import { css } from '@emotion/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 import { theme } from '../src/ui/theme'
 import * as nextImage from 'next/image'
+import { RecoilRoot } from 'recoil'
+import { useRecoilSnapshot } from 'recoil'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -15,10 +17,23 @@ export const parameters = {
 }
 
 const withThemeProvider = (Story, context) => {
+  function DebugObserver() {
+    const snapshot = useRecoilSnapshot()
+    useEffect(() => {
+      for (const node of snapshot.getNodes_UNSTABLE({ isModified: true })) {
+        console.debug(node.key, snapshot.getLoadable(node))
+      }
+    }, [snapshot])
+
+    return null
+  }
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Story {...context} />
+      <RecoilRoot>
+        <DebugObserver />
+        <CssBaseline />
+        <Story {...context} />
+      </RecoilRoot>
     </ThemeProvider>
   )
 }

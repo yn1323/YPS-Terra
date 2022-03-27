@@ -11,12 +11,19 @@ questions:
 # `{{ inputs.path }}/index.tsx`
 
 ```tsx
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPageWithLayout } from 'next'
+import { ReactElement } from 'react'
+import { Animation } from '@/templates/Animation'
+import { Layout } from '@/templates/Layout'
 
 type PropTypes = {}
 
 export const {{ inputs.pageName | pascal }}: NextPage<PropTypes> = ({}) => {
-  return <div></div>
+  return <Animation><div></div></Animation>
+}
+
+{{ inputs.pageName | pascal }}.getLayout = (page: ReactElement) => {
+  return <Layout>{page}</Layout>
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {

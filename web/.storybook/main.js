@@ -30,7 +30,7 @@ module.exports = {
       '@/config': path.resolve(__dirname, '../src/config'),
       '@/graphql': path.resolve(__dirname, '../graphql'),
       '@/hooks': path.resolve(__dirname, '../src/hooks'),
-      '@/hooks': path.resolve(__dirname, '../src/hooks'),
+      '@/firebase': path.resolve(__dirname, '../src/firebase'),
       '@/atoms': path.resolve(__dirname, '../components/atoms'),
       '@/molecules': path.resolve(__dirname, '../components/molecules'),
       '@/organisms': path.resolve(__dirname, '../components/organisms'),
