@@ -10,6 +10,8 @@ export default {
 const args = {
   items: COMMON_MENU[1].items,
   delimeterPosition: [1],
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  close: () => {},
 }
 
 export const Basic: StoryObj = { args }
