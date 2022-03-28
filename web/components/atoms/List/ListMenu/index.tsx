@@ -3,7 +3,7 @@ import type { SerializedStyles } from '@emotion/react'
 import { Divider, ListItemIcon, ListItemText, MenuItem } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { logOut } from '@/firebase/auth/logOut'
+import { useLogout } from '@/hooks/useLogout'
 import { MenuItem as MenuItemType } from '@/ui/layout/menu'
 import { themes } from '@/ui/theme'
 
@@ -21,9 +21,10 @@ export const ListMenu: FC<PropTypes> = ({
   close,
 }) => {
   const router = useRouter()
+  const { singOut } = useLogout()
   const routeTo = (link: string) => {
     if (link === '/logout') {
-      logOut()
+      singOut()
       router.push('/')
     } else {
       router.push(link)

@@ -11,7 +11,7 @@ export const useLogout = () => {
     setIsLoading(true)
     await logOut()
     setUserInfo({ ...defaultUserInfo })
-    document.cookie = `yps-token=`
+    document.cookie = `yps-token=; max-age=0`
 
     setIsLoading(false)
   }
