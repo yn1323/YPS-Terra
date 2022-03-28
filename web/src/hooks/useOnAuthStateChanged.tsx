@@ -21,9 +21,6 @@ export const useOnAuthStateChanged = () => {
     if (unsubscribe.authChange) {
       unsubscribe.authChange()
     }
-    if (!onAuthStateChanged) {
-      return
-    }
 
     unsubscribe.authChange = onAuthStateChanged(auth, user => {
       if (!user) {
