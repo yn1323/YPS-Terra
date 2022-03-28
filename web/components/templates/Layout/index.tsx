@@ -14,7 +14,7 @@ type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
 }
 
-const isNotAuth = ['/', '/login', '/login/register']
+const isNotAuth = ['/', '/login', '/login/register', '/error']
 
 export const Layout: FC<PropTypes> = ({ _css, children }) => {
   const childComponents = Array.isArray(children) ? children : [children]
