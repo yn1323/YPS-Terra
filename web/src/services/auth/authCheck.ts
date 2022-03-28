@@ -13,7 +13,7 @@ export const authCheck = async (context: GetServerSidePropsContext) => {
   const ret = {
     userInfo: data,
     isAuthenticated: errors
-      ? errors[0].extensions.response.statusCode !== 403
+      ? errors[0]?.extensions.response.statusCode !== 403
       : false,
     isUserExist: !!data,
   }
