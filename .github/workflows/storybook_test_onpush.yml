@@ -3,7 +3,7 @@ name: storybook_test_onpush
 on:
   pull_request:
     paths:
-      - 'web/**'
+      - 'web/components/**'
 
 jobs:
   storybook_test_onpush:
