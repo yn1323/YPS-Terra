@@ -9,8 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "storybook": "start-storybook -p 6006  -s ./public",
-    "build-storybook": "build-storybook  -s ./public",
+    "storybook": "start-storybook -p 6006  -s public",
+    "build-storybook": "build-storybook  -s public",
     "test-storybook": "test-storybook",
     "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"yarn build-storybook --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:6006 && yarn test-storybook\"",
     "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
@@ -28,14 +28,12 @@
     "firebase": "9.6.10",
     "framer-motion": "^6.2.8",
     "graphql": "16.3.0",
-    "install": "^0.13.0",
     "next": "12.1.0",
-    "npm": "^8.5.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.28.1",
     "recoil": "0.5.1",
-    "recoil-persist": "^4.0.0"
+    "recoil-persist": "4.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.17.8",

@@ -17,27 +17,34 @@ export const useLogIn = () => {
     type: 'google' | 'mail' | 'anonymously' | 'twitter',
     options: EmailSignIn = { email: '', password: '' }
   ) => {
+    let result
     setIsLoading(true)
     if (type === 'google') {
-      await signInGoogle()
+      result = await signInGoogle()
     } else if (type === 'mail') {
-      await signInMail(options)
+      result = await signInMail(options)
     } else if (type === 'anonymously') {
-      await signInAnonymously()
+      result = await signInAnonymously()
     } else if (type === 'twitter') {
-      await signInTwitter()
+      result = await signInTwitter()
     }
-    setIsLoading(false)
+    if (!result) {
+      setIsLoading(false)
+    }
+    return result
   }
+
   const signUp = async (options: EmailSignIn = { email: '', password: '' }) => {
     setIsLoading(true)
-    await createUser(options)
+    const result = await createUser(options)
     setIsLoading(false)
+    return result
   }
   const refreshPassword = async ({ email }: { email: string }) => {
     setIsLoading(true)
-    await forgotPassword({ email })
+    const result = await forgotPassword({ email })
     setIsLoading(false)
+    return result
   }
   return {
     isLoading,

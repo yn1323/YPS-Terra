@@ -6,7 +6,9 @@ export default {
   title: 'molecules/Button/ButtonAnonymouslyLogin',
   component: ButtonAnonymouslyLogin,
 } as ComponentMeta<typeof ButtonAnonymouslyLogin>
-const args = {}
+const args = {
+  loading: false,
+}
 
 export const Basic: StoryObj = {
   args,

@@ -1,6 +1,5 @@
 import { onAuthStateChanged } from 'firebase/auth'
-import type { User } from 'firebase/auth'
-import type { Unsubscribe } from 'firebase/auth'
+import type { User, Unsubscribe } from 'firebase/auth'
 import { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { auth } from '@/firebase/common'
@@ -21,6 +20,9 @@ export const useOnAuthStateChanged = () => {
   useEffect(() => {
     if (unsubscribe.authChange) {
       unsubscribe.authChange()
+    }
+    if (!onAuthStateChanged) {
+      return
     }
 
     unsubscribe.authChange = onAuthStateChanged(auth, user => {

@@ -1,7 +1,9 @@
 import CssBaseline from '@mui/material/CssBaseline'
+import { ApolloProvider } from '@apollo/client'
 import { css } from '@emotion/react'
 import React, { useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
+import client from '../src/config/apollo-client'
 import { theme } from '../src/ui/theme'
 import * as nextImage from 'next/image'
 import { RecoilRoot } from 'recoil'
@@ -28,13 +30,15 @@ const withThemeProvider = (Story, context) => {
     return null
   }
   return (
-    <ThemeProvider theme={theme}>
-      <RecoilRoot>
-        <DebugObserver />
-        <CssBaseline />
-        <Story {...context} />
-      </RecoilRoot>
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <RecoilRoot>
+          <DebugObserver />
+          <CssBaseline />
+          <Story {...context} />
+        </RecoilRoot>
+      </ThemeProvider>
+    </ApolloProvider>
   )
 }
 export const decorators = [withThemeProvider]

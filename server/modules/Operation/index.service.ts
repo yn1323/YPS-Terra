@@ -24,21 +24,23 @@ export class OperationService {
       .doc(args.shopId)
       .collection('operation')
 
-    try {
-      for (const { operationName, color, icon } of this.defaultOperations) {
-        const operationId = getRandomId()
-        const d: Operation = {
-          operationId,
-          operationName,
-          color,
-          icon,
-        }
-        await target.doc(operationId).create(d)
-        ret = [...ret, d]
+    for (const { operationName, color, icon } of this.defaultOperations) {
+      const operationId = getRandomId()
+      const d: Operation = {
+        operationId,
+        operationName,
+        color,
+        icon,
       }
-    } catch (e) {
-      console.log(e)
-      return new BadRequestException()
+      const result = await target
+        .doc(operationId)
+        .create(d)
+        .catch(e => null)
+      if (!result) {
+        return new BadRequestException()
+      }
+
+      ret = [...ret, d]
     }
 
     return ret
@@ -47,20 +49,20 @@ export class OperationService {
   async findAllByShopId(args: GetOperationsArgs) {
     let ret: Operation[] = []
 
-    try {
-      const snapshot = await collections.operation
-        .doc(args.shopId)
-        .collection('operation')
-        .get()
-      snapshot.forEach(d => {
-        ret = [...ret, d.data() as Operation]
-      })
-      if (!ret.length) {
-        return new NotFoundException()
-      }
-    } catch (e) {
-      console.log(e)
+    const snapshot = await collections.operation
+      .doc(args.shopId)
+      .collection('operation')
+      .get()
+      .catch(e => null)
+    if (!snapshot) {
       return new BadRequestException()
+    }
+
+    snapshot.forEach(d => {
+      ret = [...ret, d.data() as Operation]
+    })
+    if (!ret.length) {
+      return new NotFoundException()
     }
 
     return ret

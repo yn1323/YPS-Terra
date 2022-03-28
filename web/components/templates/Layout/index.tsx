@@ -1,6 +1,8 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
+import { useMemo } from 'react'
 import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 import { Footer } from '@/molecules/Footer'
 import { Header } from '@/organisms/Header/Header'
@@ -12,14 +14,23 @@ type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
 }
 
+const isNotAuth = ['/', '/login', '/login/register']
+
 export const Layout: FC<PropTypes> = ({ _css, children }) => {
   const childComponents = Array.isArray(children) ? children : [children]
   useOnAuthStateChanged()
+  const router = useRouter()
+  const pathname = router?.pathname
+
+  const isLoggedIn = useMemo(
+    () => !isNotAuth.some(path => path === pathname),
+    [pathname]
+  )
 
   return (
     <div css={[_css, styles.container]}>
       <div css={styles.header}>
-        <Header />
+        <Header isLoggedIn={isLoggedIn} />
       </div>
       <div css={styles.wrapper}>
         <div css={styles.component}>{childComponents}</div>

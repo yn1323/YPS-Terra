@@ -29,9 +29,9 @@ export const MenuButton: FC<PropTypes> = ({
   const [show, setShow] = useState(false)
   const ref = useRef(null)
   return (
-    <Fragment css={_css}>
+    <Fragment>
       <Button
-        css={styles.button}
+        css={[_css, styles.button]}
         startIcon={icon}
         endIcon={hasMenu ? <KeyboardArrowDown /> : undefined}
         href={link ? link : undefined}
@@ -43,7 +43,11 @@ export const MenuButton: FC<PropTypes> = ({
       </Button>
       {!!items.length && (
         <Popper show={show} setShow={setShow} anchorEl={ref.current}>
-          <ListMenu items={items} delimeterPosition={delimeterPosition} />
+          <ListMenu
+            close={() => setShow(false)}
+            items={items}
+            delimeterPosition={delimeterPosition}
+          />
         </Popper>
       )}
     </Fragment>

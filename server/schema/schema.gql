@@ -48,6 +48,7 @@ type Query {
   temporaryClosed(organizationId: ID!, shopId: ID!): [TemporaryClosed!]!
   timeCard(shopId: ID!, userId: ID!): [TimeCard!]!
   user(userId: ID!): User!
+  userExists(token: ID!): User!
 }
 
 type Request {

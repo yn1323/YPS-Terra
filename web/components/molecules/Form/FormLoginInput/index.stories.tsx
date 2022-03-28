@@ -8,6 +8,7 @@ export default {
 } as ComponentMeta<typeof FormLoginInput>
 const args = {
   isSignUp: false,
+  loading: false,
 }
 
 export const SingIn: StoryObj = {

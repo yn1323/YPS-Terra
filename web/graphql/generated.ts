@@ -23,9 +23,71 @@ export type Scalars = {
   Timestamp: any
 }
 
+export type Announce = {
+  __typename?: 'Announce'
+  announceDateFrom: Scalars['Timestamp']
+  announceDateTo: Scalars['Timestamp']
+  message: Scalars['String']
+  organizationId: Scalars['ID']
+  shopId: Scalars['ID']
+}
+
 export type Mutation = {
   __typename?: 'Mutation'
+  announce: Announce
+  operation: Array<Operation>
+  organization: Organization
+  request: Request
+  requestCondition: RequestCondition
+  shift: Shift
   shop: Shop
+  temporaryClosed: TemporaryClosed
+  timeCard: TimeCard
+  user: User
+}
+
+export type MutationAnnounceArgs = {
+  announceDateFrom: Scalars['Timestamp']
+  announceDateTo: Scalars['Timestamp']
+  message: Scalars['String']
+  organizationId: Scalars['ID']
+  shopId: Scalars['ID']
+}
+
+export type MutationOperationArgs = {
+  shopId: Scalars['ID']
+}
+
+export type MutationOrganizationArgs = {
+  organizationName: Scalars['String']
+  organizationOwnerId: Scalars['ID']
+  shopId: Scalars['ID']
+}
+
+export type MutationRequestArgs = {
+  breakFrom: Scalars['Timestamp']
+  breakTo: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+  workFrom: Scalars['Timestamp']
+  workTo: Scalars['Timestamp']
+}
+
+export type MutationRequestConditionArgs = {
+  dateFrom: Scalars['Timestamp']
+  dateTo: Scalars['Timestamp']
+  done: Scalars['Boolean']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+}
+
+export type MutationShiftArgs = {
+  breakFrom: Scalars['Timestamp']
+  breakTo: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+  workFrom: Scalars['Timestamp']
+  workTo: Scalars['Timestamp']
 }
 
 export type MutationShopArgs = {
@@ -37,21 +99,145 @@ export type MutationShopArgs = {
   useTimeCard: Scalars['Boolean']
 }
 
+export type MutationTemporaryClosedArgs = {
+  date: Scalars['Timestamp']
+  organizationId: Scalars['ID']
+  shopId: Scalars['ID']
+}
+
+export type MutationTimeCardArgs = {
+  breakFrom: Scalars['Timestamp']
+  breakTo: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+  workFrom: Scalars['Timestamp']
+  workTo: Scalars['Timestamp']
+}
+
+export type MutationUserArgs = {
+  shopId: Scalars['ID']
+  userName: Scalars['String']
+}
+
+export type Operation = {
+  __typename?: 'Operation'
+  color: Scalars['String']
+  icon: Scalars['String']
+  operationId: Scalars['ID']
+  operationName: Scalars['String']
+}
+
+export type Organization = {
+  __typename?: 'Organization'
+  organizationId: Scalars['ID']
+  organizationName: Scalars['String']
+  organizationOwnerIds: Array<Scalars['ID']>
+  shopIds: Array<Scalars['ID']>
+}
+
 export type Query = {
   __typename?: 'Query'
+  announce: Array<Announce>
+  operations: Array<Operation>
+  organization: Organization
+  request: Array<Request>
+  requestCondition: Array<RequestCondition>
+  shift: Array<Shift>
   shop: Shop
+  temporaryClosed: Array<TemporaryClosed>
+  timeCard: Array<TimeCard>
+  user: User
+  userExists: User
+}
+
+export type QueryAnnounceArgs = {
+  organizationId: Scalars['ID']
+  shopId: Scalars['ID']
+}
+
+export type QueryOperationsArgs = {
+  shopId: Scalars['ID']
+}
+
+export type QueryOrganizationArgs = {
+  organizationId: Scalars['ID']
+}
+
+export type QueryRequestArgs = {
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+}
+
+export type QueryRequestConditionArgs = {
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+}
+
+export type QueryShiftArgs = {
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
 }
 
 export type QueryShopArgs = {
   shopId: Scalars['ID']
 }
 
+export type QueryTemporaryClosedArgs = {
+  organizationId: Scalars['ID']
+  shopId: Scalars['ID']
+}
+
+export type QueryTimeCardArgs = {
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+}
+
+export type QueryUserArgs = {
+  userId: Scalars['ID']
+}
+
+export type QueryUserExistsArgs = {
+  token: Scalars['ID']
+}
+
+export type Request = {
+  __typename?: 'Request'
+  breakFrom: Scalars['Timestamp']
+  breakTo: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+  workFrom: Scalars['Timestamp']
+  workTo: Scalars['Timestamp']
+}
+
+export type RequestCondition = {
+  __typename?: 'RequestCondition'
+  dateFrom: Scalars['Timestamp']
+  dateTo: Scalars['Timestamp']
+  done: Scalars['Boolean']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+}
+
+export type Shift = {
+  __typename?: 'Shift'
+  breakFrom: Scalars['Timestamp']
+  breakTo: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+  workFrom: Scalars['Timestamp']
+  workTo: Scalars['Timestamp']
+}
+
 export type Shop = {
   __typename?: 'Shop'
+  avatar: Scalars['String']
   closeTime: Scalars['Timestamp']
+  closedWeekday: Array<Scalars['Int']>
   openTime: Scalars['Timestamp']
   shopId: Scalars['ID']
   shopName: Scalars['String']
+  shopOwnerIds: Array<Scalars['ID']>
   submitFrequency: Scalars['String']
   timeUnit: Scalars['Int']
   useTimeCard: Scalars['Boolean']
@@ -64,6 +250,46 @@ export type Subscription = {
 
 export type SubscriptionShopArgs = {
   shopId: Scalars['ID']
+}
+
+export type TemporaryClosed = {
+  __typename?: 'TemporaryClosed'
+  date: Scalars['Timestamp']
+  organizationId: Scalars['ID']
+  shopId: Scalars['ID']
+}
+
+export type TimeCard = {
+  __typename?: 'TimeCard'
+  breakFrom: Scalars['Timestamp']
+  breakTo: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+  workFrom: Scalars['Timestamp']
+  workTo: Scalars['Timestamp']
+}
+
+export type User = {
+  __typename?: 'User'
+  avatar: Scalars['String']
+  memberOf: Array<Scalars['ID']>
+  userId: Scalars['ID']
+  userName: Scalars['String']
+}
+
+export type UserExistsQueryVariables = Exact<{
+  token: Scalars['ID']
+}>
+
+export type UserExistsQuery = {
+  __typename?: 'Query'
+  userExists: {
+    __typename?: 'User'
+    userId: string
+    userName: string
+    avatar: string
+    memberOf: Array<string>
+  }
 }
 
 export type ShopQueryVariables = Exact<{
@@ -84,6 +310,80 @@ export type ShopQuery = {
   }
 }
 
+export type GetUserQueryVariables = Exact<{
+  userId: Scalars['ID']
+}>
+
+export type GetUserQuery = {
+  __typename?: 'Query'
+  user: {
+    __typename?: 'User'
+    userId: string
+    userName: string
+    avatar: string
+    memberOf: Array<string>
+  }
+}
+
+export const UserExistsDocument = gql`
+  query userExists($token: ID!) {
+    userExists(token: $token) {
+      userId
+      userName
+      avatar
+      memberOf
+    }
+  }
+`
+
+/**
+ * __useUserExistsQuery__
+ *
+ * To run a query within a React component, call `useUserExistsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserExistsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserExistsQuery({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useUserExistsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UserExistsQuery,
+    UserExistsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<UserExistsQuery, UserExistsQueryVariables>(
+    UserExistsDocument,
+    options
+  )
+}
+export function useUserExistsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserExistsQuery,
+    UserExistsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<UserExistsQuery, UserExistsQueryVariables>(
+    UserExistsDocument,
+    options
+  )
+}
+export type UserExistsQueryHookResult = ReturnType<typeof useUserExistsQuery>
+export type UserExistsLazyQueryHookResult = ReturnType<
+  typeof useUserExistsLazyQuery
+>
+export type UserExistsQueryResult = Apollo.QueryResult<
+  UserExistsQuery,
+  UserExistsQueryVariables
+>
 export const ShopDocument = gql`
   query shop($shopId: ID!) {
     shop(shopId: $shopId) {
@@ -132,3 +432,54 @@ export function useShopLazyQuery(
 export type ShopQueryHookResult = ReturnType<typeof useShopQuery>
 export type ShopLazyQueryHookResult = ReturnType<typeof useShopLazyQuery>
 export type ShopQueryResult = Apollo.QueryResult<ShopQuery, ShopQueryVariables>
+export const GetUserDocument = gql`
+  query getUser($userId: ID!) {
+    user(userId: $userId) {
+      userId
+      userName
+      avatar
+      memberOf
+    }
+  }
+`
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserQuery(
+  baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(
+    GetUserDocument,
+    options
+  )
+}
+export function useGetUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(
+    GetUserDocument,
+    options
+  )
+}
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>
+export type GetUserQueryResult = Apollo.QueryResult<
+  GetUserQuery,
+  GetUserQueryVariables
+>

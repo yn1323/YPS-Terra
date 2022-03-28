@@ -6,7 +6,7 @@
   },
   "plugins": ["@typescript-eslint/eslint-plugin", "import"],
   "extends": [
-    "next/core-web-vitals",
+    "next",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "prettier",
@@ -26,7 +26,7 @@
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
-        "argsIgnorePattern": "^_|^type|^of|^returns",
+        "argsIgnorePattern": "^_|^type|^of|^returns|^e",
         "varsIgnorePattern": "^_",
         "caughtErrorsIgnorePattern": "^_"
       }

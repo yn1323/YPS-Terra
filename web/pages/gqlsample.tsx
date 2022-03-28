@@ -1,10 +1,8 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { Button } from '@/atoms/Button/Button'
-import client from '@/config/apollo-client'
-import { getShop } from '@/graphql/Shop/query'
 import { useShopQuery } from '@/graphql/generated'
-import { getCookieValue } from '@/helpers/string'
+import { authPageRedirectTo } from '@/services/ssrProps/authPageRedirectTo'
 
 const Home: NextPage = () => {
   const { loading, error, data } = useShopQuery({
@@ -33,34 +31,15 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
-
 export const getServerSideProps: GetServerSideProps = async context => {
-  let result
-  try {
-    const { data } = await client.query({
-      query: getShop,
-      variables: { shopId: 'QCv5QIAxDue0QuirDyoC' },
-      context: {
-        headers: {
-          authorization: getCookieValue(context.req.headers.cookie),
-        },
-      },
-    })
-    result = data
-  } catch (e) {
-    console.log(e)
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/error/auth',
-      },
-    }
+  const redirect = await authPageRedirectTo(context)
+  if (redirect) {
+    return redirect
   }
 
   return {
-    props: {
-      result,
-    },
+    props: {},
   }
 }
+
+export default Home

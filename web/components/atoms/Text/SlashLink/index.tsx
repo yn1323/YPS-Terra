@@ -33,7 +33,7 @@ const styles = {
     color: ${themes.palette.text.primary};
     position: relative;
     margin: 0 16px;
-    &:not(:first-child):before {
+    &:not(:first-of-type):before {
       content: '/';
       position: absolute;
       left: -1rem;

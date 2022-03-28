@@ -2,10 +2,16 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common'
+import { getAuthFromToken } from '@/firebase/auth'
 import { collections, getRandomId } from '@/firebase/common'
 import { User } from '@/models/User'
-import { CreateUserArgs, GetUserArgs } from '@/modules/User/args'
+import {
+  CreateUserArgs,
+  GetUserArgs,
+  GetUserByTokenArgs,
+} from '@/modules/User/args'
 
 @Injectable()
 export class UserService {
@@ -17,29 +23,37 @@ export class UserService {
       avatar: '',
       memberOf: [args.shopId],
     }
-    try {
-      await collections.user.doc(userId).create({ ...data, isDeleted: false })
-    } catch (e) {
-      console.log(e)
+    const result = await collections.user
+      .doc(userId)
+      .create({ ...data, isDeleted: false })
+      .catch(e => null)
+    if (!result) {
       return new BadRequestException()
     }
-
     return data
   }
-  async findOneByUserId(args: GetUserArgs) {
-    let ret
 
-    try {
-      const snapshot = await collections.user.doc(args.userId).get()
-      if (!snapshot.exists) {
-        return new NotFoundException()
-      }
-      ret = snapshot.data() as User
-    } catch (e) {
-      console.log(e)
+  async findOneByUserId(args: GetUserArgs) {
+    const snapshot = await collections.user
+      .doc(args.userId)
+      .get()
+      .catch(e => null)
+
+    if (!snapshot) {
       return new BadRequestException()
     }
+    if (!snapshot.exists) {
+      return new NotFoundException()
+    }
 
-    return ret
+    return snapshot.data() as User
+  }
+
+  async findOneByToken(args: GetUserByTokenArgs) {
+    const idToken = await getAuthFromToken(args.token)
+    if (!idToken) {
+      return new UnauthorizedException()
+    }
+    return this.findOneByUserId({ userId: idToken.uid })
   }
 }
