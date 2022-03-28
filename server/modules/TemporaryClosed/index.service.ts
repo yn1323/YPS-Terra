@@ -14,10 +14,8 @@ import {
 @Injectable()
 export class TemporaryClosedService {
   async addTemporaryClosed(@Args() args: AddTemporaryClosedArgs) {
-    try {
-      await collections.temporaryClosed.add(args)
-    } catch (e) {
-      console.log(e)
+    const result = await collections.temporaryClosed.add(args).catch(e => null)
+    if (!result) {
       return new BadRequestException()
     }
 
@@ -25,30 +23,32 @@ export class TemporaryClosedService {
       ...args,
     }
   }
+
   async getTempraryClosed(@Args() args: GetTemporaryClosedArgs) {
     let ret: TemporaryClosed[] = []
 
-    try {
-      const snapshot = await collections.temporaryClosed
-        .where('organizationId', '==', args.organizationId)
-        .where('shopId', '==', args.shopId)
-        .get()
-      snapshot.forEach(d => {
-        const dd = d.data()
-        ret = [
-          ...ret,
-          {
-            ...dd,
-            date: dd.date.toDate(),
-          } as TemporaryClosed,
-        ]
-      })
-      if (!ret.length) {
-        return new NotFoundException()
-      }
-    } catch (e) {
-      console.log(e)
+    const snapshot = await collections.temporaryClosed
+      .where('organizationId', '==', args.organizationId)
+      .where('shopId', '==', args.shopId)
+      .get()
+      .catch(e => null)
+
+    if (!snapshot) {
       return new BadRequestException()
+    }
+
+    snapshot.forEach(d => {
+      const dd = d.data()
+      ret = [
+        ...ret,
+        {
+          ...dd,
+          date: dd.date.toDate(),
+        } as TemporaryClosed,
+      ]
+    })
+    if (!ret.length) {
+      return new NotFoundException()
     }
 
     return ret

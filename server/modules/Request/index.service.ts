@@ -11,10 +11,8 @@ import { AddRequestArgs, GetRequestArgs } from '@/modules/Request/args'
 @Injectable()
 export class RequestService {
   async addRequest(@Args() args: AddRequestArgs) {
-    try {
-      await collections.request.add(args)
-    } catch (e) {
-      console.log(e)
+    const result = await collections.request.add(args).catch(e => null)
+    if (!result) {
       return new BadRequestException()
     }
 
@@ -24,30 +22,32 @@ export class RequestService {
   async getRequest(@Args() args: GetRequestArgs) {
     let ret: Request[] = []
 
-    try {
-      const snapshot = await collections.request
-        .where('userId', '==', args.userId)
-        .where('shopId', '==', args.shopId)
-        .get()
-      snapshot.forEach(d => {
-        const dd = d.data()
-        ret = [
-          ...ret,
-          {
-            ...dd,
-            workFrom: dd.workFrom.toDate(),
-            workTo: dd.workTo.toDate(),
-            breakFrom: dd.breakFrom.toDate(),
-            breakTo: dd.breakTo.toDate(),
-          } as Request,
-        ]
-      })
-      if (!ret.length) {
-        return new NotFoundException()
-      }
-    } catch (e) {
-      console.log(e)
+    const snapshot = await collections.request
+      .where('userId', '==', args.userId)
+      .where('shopId', '==', args.shopId)
+      .get()
+      .catch(e => null)
+
+    if (!snapshot) {
       return new BadRequestException()
+    }
+
+    snapshot.forEach(d => {
+      const dd = d.data()
+      ret = [
+        ...ret,
+        {
+          ...dd,
+          workFrom: dd.workFrom.toDate(),
+          workTo: dd.workTo.toDate(),
+          breakFrom: dd.breakFrom.toDate(),
+          breakTo: dd.breakTo.toDate(),
+        } as Request,
+      ]
+    })
+
+    if (!ret.length) {
+      return new NotFoundException()
     }
 
     return ret

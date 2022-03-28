@@ -26,7 +26,7 @@
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
-        "argsIgnorePattern": "^_|^type|^of|^returns",
+        "argsIgnorePattern": "^_|^type|^of|^returns|^e",
         "varsIgnorePattern": "^_",
         "caughtErrorsIgnorePattern": "^_"
       }

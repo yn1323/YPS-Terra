@@ -21,28 +21,31 @@ export class ShopService {
       shopOwnerIds: [],
       ...args,
     }
-    try {
-      await collections.shop.doc(shopId).create(d)
-    } catch (e) {
-      console.log(e)
+    const result = await collections.shop
+      .doc(shopId)
+      .create(d)
+      .catch(e => null)
+
+    if (!result) {
       return new BadRequestException()
     }
 
     return d
   }
   async findOneByShopId({ shopId }: GetShopArgs) {
-    let ret
+    const snapshot = await collections.shop
+      .doc(shopId)
+      .get()
+      .catch(e => null)
 
-    try {
-      const snapshot = await collections.shop.doc(shopId).get()
-      if (!snapshot.exists) {
-        return new NotFoundException()
-      }
-      ret = snapshot.data() as Shop
-    } catch (e) {
-      console.log(e)
+    if (!snapshot) {
       return new BadRequestException()
     }
+
+    if (!snapshot.exists) {
+      return new NotFoundException()
+    }
+    const ret = snapshot.data()
 
     return {
       ...ret,

@@ -39,6 +39,7 @@ type Organization {
 
 type Query {
   announce(organizationId: ID!, shopId: ID!): [Announce!]!
+  checkJwt(token: ID!): User!
   operations(shopId: ID!): [Operation!]!
   organization(organizationId: ID!): Organization!
   request(shopId: ID!, userId: ID!): [Request!]!
