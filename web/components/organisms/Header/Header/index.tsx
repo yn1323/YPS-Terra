@@ -1,9 +1,11 @@
 import { css } from '@emotion/react'
 import { AppBar, Button, Toolbar } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC, useMemo, Fragment } from 'react'
 import { HeaderTitle } from '@/atoms/Text/HeaderTitle'
 import { MenuAvatar } from '@/molecules/Menu/MenuAvatar'
 import { MenuHeader } from '@/molecules/Menu/MenuHeader'
+import { mediaQueries } from '@/ui/mixins/breakpoint'
 import { themes } from '@/ui/theme'
 
 type PropTypes = {
@@ -15,17 +17,23 @@ export const Header: FC<PropTypes> = ({
   isLoggedIn = false,
   isInitialLogin = false,
 }) => {
+  const router = useRouter()
   const headerItems = useMemo(
     () => [
       isLoggedIn && <MenuHeader isAdmin showTimeCard />,
       isLoggedIn && !isInitialLogin && <MenuAvatar />,
       !isLoggedIn && !isInitialLogin && (
-        <Button variant="contained" color="primary" size="small">
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={() => router.push('/login')}
+        >
           ログイン
         </Button>
       ),
     ],
-    [isLoggedIn, isInitialLogin]
+    [isLoggedIn, isInitialLogin, router]
   )
 
   return (
@@ -44,11 +52,18 @@ export const Header: FC<PropTypes> = ({
 }
 const styles = {
   container: css`
+    background: ${themes.palette.secondary.main};
     box-shadow: none;
+    ${mediaQueries('sm')} {
+      display: flex;
+      align-items: center;
+    }
   `,
   toolbar: css`
-    background: ${themes.palette.secondary.main};
     color: ${themes.palette.secondary.contrastText};
+    ${mediaQueries('sm')} {
+      width: ${themes.breakpoints.values.lg}px;
+    }
   `,
   toolbarSpace: css`
     padding: 0 16px;

@@ -12,12 +12,19 @@ questions:
 
 ```tsx
 import { ParsedUrlQuery } from 'querystring'
-import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import type { GetStaticPaths, GetStaticProps, NextPageWithLayout } from 'next'
+import { ReactElement } from 'react'
+import { Animation } from '@/templates/Animation'
+import { Layout } from '@/templates/Layout'
 
 type PropTypes = {}
 
-export const {{ inputs.pageName | pascal }}: NextPage<PropTypes> = ({}) => {
-  return <div></div>
+export const {{ inputs.pageName | pascal }}: NextPageWithLayout<PropTypes> = ({}) => {
+  return <Animation><div></div></Animation>
+}
+
+{{ inputs.pageName | pascal }}.getLayout = (page: ReactElement) => {
+  return <Layout>{page}</Layout>
 }
 
 interface Params extends ParsedUrlQuery {

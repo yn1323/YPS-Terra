@@ -21,6 +21,7 @@ export const Textbox: FC<PropTypes> = forwardRef(
       helperText = '',
       placeholder = '',
       maxLength = 64,
+      type = 'text',
     },
     ref
   ) => {
@@ -33,12 +34,14 @@ export const Textbox: FC<PropTypes> = forwardRef(
         fullWidth
         inputRef={ref}
         error={error}
+        type={type}
         inputProps={{ maxLength }}
         disabled={disabled}
         required={required}
         defaultValue={defaultVal}
         helperText={error && helperText}
         placeholder={placeholder}
+        autoComplete={(type = 'password' ? 'new-password' : '')}
       />
     )
   }

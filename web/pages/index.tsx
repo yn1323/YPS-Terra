@@ -1,19 +1,18 @@
-import type { NextPage } from 'next'
-import Link from 'next/link'
-import { useRecoilState } from 'recoil'
-import { countState } from '@/recoil/atom'
+import type { NextPageWithLayout } from 'next'
+import { ReactElement } from 'react'
+import { Animation } from '@/templates/Animation'
+import { Layout } from '@/templates/Layout'
 
-const Home: NextPage = () => {
-  const [count, setCount] = useRecoilState(countState)
+const Home: NextPageWithLayout = () => {
   return (
-    <div>
-      <Link href="/link">
-        <a>link</a>
-      </Link>
-      <a href="/link">a tag link</a>
-      <button onClick={() => setCount(count + 1)}>{count}</button>
-    </div>
+    <Animation>
+      <div>text</div>
+    </Animation>
   )
+}
+
+Home.getLayout = (page: ReactElement) => {
+  return <Layout>{page}</Layout>
 }
 
 export default Home
