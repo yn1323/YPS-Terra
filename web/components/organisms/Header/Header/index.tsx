@@ -10,19 +10,15 @@ import { themes } from '@/ui/theme'
 
 type PropTypes = {
   isLoggedIn?: boolean
-  isInitialLogin?: boolean
 }
 
-export const Header: FC<PropTypes> = ({
-  isLoggedIn = false,
-  isInitialLogin = false,
-}) => {
+export const Header: FC<PropTypes> = ({ isLoggedIn = false }) => {
   const router = useRouter()
   const headerItems = useMemo(
     () => [
       isLoggedIn && <MenuHeader isAdmin showTimeCard />,
-      isLoggedIn && !isInitialLogin && <MenuAvatar />,
-      !isLoggedIn && !isInitialLogin && (
+      isLoggedIn && <MenuAvatar />,
+      !isLoggedIn && (
         <Button
           variant="contained"
           color="primary"
@@ -33,7 +29,7 @@ export const Header: FC<PropTypes> = ({
         </Button>
       ),
     ],
-    [isLoggedIn, isInitialLogin, router]
+    [isLoggedIn, router]
   )
 
   return (

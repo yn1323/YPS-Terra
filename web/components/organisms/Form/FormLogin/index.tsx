@@ -1,9 +1,10 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { Box } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { Heading } from '@/atoms/Text/Heading'
-import { useCheckUserExist } from '@/hooks/useCheckUserExist'
+import { useLogIn } from '@/hooks/useLogIn'
 import { ButtonAnonymouslyLogin } from '@/molecules/Button/ButtonAnonymouslyLogin'
 import { ButtonGoogleLogin } from '@/molecules/Button/ButtonGoogleLogin'
 import { ButtonTwitterLogin } from '@/molecules/Button/ButtonTwitterLogin'
@@ -14,21 +15,47 @@ type PropTypes = {
 }
 
 export const FormLogin: FC<PropTypes> = ({ _css }) => {
-  const { isValidating, data } = useCheckUserExist()
+  const { signIn, isLoading } = useLogIn()
+  const router = useRouter()
+
+  const handleSignIn = async (
+    type: Parameters<typeof signIn>[0],
+    options?: Parameters<typeof signIn>[1]
+  ) => {
+    const result = await signIn(type, options)
+    if (result) {
+      router.push('/register')
+    }
+  }
+
   return (
     <Box css={[_css, styles.container]}>
       <Heading _css={styles.title} center underline variant="h1">
         ログイン
       </Heading>
       <div css={styles.loginButtons}>
-        <ButtonGoogleLogin _css={styles.loginButton} loading={isValidating} />
-        <ButtonTwitterLogin _css={styles.loginButton} loading={isValidating} />
+        <ButtonGoogleLogin
+          _css={styles.loginButton}
+          loading={isLoading}
+          signIn={() => handleSignIn('google')}
+        />
+        <ButtonTwitterLogin
+          _css={styles.loginButton}
+          loading={isLoading}
+          signIn={() => handleSignIn('twitter')}
+        />
         <ButtonAnonymouslyLogin
           _css={styles.loginButton}
-          loading={isValidating}
+          loading={isLoading}
+          signIn={() => handleSignIn('anonymously')}
         />
         <div css={styles.divider}>or</div>
-        <FormLoginInput loading={isValidating} />
+        <FormLoginInput
+          loading={isLoading}
+          signIn={({ email, password }: { email: string; password: string }) =>
+            handleSignIn('mail', { email, password })
+          }
+        />
       </div>
     </Box>
   )

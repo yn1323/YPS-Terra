@@ -1,24 +1,24 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
-import { FormLogin } from '@/organisms/Form/FormLogin'
-import { loginPageRedirectTo } from '@/services/ssrProps/loginPageRedirectTo'
+import { FormRegister } from '@/organisms/Form/FormRegister'
+import { registerPageRedirectTo } from '@/services/ssrProps/registerPageRedirectTo'
 import { Animation } from '@/templates/Animation'
 import { Layout } from '@/templates/Layout'
 
-export const Login: NextPageWithLayout = () => {
+export const Register: NextPageWithLayout = () => {
   return (
     <Animation>
-      <FormLogin />
+      <FormRegister />
     </Animation>
   )
 }
 
-Login.getLayout = (page: ReactElement) => {
+Register.getLayout = (page: ReactElement) => {
   return <Layout>{page}</Layout>
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const redirect = await loginPageRedirectTo(context)
+  const redirect = await registerPageRedirectTo(context)
   if (redirect) {
     return redirect
   }
@@ -28,4 +28,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-export default Login
+export default Register

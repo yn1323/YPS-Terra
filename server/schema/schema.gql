@@ -39,7 +39,6 @@ type Organization {
 
 type Query {
   announce(organizationId: ID!, shopId: ID!): [Announce!]!
-  checkJwt(token: ID!): User!
   operations(shopId: ID!): [Operation!]!
   organization(organizationId: ID!): Organization!
   request(shopId: ID!, userId: ID!): [Request!]!
@@ -49,6 +48,7 @@ type Query {
   temporaryClosed(organizationId: ID!, shopId: ID!): [TemporaryClosed!]!
   timeCard(shopId: ID!, userId: ID!): [TimeCard!]!
   user(userId: ID!): User!
+  userExists(token: ID!): User!
 }
 
 type Request {

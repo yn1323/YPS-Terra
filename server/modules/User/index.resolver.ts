@@ -21,7 +21,7 @@ export class UserResolver {
     return this.userService.findOneByUserId(args)
   }
 
-  @Query(returns => User, { name: 'checkJwt' })
+  @Query(returns => User, { name: 'userExists' })
   findOneByToken(@Args() args: GetUserByTokenArgs) {
     return this.userService.findOneByToken(args)
   }

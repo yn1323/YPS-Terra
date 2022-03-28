@@ -147,6 +147,7 @@ export type Query = {
   temporaryClosed: Array<TemporaryClosed>
   timeCard: Array<TimeCard>
   user: User
+  userExists: User
 }
 
 export type QueryAnnounceArgs = {
@@ -193,6 +194,10 @@ export type QueryTimeCardArgs = {
 
 export type QueryUserArgs = {
   userId: Scalars['ID']
+}
+
+export type QueryUserExistsArgs = {
+  token: Scalars['ID']
 }
 
 export type Request = {
@@ -272,6 +277,21 @@ export type User = {
   userName: Scalars['String']
 }
 
+export type UserExistsQueryVariables = Exact<{
+  token: Scalars['ID']
+}>
+
+export type UserExistsQuery = {
+  __typename?: 'Query'
+  userExists: {
+    __typename?: 'User'
+    userId: string
+    userName: string
+    avatar: string
+    memberOf: Array<string>
+  }
+}
+
 export type ShopQueryVariables = Exact<{
   shopId: Scalars['ID']
 }>
@@ -305,6 +325,65 @@ export type GetUserQuery = {
   }
 }
 
+export const UserExistsDocument = gql`
+  query userExists($token: ID!) {
+    userExists(token: $token) {
+      userId
+      userName
+      avatar
+      memberOf
+    }
+  }
+`
+
+/**
+ * __useUserExistsQuery__
+ *
+ * To run a query within a React component, call `useUserExistsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserExistsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserExistsQuery({
+ *   variables: {
+ *      token: // value for 'token'
+ *   },
+ * });
+ */
+export function useUserExistsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UserExistsQuery,
+    UserExistsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<UserExistsQuery, UserExistsQueryVariables>(
+    UserExistsDocument,
+    options
+  )
+}
+export function useUserExistsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserExistsQuery,
+    UserExistsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<UserExistsQuery, UserExistsQueryVariables>(
+    UserExistsDocument,
+    options
+  )
+}
+export type UserExistsQueryHookResult = ReturnType<typeof useUserExistsQuery>
+export type UserExistsLazyQueryHookResult = ReturnType<
+  typeof useUserExistsLazyQuery
+>
+export type UserExistsQueryResult = Apollo.QueryResult<
+  UserExistsQuery,
+  UserExistsQueryVariables
+>
 export const ShopDocument = gql`
   query shop($shopId: ID!) {
     shop(shopId: $shopId) {

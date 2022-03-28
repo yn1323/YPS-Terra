@@ -1,7 +1,9 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { Divider, ListItemIcon, ListItemText, MenuItem } from '@mui/material'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
+import { logOut } from '@/firebase/auth/logOut'
 import { MenuItem as MenuItemType } from '@/ui/layout/menu'
 import { themes } from '@/ui/theme'
 
@@ -9,24 +11,37 @@ type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
   items: MenuItemType[]
   delimeterPosition?: number[]
+  close: () => void
 }
 
 export const ListMenu: FC<PropTypes> = ({
   _css,
   items,
   delimeterPosition = [],
+  close,
 }) => {
+  const router = useRouter()
+  const routeTo = (link: string) => {
+    if (link === '/logout') {
+      logOut()
+      router.push('/')
+    } else {
+      router.push(link)
+    }
+    close()
+  }
+
   const MenuItems = items.reduce(
     (acc: JSX.Element[], { icon, label, link }, i) => {
       acc.push(
-        <MenuItem onClick={close} key={acc.length + 1}>
+        <MenuItem onClick={() => routeTo(link)} key={acc.length + 1}>
           <ListItemIcon css={styles.icon}>{icon}</ListItemIcon>
           <ListItemText css={styles.text} primary={label} disableTypography />
           {delimeterPosition.includes(i) && <Divider css={styles.divider} />}
         </MenuItem>
       )
       if (delimeterPosition.includes(i)) {
-        acc.push(<Divider css={styles.divider} key={acc.length + 1} />)
+        acc.push(<Divider css={styles.divider} key={acc.length + 1100} />)
       }
       return acc
     },

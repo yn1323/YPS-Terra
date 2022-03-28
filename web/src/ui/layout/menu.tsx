@@ -64,7 +64,7 @@ export const MENU: Menu = {
   LOGOUT: {
     icon: <ExitToApp />,
     label: 'ログアウト',
-    link: '',
+    link: '/logout',
   },
 }
 

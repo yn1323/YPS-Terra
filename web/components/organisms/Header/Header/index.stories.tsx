@@ -8,7 +8,11 @@ export default {
 } as ComponentMeta<typeof Header>
 const args = {
   isLoggedIn: true,
-  isInitialLogin: true,
 }
 
 export const Basic: StoryObj = { args }
+export const NotLoggedIn: StoryObj = {
+  args: {
+    isLoggedIn: false,
+  },
+}

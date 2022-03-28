@@ -16,10 +16,7 @@ const authLink = setContext((_, { headers }) => {
       },
     }
   }
-  console.log('toke----')
   const token = getCookieValue(document.cookie)
-  console.log(token)
-  console.log('toke----nnn')
   return {
     headers: {
       ...headers,

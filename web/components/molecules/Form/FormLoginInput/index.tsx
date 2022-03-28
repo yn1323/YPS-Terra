@@ -5,21 +5,30 @@ import { FC, useRef, useState } from 'react'
 import { Button } from '@/atoms/Button/Button'
 import { Textbox } from '@/atoms/Input/Textbox'
 import { FORM_ERROR_TEXT } from '@/constants/validations'
-import { useLogIn } from '@/hooks/useLogIn'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
+
+type SignArgs = {
+  email: string
+  password: string
+}
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
   isSignUp?: boolean
   loading?: boolean
+  signIn?: ({ email, password }: SignArgs) => void
+  signUp?: ({ email, password }: SignArgs) => void
+  refreshPassword?: ({ email }: Pick<SignArgs, 'email'>) => void
 }
 
 export const FormLoginInput: FC<PropTypes> = ({
   _css,
   isSignUp = false,
   loading = false,
+  signIn,
+  signUp,
+  refreshPassword,
 }) => {
-  const { signIn, signUp, refreshPassword } = useLogIn()
   const mailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const [error, setError] = useState({ mail: false, password: false })
@@ -34,15 +43,15 @@ export const FormLoginInput: FC<PropTypes> = ({
   }
 
   const handleSignIn = () => {
-    if (!checkError) return
-    signIn('mail', {
+    if (!checkError || !signIn) return
+    signIn({
       email: mailRef.current?.value ?? '',
       password: passwordRef.current?.value ?? '',
     })
   }
 
   const handleSignUp = () => {
-    if (!checkError) return
+    if (!checkError || !signUp) return
     signUp({
       email: mailRef.current?.value ?? '',
       password: passwordRef.current?.value ?? '',
@@ -50,7 +59,7 @@ export const FormLoginInput: FC<PropTypes> = ({
   }
 
   const refresh = () => {
-    if (!checkError) return
+    if (!checkError || !refreshPassword) return
     refreshPassword({
       email: mailRef.current?.value ?? '',
     })
