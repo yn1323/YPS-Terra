@@ -19,6 +19,7 @@ const args = {
     true
   },
   children: 'hoge',
+  loading: false,
 }
 
 export const Basic: StoryObj = { args }

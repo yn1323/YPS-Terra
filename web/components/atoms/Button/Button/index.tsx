@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { Button as MuiButton } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
 import type { ButtonProps } from '@mui/material'
 import { FC } from 'react'
 
@@ -14,6 +14,7 @@ type PropTypes = {
   endIcon?: JSX.Element
   onClick: () => void
   children: string
+  loading?: boolean
 }
 
 export const Button: FC<PropTypes> = ({
@@ -26,9 +27,10 @@ export const Button: FC<PropTypes> = ({
   endIcon,
   onClick,
   children,
+  loading = false,
 }) => {
   return (
-    <MuiButton
+    <LoadingButton
       css={[_css, styles.button]}
       color={color}
       variant={variant}
@@ -37,9 +39,10 @@ export const Button: FC<PropTypes> = ({
       startIcon={startIcon}
       endIcon={endIcon}
       onClick={onClick}
+      loading={loading}
     >
       {children}
-    </MuiButton>
+    </LoadingButton>
   )
 }
 

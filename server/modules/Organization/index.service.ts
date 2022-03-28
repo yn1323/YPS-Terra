@@ -14,14 +14,16 @@ import {
 export class OrganizationService {
   async createOrganization(args: CreateOrganizationArgs) {
     const organizationId = getRandomId()
-    try {
-      await collections.organization.doc(organizationId).create({
+    const result = await collections.organization
+      .doc(organizationId)
+      .create({
         organizationId,
         organizationName: args.organizationName,
         organizationOwnerIds: [args.organizationOwnerId],
         shopIds: [args.shopId],
       })
-    } catch (e) {
+      .catch(e => null)
+    if (!result) {
       return new BadRequestException()
     }
 
@@ -34,19 +36,19 @@ export class OrganizationService {
   }
 
   async findOneByOrganizationId(args: GetOrganizationArgs) {
-    let ret
+    const snapshot = await collections.organization
+      .doc(args.organizationId)
+      .get()
+      .catch(e => null)
 
-    try {
-      const snapshot = await collections.organization
-        .doc(args.organizationId)
-        .get()
-      if (!snapshot.exists) {
-        return new NotFoundException()
-      }
-      ret = snapshot.data() as Organization
-    } catch (e) {
+    if (!snapshot) {
       return new BadRequestException()
     }
+
+    if (!snapshot.exists) {
+      return new NotFoundException()
+    }
+    const ret = snapshot.data() as Organization
 
     return ret
   }

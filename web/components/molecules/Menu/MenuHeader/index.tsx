@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { FC, useMemo, Fragment } from 'react'
+import { FC, useMemo } from 'react'
 import { MenuButton } from '@/molecules/Menu/MenuButton'
 import {
   ADMIN_MENU,
@@ -26,7 +26,7 @@ export const MenuHeader: FC<PropTypes> = ({ _css, showTimeCard, isAdmin }) => {
     [showTimeCard, isAdmin]
   )
   return (
-    <Fragment css={[_css, styles.container]}>
+    <div css={[_css, styles.container]}>
       {MENU.map(
         ({ icon, label, hasMenu, link, delimeterPosition, items }, i) => (
           <MenuButton
@@ -42,7 +42,7 @@ export const MenuHeader: FC<PropTypes> = ({ _css, showTimeCard, isAdmin }) => {
           </MenuButton>
         )
       )}
-    </Fragment>
+    </div>
   )
 }
 const styles = {

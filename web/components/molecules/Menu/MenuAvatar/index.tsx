@@ -18,9 +18,10 @@ export const MenuAvatar: FC<PropTypes> = ({ _css }) => {
   const { isPC } = useScreenSize()
   const ref = useRef(null)
   const clickHandler = () => setShow(true)
+
   return (
-    <Fragment css={_css}>
-      <div css={styles.space} />
+    <Fragment>
+      <div css={[_css, styles.space]} />
       <Button
         css={styles.button}
         endIcon={isPC ? <KeyboardArrowDown /> : undefined}
@@ -37,7 +38,11 @@ export const MenuAvatar: FC<PropTypes> = ({ _css }) => {
         placement="bottom-end"
         data-testid="container"
       >
-        <ListMenu items={USER_MENU} delimeterPosition={[1]} />
+        <ListMenu
+          close={() => setShow(false)}
+          items={USER_MENU}
+          delimeterPosition={[1]}
+        />
       </Popper>
     </Fragment>
   )

@@ -14,10 +14,8 @@ import {
 @Injectable()
 export class RequestConditionService {
   async addRequestCondition(@Args() args: AddRequestConditionArgs) {
-    try {
-      await collections.requestCondition.add(args)
-    } catch (e) {
-      console.log(e)
+    const result = await collections.requestCondition.add(args).catch(e => null)
+    if (!result) {
       return new BadRequestException()
     }
 
@@ -27,28 +25,29 @@ export class RequestConditionService {
   async getRequestCondition(@Args() args: GetRequestConditionArgs) {
     let ret: RequestCondition[] = []
 
-    try {
-      const snapshot = await collections.requestCondition
-        .where('userId', '==', args.userId)
-        .where('shopId', '==', args.shopId)
-        .get()
-      snapshot.forEach(d => {
-        const dd = d.data()
-        ret = [
-          ...ret,
-          {
-            ...dd,
-            dateFrom: dd.dateFrom.toDate(),
-            dateTo: dd.dateTo.toDate(),
-          } as RequestCondition,
-        ]
-      })
-      if (!ret.length) {
-        return new NotFoundException()
-      }
-    } catch (e) {
-      console.log(e)
+    const snapshot = await collections.requestCondition
+      .where('userId', '==', args.userId)
+      .where('shopId', '==', args.shopId)
+      .get()
+      .catch(e => null)
+
+    if (!snapshot) {
       return new BadRequestException()
+    }
+
+    snapshot.forEach(d => {
+      const dd = d.data()
+      ret = [
+        ...ret,
+        {
+          ...dd,
+          dateFrom: dd.dateFrom.toDate(),
+          dateTo: dd.dateTo.toDate(),
+        } as RequestCondition,
+      ]
+    })
+    if (!ret.length) {
+      return new NotFoundException()
     }
 
     return ret

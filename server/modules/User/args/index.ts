@@ -8,3 +8,9 @@ export class CreateUserArgs extends PickType(UserArgs, ['userName'] as const) {
 }
 @ArgsType()
 export class GetUserArgs extends PickType(UserArgs, ['userId'] as const) {}
+
+@ArgsType()
+export class GetUserByTokenArgs {
+  @Field(type => ID)
+  token: string
+}

@@ -1,7 +1,6 @@
 import { ComponentMeta } from '@storybook/react'
 import { ComponentProps } from 'react'
 import { FormLogin } from '.'
-import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 
 export default {
   title: 'organisms/Form/FormLogin',
@@ -10,7 +9,6 @@ export default {
 
 type Props = ComponentProps<typeof FormLogin>
 const Template = (props: Props) => {
-  useOnAuthStateChanged()
   return <FormLogin {...props} />
 }
 export const Basic = Template.bind({})

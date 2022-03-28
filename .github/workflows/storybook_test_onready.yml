@@ -3,7 +3,7 @@ name: storybook_test_onready
 on:
   pull_request:
     paths:
-      - 'web/**'
+      - 'web/components/**'
     types: [ready_for_review]
 
 jobs:

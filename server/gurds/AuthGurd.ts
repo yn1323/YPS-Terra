@@ -1,5 +1,5 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
-import { getIdToken } from '@/firebase/auth'
+import { getAuthFromToken } from '@/firebase/auth'
 import { env } from '@/helpers/env'
 
 @Injectable()
@@ -25,12 +25,8 @@ export class AuthGurd implements CanActivate {
         return resolve(false)
       }
 
-      const decoded = await getIdToken(authorization)
-      if (decoded) {
-        return resolve(true)
-      } else {
-        return resolve(false)
-      }
+      const decoded = await getAuthFromToken(authorization)
+      return resolve(!!decoded)
     })
   }
 }
