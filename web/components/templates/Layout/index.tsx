@@ -3,6 +3,7 @@ import type { SerializedStyles } from '@emotion/react'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { useMemo } from 'react'
+import { CommonMeta } from '@/atoms/Meta/CommonMeta'
 import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 import { Footer } from '@/molecules/Footer'
 import { Header } from '@/organisms/Header/Header'
@@ -29,6 +30,7 @@ export const Layout: FC<PropTypes> = ({ _css, children }) => {
 
   return (
     <div css={[_css, styles.container]}>
+      <CommonMeta />
       <div css={styles.header}>
         <Header isLoggedIn={isLoggedIn} />
       </div>
