@@ -1,13 +1,10 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { FC } from 'react'
-import { Switch } from '@/atoms/Button/Switch'
+import { Toggle } from '@/atoms/Button/Toggle'
 import { Form } from '@/templates/Form'
 
-const LABEL = {
-  switchOn: '一般ユーザーの入力を許可',
-  switchOff: '管理ユーザーのみ入力を許可',
-} as const
+const Label = ['管理者のみ', '全員可']
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
@@ -20,15 +17,17 @@ export const FormTimeCardAuth: FC<PropTypes> = ({
   initialValue,
   setter,
 }) => {
+  const localSetter = (v: string) => {
+    setter(v === Label[0])
+  }
+
   return (
     <Form css={[_css, styles.container]} definition="タイムカード入力権限">
-      <Switch
-        setter={setter}
-        initialChecked={initialValue}
-        labelOnFalse={LABEL.switchOff}
-      >
-        {LABEL.switchOn}
-      </Switch>
+      <Toggle
+        values={Label}
+        initialValue={initialValue ? Label[0] : Label[1]}
+        setter={localSetter}
+      ></Toggle>
     </Form>
   )
 }
