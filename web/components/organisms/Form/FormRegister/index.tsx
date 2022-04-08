@@ -157,9 +157,6 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
 const styles = {
   container: css`
     width: 100%;
-    ${mediaQueries('sm')} {
-      width: 66%;
-    }
   `,
   section: css`
     margin-bottom: 32px;

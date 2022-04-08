@@ -36,7 +36,6 @@ export const Switch: FC<PropTypes> = ({
   return (
     <FormControlLabel
       css={_css}
-      style={{ fontSize: '0,9rem' }}
       data-testid="switch"
       control={
         <MaterialUiSwitch
@@ -48,16 +47,7 @@ export const Switch: FC<PropTypes> = ({
           name={name}
         />
       }
-      label={
-        <p css={styles.label}>
-          {isChecked ? children : labelOnFalse || children}
-        </p>
-      }
+      label={<p>{isChecked ? children : labelOnFalse || children}</p>}
     />
   )
-}
-const styles = {
-  label: css`
-    font-size: 0.9rem; ;
-  `,
 }

@@ -144,7 +144,6 @@ const styles = {
     flex-direction: column;
 
     > * {
-      font-size: 0.9rem;
       margin: 10px 0;
       cursor: pointer;
       text-decoration: underline;

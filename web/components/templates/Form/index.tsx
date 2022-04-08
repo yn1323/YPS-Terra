@@ -47,7 +47,6 @@ const styles = {
   `,
   title: css`
     width: 240px;
-    font-size: 0.9rem;
     padding-top: 0.8rem;
   `,
   titlePosittionCenter: css`
