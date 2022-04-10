@@ -19,7 +19,6 @@ import { FormSubmitFrequency } from '@/molecules/Form/FormSubmitFrequency'
 import { FormTimeCardAuth } from '@/molecules/Form/FormTimeCardAuth'
 import { FormTimeUnit } from '@/molecules/Form/FormTimeUnit'
 import { FormUserName } from '@/molecules/Form/FormUserName'
-import { FormUserType } from '@/molecules/Form/FormUserType'
 import { Stepper } from '@/templates/Stepper'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 
@@ -42,8 +41,19 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
     useState<ShiftSubmitFrequency>(SHOP_CONFIG.shiftSubmitFrequency)
   const [timeCardAuth, setTimeCardAuth] = useState<TimeCardAuth>(false)
 
+  const [userName, setUserName] = useState('')
+  const [shopName, setShopName] = useState('')
+
   const userNameRef = useRef<HTMLInputElement>(null)
   const shopNameRef = useRef<HTMLInputElement>(null)
+
+  const stepHandler = (_: number, prevStep: number) => {
+    if (prevStep === 0) {
+      setUserName(userNameRef.current?.value ?? '')
+    } else if (prevStep === 1) {
+      setShopName(shopNameRef.current?.value ?? '')
+    }
+  }
 
   const [success, setSuccess] = useState({
     userName: true,
@@ -51,15 +61,12 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
   })
 
   const handleSubmit = () => {
-    const targetValidation = [
-      userNameRef.current?.value,
-      shopNameRef.current?.value,
-    ]
+    const targetValidation = [userName, shopName]
     const allSuccess = targetValidation?.every(v => v)
     if (!allSuccess) {
       setSuccess({
-        userName: !!userNameRef.current?.value,
-        shopName: !!shopNameRef.current?.value ?? true,
+        userName: !!userName,
+        shopName: !!shopName,
       })
     }
   }
@@ -73,6 +80,7 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
         validationMessage={() => 'hoge'}
         completed={() => console.log('completed')}
         _contentCss={styles.content}
+        onStepChanged={stepHandler}
       >
         <section css={styles.section}>
           <div css={styles.items}>
@@ -80,6 +88,7 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
               error={!success.userName}
               helperText={FORM_ERROR_TEXT.USER_NAME}
               ref={userNameRef}
+              defaultValue={userName}
             />
           </div>
         </section>
@@ -90,6 +99,7 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
               error={!success.shopName}
               helperText={FORM_ERROR_TEXT.SHOP_NAME}
               ref={shopNameRef}
+              defaultValue={shopName}
             />
           </div>
         </section>

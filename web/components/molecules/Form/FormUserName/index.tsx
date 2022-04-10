@@ -26,7 +26,6 @@ export const FormUserName: FC<PropTypes> = forwardRef(
     },
     ref
   ) => {
-    console.log(defaultValue)
     return (
       <Form css={[_css, styles.container]} definition="ユーザー名">
         <Textbox

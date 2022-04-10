@@ -17,6 +17,8 @@ const args = {
   validationMessage: () => 'not ok',
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   completed: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onStepChanged: (_: number, __: number) => {},
 }
 
 export const Basic: StoryObj = {

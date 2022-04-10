@@ -11,6 +11,7 @@ type PropTypes = {
   _contentCss?: SerializedStyles
   validationMessage: () => string
   completed: () => void
+  onStepChanged?: (nextStep: number, prevStep: number) => void
 }
 
 export const Stepper: FC<PropTypes> = ({
@@ -20,15 +21,25 @@ export const Stepper: FC<PropTypes> = ({
   children,
   validationMessage,
   completed,
+  onStepChanged,
 }) => {
   const [activeStep, setActiveStep] = useState(0)
   const handleStep = (step: number) => () => {
+    if (onStepChanged) {
+      onStepChanged(step, activeStep)
+    }
     setActiveStep(step)
   }
   const goNext = () => {
+    if (onStepChanged) {
+      onStepChanged(activeStep + 1, activeStep)
+    }
     setActiveStep(activeStep + 1)
   }
   const goPrev = () => {
+    if (onStepChanged) {
+      onStepChanged(activeStep - 1, activeStep)
+    }
     setActiveStep(activeStep - 1)
   }
   const complete = () => {
