@@ -4,14 +4,10 @@ import { Step, StepButton, Stepper as MuiStepper } from '@mui/material'
 import { FC, useMemo, useState } from 'react'
 import { Button } from '@/atoms/Button/Button'
 
-type Steps = {
-  label: string
-  component: JSX.Element
-}
-
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
-  steps: Steps[]
+  labels: string[]
+  children: JSX.Element[]
   _contentCss?: SerializedStyles
   validationMessage: () => string
   completed: () => void
@@ -19,8 +15,9 @@ type PropTypes = {
 
 export const Stepper: FC<PropTypes> = ({
   _css,
-  steps,
   _contentCss,
+  labels,
+  children,
   validationMessage,
   completed,
 }) => {
@@ -45,18 +42,18 @@ export const Stepper: FC<PropTypes> = ({
 
   const showPrevButton = useMemo(() => activeStep > 0, [activeStep])
   const showNextButton = useMemo(
-    () => activeStep < steps.length - 1,
-    [activeStep, steps]
+    () => activeStep < children.length - 1,
+    [activeStep, children]
   )
   const showCompleteButton = useMemo(
-    () => activeStep >= steps.length - 1,
-    [activeStep, steps]
+    () => activeStep >= children.length - 1,
+    [activeStep, children]
   )
 
   return (
     <div css={[_css, styles.container]}>
       <MuiStepper nonLinear activeStep={activeStep}>
-        {steps.map(({ label }, i) => (
+        {labels.map((label, i) => (
           <Step key={i} completed={i < activeStep}>
             <StepButton color="inherit" onClick={handleStep(i)}>
               {label}
@@ -65,7 +62,7 @@ export const Stepper: FC<PropTypes> = ({
         ))}
       </MuiStepper>
 
-      <div css={_contentCss}>{steps[activeStep].component}</div>
+      <div css={_contentCss}>{children[activeStep]}</div>
 
       <div css={styles.buttons}>
         {showPrevButton ? (

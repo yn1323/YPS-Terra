@@ -1,3 +1,4 @@
+import { NextPage } from 'next'
 import type { Router } from 'next/dist/client/router'
 import type { CompletePrivateRouteInfo } from 'next/dist/shared/lib/router/router'
 import { ReactElement } from 'react'

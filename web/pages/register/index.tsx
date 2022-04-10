@@ -1,14 +1,22 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
-import { FormRegister } from '@/organisms/Form/FormRegister'
+import { FormRegisterUser } from '@/organisms/Form/FormRegisterUser'
 import { registerPageRedirectTo } from '@/services/ssrProps/registerPageRedirectTo'
 import { Animation } from '@/templates/Animation'
 import { Layout } from '@/templates/Layout'
 
-export const Register: NextPageWithLayout = () => {
+type PropTypes = {
+  shopId: string
+}
+
+export const Register: NextPageWithLayout<PropTypes> = ({ shopId }) => {
   return (
     <Animation>
-      <FormRegister />
+      {shopId ? (
+        <FormRegisterUser targetShopId={shopId} />
+      ) : (
+        <FormRegisterUser targetShopId={shopId} />
+      )}
     </Animation>
   )
 }
@@ -23,8 +31,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
     return redirect
   }
 
+  const { shopId } = context.query
+
   return {
-    props: {},
+    props: {
+      shopId,
+    },
   }
 }
 

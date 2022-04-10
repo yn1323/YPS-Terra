@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { FC, useMemo, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { Button } from '@/atoms/Button/Button'
 import { Heading } from '@/atoms/Text/Heading'
 import {
@@ -14,21 +14,21 @@ import {
 } from '@/config/appConfigs'
 import { FORM_ERROR_TEXT } from '@/constants/validations'
 import { FormShiftRange } from '@/molecules/Form/FormShiftRange'
-import { FormShopId } from '@/molecules/Form/FormShopId'
 import { FormShopName } from '@/molecules/Form/FormShopName'
 import { FormSubmitFrequency } from '@/molecules/Form/FormSubmitFrequency'
 import { FormTimeCardAuth } from '@/molecules/Form/FormTimeCardAuth'
 import { FormTimeUnit } from '@/molecules/Form/FormTimeUnit'
 import { FormUserName } from '@/molecules/Form/FormUserName'
 import { FormUserType } from '@/molecules/Form/FormUserType'
+import { Stepper } from '@/templates/Stepper'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
 }
 
-export const FormRegister: FC<PropTypes> = ({ _css }) => {
-  const [userType, setUserType] = useState<UserType>(USER_CONFIG.userType)
+export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
+  const StepperLabels = ['ユーザー名', '店舗情報設定', 'シフト設定', '権限設定']
   const [startShiftTime, setStartShiftTime] = useState<ShiftTime>(
     SHOP_CONFIG.startShiftTime
   )
@@ -44,31 +44,21 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
 
   const userNameRef = useRef<HTMLInputElement>(null)
   const shopNameRef = useRef<HTMLInputElement>(null)
-  const shopIdRef = useRef<HTMLInputElement>(null)
 
   const [success, setSuccess] = useState({
     userName: true,
-    shopId: true,
     shopName: true,
   })
 
-  const isAdmin = useMemo(() => userType === 'admin', [userType])
-
   const handleSubmit = () => {
-    let targetValidation
-    if (userType === 'general') {
-      targetValidation = [userNameRef.current?.value, shopIdRef.current?.value]
-    } else if (userType === 'admin') {
-      targetValidation = [
-        userNameRef.current?.value,
-        shopNameRef.current?.value,
-      ]
-    }
+    const targetValidation = [
+      userNameRef.current?.value,
+      shopNameRef.current?.value,
+    ]
     const allSuccess = targetValidation?.every(v => v)
     if (!allSuccess) {
       setSuccess({
         userName: !!userNameRef.current?.value,
-        shopId: !!shopIdRef.current?.value ?? true,
         shopName: !!shopNameRef.current?.value ?? true,
       })
     }
@@ -76,34 +66,25 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
 
   return (
     <div css={[_css, styles.container]}>
-      <section css={styles.section}>
-        <Heading underline>YPS初期設定</Heading>
-        <p css={styles.description}>
-          YPSユーザーと店舗の設定を行います。
-          <br />
-          設定内容は後からでも変更できます。
-        </p>
-        <div css={styles.items}>
-          <FormUserType initialValue={userType} setter={setUserType} />
-          <FormUserName
-            error={!success.userName}
-            helperText={FORM_ERROR_TEXT.USER_NAME}
-            ref={userNameRef}
-          />
+      <Heading underline>YPS初期設定</Heading>
 
-          {!isAdmin && (
-            <FormShopId
-              error={!success.shopId}
-              helperText={FORM_ERROR_TEXT.SHOP_ID}
-              ref={shopIdRef}
-            />
-          )}
-        </div>
-      </section>
-
-      {isAdmin && (
+      <Stepper
+        labels={StepperLabels}
+        validationMessage={() => 'hoge'}
+        completed={() => console.log('completed')}
+        _contentCss={styles.content}
+      >
         <section css={styles.section}>
-          <Heading underline>店舗情報設定</Heading>
+          <div css={styles.items}>
+            <FormUserName
+              error={!success.userName}
+              helperText={FORM_ERROR_TEXT.USER_NAME}
+              ref={userNameRef}
+            />
+          </div>
+        </section>
+
+        <section css={styles.section}>
           <div css={styles.items}>
             <FormShopName
               error={!success.shopName}
@@ -112,11 +93,8 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
             />
           </div>
         </section>
-      )}
 
-      {isAdmin && (
         <section css={styles.section}>
-          <Heading underline>シフト設定</Heading>
           <div css={styles.items}>
             <FormShiftRange
               startInitialValue={startShiftTime}
@@ -134,11 +112,8 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
             />
           </div>
         </section>
-      )}
 
-      {isAdmin && (
         <section css={styles.section}>
-          <Heading underline>権限設定</Heading>
           <div css={styles.items}>
             <FormTimeCardAuth
               initialValue={timeCardAuth}
@@ -146,10 +121,7 @@ export const FormRegister: FC<PropTypes> = ({ _css }) => {
             />
           </div>
         </section>
-      )}
-      <div>
-        <Button onClick={handleSubmit}>設定完了</Button>
-      </div>
+      </Stepper>
     </div>
   )
 }
@@ -175,8 +147,9 @@ const styles = {
   description: css`
     margin-top: 4px;
   `,
-  submitButton: css`
-    display: flex;
-    justify-content: flex-end;
+
+  content: css`
+    height: 300px;
+    padding-top: 20px;
   `,
 }
