@@ -37,6 +37,7 @@ export type Mutation = {
   announce: Announce
   operation: Array<Operation>
   organization: Organization
+  registerAdmin: User
   request: Request
   requestCondition: RequestCondition
   shift: Shift
@@ -292,6 +293,19 @@ export type UserExistsQuery = {
   }
 }
 
+export type Unnamed_1_MutationVariables = Exact<{ [key: string]: never }>
+
+export type Unnamed_1_Mutation = {
+  __typename?: 'Mutation'
+  registerAdmin: {
+    __typename?: 'User'
+    userId: string
+    userName: string
+    avatar: string
+    memberOf: Array<string>
+  }
+}
+
 export type ShopQueryVariables = Exact<{
   shopId: Scalars['ID']
 }>
@@ -383,6 +397,46 @@ export type UserExistsLazyQueryHookResult = ReturnType<
 export type UserExistsQueryResult = Apollo.QueryResult<
   UserExistsQuery,
   UserExistsQueryVariables
+>
+export const Document = gql`
+  mutation {
+    registerAdmin {
+      userId
+      userName
+      avatar
+      memberOf
+    }
+  }
+`
+export type MutationFn = Apollo.MutationFunction<Mutation, MutationVariables>
+
+/**
+ * __useMutation__
+ *
+ * To run a mutation, you first call `useMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [mutation, { data, loading, error }] = useMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMutation(
+  baseOptions?: Apollo.MutationHookOptions<Mutation, MutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<Mutation, MutationVariables>(Document, options)
+}
+export type MutationHookResult = ReturnType<typeof useMutation>
+export type MutationResult = Apollo.MutationResult<Mutation>
+export type MutationOptions = Apollo.BaseMutationOptions<
+  Mutation,
+  MutationVariables
 >
 export const ShopDocument = gql`
   query shop($shopId: ID!) {

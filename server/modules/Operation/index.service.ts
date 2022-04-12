@@ -35,7 +35,7 @@ export class OperationService {
       const result = await target
         .doc(operationId)
         .create(d)
-        .catch(e => null)
+        .catch(e => console.log(e))
       if (!result) {
         return new BadRequestException()
       }
@@ -53,7 +53,7 @@ export class OperationService {
       .doc(args.shopId)
       .collection('operation')
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
     if (!snapshot) {
       return new BadRequestException()
     }

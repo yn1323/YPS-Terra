@@ -7,7 +7,7 @@ type Args = {
 }
 export const signInMail = async ({ email, password }: Args) => {
   const result = await signInWithEmailAndPassword(auth, email, password).catch(
-    e => null
+    e => console.log(e)
   )
   return !!result
 }

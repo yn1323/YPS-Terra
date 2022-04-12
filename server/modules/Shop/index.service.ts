@@ -24,7 +24,7 @@ export class ShopService {
     const result = await collections.shop
       .doc(shopId)
       .create(d)
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!result) {
       return new BadRequestException()
@@ -36,7 +36,7 @@ export class ShopService {
     const snapshot = await collections.shop
       .doc(shopId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()

@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { getAuthFromToken } from '@/firebase/auth'
-import { collections, getRandomId } from '@/firebase/common'
+import { collections } from '@/firebase/common'
 import { User } from '@/models/User'
 import {
   CreateUserArgs,
@@ -16,7 +16,7 @@ import {
 @Injectable()
 export class UserService {
   async createUser(args: CreateUserArgs) {
-    const userId = getRandomId()
+    const userId = args.userId
     const data = {
       userId,
       userName: args.userName,
@@ -26,7 +26,7 @@ export class UserService {
     const result = await collections.user
       .doc(userId)
       .create({ ...data, isDeleted: false })
-      .catch(e => null)
+      .catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()
     }
@@ -37,7 +37,7 @@ export class UserService {
     const snapshot = await collections.user
       .doc(args.userId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()

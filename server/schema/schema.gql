@@ -14,13 +14,14 @@ type Mutation {
   announce(announceDateFrom: Timestamp!, announceDateTo: Timestamp!, message: String!, organizationId: ID!, shopId: ID!): Announce!
   operation(shopId: ID!): [Operation!]!
   organization(organizationName: String!, organizationOwnerId: ID!, shopId: ID!): Organization!
+  registerAdmin(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!, userId: ID!, userName: String!): UserAndShop!
   request(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Request!
   requestCondition(dateFrom: Timestamp!, dateTo: Timestamp!, done: Boolean!, shopId: ID!, userId: ID!): RequestCondition!
   shift(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Shift!
   shop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
   temporaryClosed(date: Timestamp!, organizationId: ID!, shopId: ID!): TemporaryClosed!
   timeCard(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): TimeCard!
-  user(shopId: ID!, userName: String!): User!
+  user(shopId: ID!, userId: ID!, userName: String!): User!
 }
 
 type Operation {
@@ -117,6 +118,22 @@ scalar Timestamp
 type User {
   avatar: String!
   memberOf: [ID!]!
+  userId: ID!
+  userName: String!
+}
+
+type UserAndShop {
+  avatar: String!
+  closeTime: Timestamp!
+  closedWeekday: [Int!]!
+  memberOf: [ID!]!
+  openTime: Timestamp!
+  shopId: ID!
+  shopName: String!
+  shopOwnerIds: [ID!]!
+  submitFrequency: String!
+  timeUnit: Int!
+  useTimeCard: Boolean!
   userId: ID!
   userName: String!
 }

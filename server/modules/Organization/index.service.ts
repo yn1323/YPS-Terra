@@ -22,7 +22,7 @@ export class OrganizationService {
         organizationOwnerIds: [args.organizationOwnerId],
         shopIds: [args.shopId],
       })
-      .catch(e => null)
+      .catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()
     }
@@ -39,7 +39,7 @@ export class OrganizationService {
     const snapshot = await collections.organization
       .doc(args.organizationId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()

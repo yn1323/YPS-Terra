@@ -10,6 +10,6 @@ export const createUser = async ({ email, password }: Args) => {
     auth,
     email,
     password
-  ).catch(e => null)
+  ).catch(e => console.log(e))
   return !!result
 }
