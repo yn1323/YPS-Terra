@@ -1,7 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { FC, useRef, useState } from 'react'
-import { Button } from '@/atoms/Button/Button'
+import { FC, useEffect, useRef, useState } from 'react'
 import { Heading } from '@/atoms/Text/Heading'
 import {
   ShiftSubmitFrequency,
@@ -9,8 +8,6 @@ import {
   ShiftTimeUnit,
   SHOP_CONFIG,
   TimeCardAuth,
-  UserType,
-  USER_CONFIG,
 } from '@/config/appConfigs'
 import { FORM_ERROR_TEXT } from '@/constants/validations'
 import { FormShiftRange } from '@/molecules/Form/FormShiftRange'
@@ -27,6 +24,7 @@ type PropTypes = {
 }
 
 export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
+  const [moveStep, setMoveStep] = useState<undefined | number>(undefined)
   const StepperLabels = ['ユーザー名', '店舗情報設定', 'シフト設定', '権限設定']
   const [startShiftTime, setStartShiftTime] = useState<ShiftTime>(
     SHOP_CONFIG.startShiftTime
@@ -61,6 +59,10 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
   })
 
   const handleSubmit = () => {
+    // TODO: Go NextPage or loading
+  }
+
+  const validationMessage = () => {
     const targetValidation = [userName, shopName]
     const allSuccess = targetValidation?.every(v => v)
     if (!allSuccess) {
@@ -68,8 +70,22 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
         userName: !!userName,
         shopName: !!shopName,
       })
+      if (!userName) {
+        setMoveStep(0)
+        return FORM_ERROR_TEXT.USER_NAME
+      } else if (!shopName) {
+        setMoveStep(1)
+        return FORM_ERROR_TEXT.SHOP_NAME
+      }
     }
+    return ''
   }
+
+  useEffect(() => {
+    if (moveStep !== undefined) {
+      setMoveStep(undefined)
+    }
+  }, [moveStep])
 
   return (
     <div css={[_css, styles.container]}>
@@ -77,10 +93,11 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
 
       <Stepper
         labels={StepperLabels}
-        validationMessage={() => 'hoge'}
-        completed={() => console.log('completed')}
+        validationMessage={validationMessage}
+        completed={handleSubmit}
         _contentCss={styles.content}
         onStepChanged={stepHandler}
+        moveStep={moveStep}
       >
         <section css={styles.section}>
           <div css={styles.items}>

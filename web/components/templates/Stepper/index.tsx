@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { Step, StepButton, Stepper as MuiStepper } from '@mui/material'
-import { FC, useMemo, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/atoms/Button/Button'
 
 type PropTypes = {
@@ -12,6 +12,7 @@ type PropTypes = {
   validationMessage: () => string
   completed: () => void
   onStepChanged?: (nextStep: number, prevStep: number) => void
+  moveStep?: number
 }
 
 export const Stepper: FC<PropTypes> = ({
@@ -22,8 +23,10 @@ export const Stepper: FC<PropTypes> = ({
   validationMessage,
   completed,
   onStepChanged,
+  moveStep,
 }) => {
   const [activeStep, setActiveStep] = useState(0)
+  useEffect(() => setActiveStep(moveStep ?? 0), [moveStep])
   const handleStep = (step: number) => () => {
     if (onStepChanged) {
       onStepChanged(step, activeStep)

@@ -19,6 +19,7 @@ const args = {
   completed: () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onStepChanged: (_: number, __: number) => {},
+  moveStep: 0,
 }
 
 export const Basic: StoryObj = {
