@@ -3,7 +3,7 @@
   "timezone": "Asia/Tokyo",
   "labels": ["renovate"],
   "baseBranches": ["chore/renovate"],
-  "schedule": ["before 3am"],
+  "schedule": ["every weekend"],
   "packageRules": [
     {
       "updateTypes": ["minor", "patch", "pin", "digest"],
