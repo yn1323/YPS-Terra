@@ -7,7 +7,7 @@
       "@/constants/*": ["../packages/src/constants/*"],
       "@/ui/*": ["src/ui/*"],
       "@/hooks/*": ["src/hooks/*"],
-      "@/services/*": ["src/services/*"],
+      "@/services/*": ["services/*"],
       "@/recoil/*": ["src/recoil/*"],
       "@/config/*": ["src/config/*"],
       "@/firebase/*": ["src/firebase/*"],

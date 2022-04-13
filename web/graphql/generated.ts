@@ -37,7 +37,7 @@ export type Mutation = {
   announce: Announce
   operation: Array<Operation>
   organization: Organization
-  registerAdmin: User
+  registerAdminUserAndShop: UserAndShop
   request: Request
   requestCondition: RequestCondition
   shift: Shift
@@ -63,6 +63,17 @@ export type MutationOrganizationArgs = {
   organizationName: Scalars['String']
   organizationOwnerId: Scalars['ID']
   shopId: Scalars['ID']
+}
+
+export type MutationRegisterAdminUserAndShopArgs = {
+  closeTime: Scalars['Timestamp']
+  openTime: Scalars['Timestamp']
+  shopName: Scalars['String']
+  submitFrequency: Scalars['String']
+  timeUnit: Scalars['Int']
+  useTimeCard: Scalars['Boolean']
+  userId: Scalars['ID']
+  userName: Scalars['String']
 }
 
 export type MutationRequestArgs = {
@@ -117,6 +128,7 @@ export type MutationTimeCardArgs = {
 
 export type MutationUserArgs = {
   shopId: Scalars['ID']
+  userId: Scalars['ID']
   userName: Scalars['String']
 }
 
@@ -278,6 +290,23 @@ export type User = {
   userName: Scalars['String']
 }
 
+export type UserAndShop = {
+  __typename?: 'UserAndShop'
+  avatar: Scalars['String']
+  closeTime: Scalars['Timestamp']
+  closedWeekday: Array<Scalars['Int']>
+  memberOf: Array<Scalars['ID']>
+  openTime: Scalars['Timestamp']
+  shopId: Scalars['ID']
+  shopName: Scalars['String']
+  shopOwnerIds: Array<Scalars['ID']>
+  submitFrequency: Scalars['String']
+  timeUnit: Scalars['Int']
+  useTimeCard: Scalars['Boolean']
+  userId: Scalars['ID']
+  userName: Scalars['String']
+}
+
 export type UserExistsQueryVariables = Exact<{
   token: Scalars['ID']
 }>
@@ -293,16 +322,34 @@ export type UserExistsQuery = {
   }
 }
 
-export type Unnamed_1_MutationVariables = Exact<{ [key: string]: never }>
+export type RegisterAdminUserAndShopMutationVariables = Exact<{
+  userId: Scalars['ID']
+  userName: Scalars['String']
+  shopName: Scalars['String']
+  openTime: Scalars['Timestamp']
+  closeTime: Scalars['Timestamp']
+  timeUnit: Scalars['Int']
+  submitFrequency: Scalars['String']
+  useTimeCard: Scalars['Boolean']
+}>
 
-export type Unnamed_1_Mutation = {
+export type RegisterAdminUserAndShopMutation = {
   __typename?: 'Mutation'
-  registerAdmin: {
-    __typename?: 'User'
+  registerAdminUserAndShop: {
+    __typename?: 'UserAndShop'
     userId: string
     userName: string
     avatar: string
     memberOf: Array<string>
+    shopId: string
+    shopName: string
+    openTime: any
+    closeTime: any
+    timeUnit: number
+    submitFrequency: string
+    useTimeCard: boolean
+    closedWeekday: Array<number>
+    shopOwnerIds: Array<string>
   }
 }
 
@@ -398,46 +445,95 @@ export type UserExistsQueryResult = Apollo.QueryResult<
   UserExistsQuery,
   UserExistsQueryVariables
 >
-export const Document = gql`
-  mutation {
-    registerAdmin {
+export const RegisterAdminUserAndShopDocument = gql`
+  mutation registerAdminUserAndShop(
+    $userId: ID!
+    $userName: String!
+    $shopName: String!
+    $openTime: Timestamp!
+    $closeTime: Timestamp!
+    $timeUnit: Int!
+    $submitFrequency: String!
+    $useTimeCard: Boolean!
+  ) {
+    registerAdminUserAndShop(
+      userId: $userId
+      userName: $userName
+      shopName: $shopName
+      openTime: $openTime
+      closeTime: $closeTime
+      timeUnit: $timeUnit
+      submitFrequency: $submitFrequency
+      useTimeCard: $useTimeCard
+    ) {
       userId
       userName
       avatar
       memberOf
+      shopId
+      shopName
+      openTime
+      closeTime
+      timeUnit
+      submitFrequency
+      avatar
+      useTimeCard
+      closedWeekday
+      shopOwnerIds
     }
   }
 `
-export type MutationFn = Apollo.MutationFunction<Mutation, MutationVariables>
+export type RegisterAdminUserAndShopMutationFn = Apollo.MutationFunction<
+  RegisterAdminUserAndShopMutation,
+  RegisterAdminUserAndShopMutationVariables
+>
 
 /**
- * __useMutation__
+ * __useRegisterAdminUserAndShopMutation__
  *
- * To run a mutation, you first call `useMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useRegisterAdminUserAndShopMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterAdminUserAndShopMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [mutation, { data, loading, error }] = useMutation({
+ * const [registerAdminUserAndShopMutation, { data, loading, error }] = useRegisterAdminUserAndShopMutation({
  *   variables: {
+ *      userId: // value for 'userId'
+ *      userName: // value for 'userName'
+ *      shopName: // value for 'shopName'
+ *      openTime: // value for 'openTime'
+ *      closeTime: // value for 'closeTime'
+ *      timeUnit: // value for 'timeUnit'
+ *      submitFrequency: // value for 'submitFrequency'
+ *      useTimeCard: // value for 'useTimeCard'
  *   },
  * });
  */
-export function useMutation(
-  baseOptions?: Apollo.MutationHookOptions<Mutation, MutationVariables>
+export function useRegisterAdminUserAndShopMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterAdminUserAndShopMutation,
+    RegisterAdminUserAndShopMutationVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<Mutation, MutationVariables>(Document, options)
+  return Apollo.useMutation<
+    RegisterAdminUserAndShopMutation,
+    RegisterAdminUserAndShopMutationVariables
+  >(RegisterAdminUserAndShopDocument, options)
 }
-export type MutationHookResult = ReturnType<typeof useMutation>
-export type MutationResult = Apollo.MutationResult<Mutation>
-export type MutationOptions = Apollo.BaseMutationOptions<
-  Mutation,
-  MutationVariables
+export type RegisterAdminUserAndShopMutationHookResult = ReturnType<
+  typeof useRegisterAdminUserAndShopMutation
 >
+export type RegisterAdminUserAndShopMutationResult =
+  Apollo.MutationResult<RegisterAdminUserAndShopMutation>
+export type RegisterAdminUserAndShopMutationOptions =
+  Apollo.BaseMutationOptions<
+    RegisterAdminUserAndShopMutation,
+    RegisterAdminUserAndShopMutationVariables
+  >
 export const ShopDocument = gql`
   query shop($shopId: ID!) {
     shop(shopId: $shopId) {

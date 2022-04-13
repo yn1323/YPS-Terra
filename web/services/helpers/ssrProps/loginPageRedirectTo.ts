@@ -1,13 +1,13 @@
 import { GetServerSidePropsContext } from 'next'
-import { authCheck } from '@/services/auth/authCheck'
+import { authCheck } from 'services/auth/authCheck'
 
-export const authPageRedirectTo = async (
+export const loginPageRedirectTo = async (
   context: GetServerSidePropsContext
 ) => {
   const { isUserExist, isAuthenticated } = await authCheck(context)
   let destination = ''
-  if (!isAuthenticated) {
-    destination = '/login'
+  if (isAuthenticated && isUserExist) {
+    destination = '/dashboard'
   }
   if (isAuthenticated && !isUserExist) {
     destination = '/register'

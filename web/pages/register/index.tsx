@@ -1,12 +1,8 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
-import client from '@/config/apollo-client'
-import { registerAdmin } from '@/graphql/register/mutation'
-import { getCookieValue } from '@/helpers/string'
+import { registerPageRedirectTo } from 'services/helpers/ssrProps/registerPageRedirectTo'
 import { FormRegisterAdmin } from '@/organisms/Form/FormRegisterAdmin'
 import { FormRegisterUser } from '@/organisms/Form/FormRegisterUser'
-import { ssrGqlCommon } from '@/services/common/ssrGqlCommon'
-import { registerPageRedirectTo } from '@/services/ssrProps/registerPageRedirectTo'
 import { Animation } from '@/templates/Animation'
 import { Layout } from '@/templates/Layout'
 
@@ -32,13 +28,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     return redirect
   }
 
-  const { data } = await client.query({
-    query: registerAdmin,
-    ...ssrGqlCommon(context),
-  })
-  console.log(data)
-
-  const { shopId } = context.query
+  const { shopId = '' } = context.query
 
   return {
     props: {

@@ -1,6 +1,8 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { FC, useEffect, useRef, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import { useRegisterAdminUserAndShop } from 'services/register/registerAdminUserAndShop'
 import { Heading } from '@/atoms/Text/Heading'
 import {
   ShiftSubmitFrequency,
@@ -16,6 +18,7 @@ import { FormSubmitFrequency } from '@/molecules/Form/FormSubmitFrequency'
 import { FormTimeCardAuth } from '@/molecules/Form/FormTimeCardAuth'
 import { FormTimeUnit } from '@/molecules/Form/FormTimeUnit'
 import { FormUserName } from '@/molecules/Form/FormUserName'
+import { userInfoState } from '@/recoil/userInfo'
 import { Stepper } from '@/templates/Stepper'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 
@@ -24,6 +27,10 @@ type PropTypes = {
 }
 
 export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
+  const { registerAdminUserAndShopMutation, loading, error } =
+    useRegisterAdminUserAndShop()
+  const { uid } = useRecoilValue(userInfoState)
+
   const [moveStep, setMoveStep] = useState<undefined | number>(undefined)
   const StepperLabels = ['ユーザー名', '店舗情報設定', 'シフト設定', '権限設定']
   const [startShiftTime, setStartShiftTime] = useState<ShiftTime>(
@@ -59,7 +66,18 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
   })
 
   const handleSubmit = () => {
-    // TODO: Go NextPage or loading
+    registerAdminUserAndShopMutation({
+      variables: {
+        userId: uid,
+        userName,
+        shopName,
+        openTime: startShiftTime,
+        closeTime: endShiftTime,
+        timeUnit: parseInt(shiftTimeUnit, 10),
+        submitFrequency: shiftTimeUnit,
+        useTimeCard: timeCardAuth,
+      },
+    })
   }
 
   const validationMessage = () => {
