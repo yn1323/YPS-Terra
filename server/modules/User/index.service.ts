@@ -1,4 +1,3 @@
-import { userInfo } from 'os'
 import {
   BadRequestException,
   Injectable,
@@ -7,7 +6,6 @@ import {
 } from '@nestjs/common'
 import { getAuthFromToken } from '@/firebase/auth'
 import { collections, db, getRandomId } from '@/firebase/common'
-import { Shop } from '@/models/Shop'
 import { User } from '@/models/User'
 import { ShopService } from '@/modules/Shop/index.service'
 import {

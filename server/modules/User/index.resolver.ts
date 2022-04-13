@@ -1,8 +1,5 @@
-import { BadRequestException } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { db } from '@/firebase/common'
 import { User } from '@/models/User'
-import { ShopService } from '@/modules/Shop/index.service'
 import {
   CreateUserArgs,
   GetUserArgs,
