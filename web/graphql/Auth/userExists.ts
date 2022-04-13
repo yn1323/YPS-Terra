@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
+import type { TypedDocumentNode } from '@apollo/client'
 
-export const userExists = gql`
+export const userExists: TypedDocumentNode = gql`
   query userExists($token: ID!) {
     userExists(token: $token) {
       userId
