@@ -12,15 +12,19 @@ import { CreateShopArgs, GetShopArgs } from '@/modules/Shop/args'
 export class ShopService {
   private subscribes = {}
 
-  async createShop(args: CreateShopArgs) {
-    const shopId = getRandomId()
-    const d: Shop = {
-      shopId,
+  createShopData(args: CreateShopArgs & { shopId: string }): Shop {
+    return {
+      shopId: args.shopId,
       avatar: '',
       closedWeekday: [],
       shopOwnerIds: [],
       ...args,
     }
+  }
+
+  async createShop(args: CreateShopArgs) {
+    const shopId = getRandomId()
+    const d = this.createShopData({ ...args, shopId })
     const result = await collections.shop
       .doc(shopId)
       .create(d)

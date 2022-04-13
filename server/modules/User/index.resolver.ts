@@ -1,5 +1,6 @@
 import { BadRequestException } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { db } from '@/firebase/common'
 import { User } from '@/models/User'
 import { ShopService } from '@/modules/Shop/index.service'
 import {
@@ -13,10 +14,7 @@ import { UserAndShop } from '@/modules/User/objectType'
 
 @Resolver(of => User)
 export class UserResolver {
-  constructor(
-    private userService: UserService,
-    private shopService: ShopService
-  ) {}
+  constructor(private userService: UserService) {}
 
   @Mutation(returns => User, { name: 'user' })
   createUser(@Args() args: CreateUserArgs) {
@@ -33,22 +31,8 @@ export class UserResolver {
     return this.userService.findOneByToken(args)
   }
 
-  @Mutation(returns => UserAndShop, { name: 'registerAdmin' })
-  async registerAdmin(@Args() args: RegisterAdminArgs) {
-    const shopInfo = await this.shopService.createShop(args)
-
-    if (!('shopId' in shopInfo)) {
-      return new BadRequestException()
-    }
-
-    const userInfo = await this.userService.createUser({
-      ...args,
-      shopId: shopInfo.shopId,
-    })
-
-    if (!('userId' in userInfo)) {
-      return new BadRequestException()
-    }
-    return { ...userInfo, ...shopInfo }
+  @Mutation(returns => UserAndShop, { name: 'registerAdminUserAndShop' })
+  async registerAdminUserAndShop(@Args() args: RegisterAdminArgs) {
+    return this.userService.registerAdminUserAndShop(args)
   }
 }
