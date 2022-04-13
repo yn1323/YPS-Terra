@@ -35,6 +35,9 @@
   },
   "include": [
     "next-env.d.ts",
+    "src/**/*",
+    "graphql/**/*",
+    "components/**/*",
     "**/*.ts",
     "**/*.tsx",
     "../packages/**/*.ts",
