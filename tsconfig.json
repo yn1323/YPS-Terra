@@ -1,21 +1,3 @@
 {
-  "exclude": ["node_modules"],
-  "compilerOptions": {
-    "baseUrl": "./web",
-    "paths": {
-      "@/helpers/*": ["../packages/src/helpers/*"],
-      "@/constants/*": ["../packages/src/constants/*"],
-      "@/ui/*": ["src/ui/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/services/*": ["services/*"],
-      "@/recoil/*": ["src/recoil/*"],
-      "@/config/*": ["src/config/*"],
-      "@/firebase/*": ["src/firebase/*"],
-      "@/graphql/*": ["graphql/*"],
-      "@/atoms/*": ["components/atoms/*"],
-      "@/molecules/*": ["components/molecules/*"],
-      "@/organisms/*": ["components/organisms/*"],
-      "@/templates/*": ["components/templates/*"]
-    }
-  }
+  "exclude": ["node_modules"]
 }
