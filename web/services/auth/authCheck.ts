@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from 'next'
 import { getErrorCode } from 'services/helpers/common/getErrorCode'
 import { ssrGqlCommon } from 'services/helpers/common/ssrGqlCommon'
 import client from '@/config/apollo-client'
-import { userExists } from '@/graphql/user/existUser'
+import { userExists } from '@/graphql/user/check'
 import { getCookieValue } from '@/helpers/string'
 
 export const authCheck = async (context: GetServerSidePropsContext) => {
