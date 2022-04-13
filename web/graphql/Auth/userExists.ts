@@ -10,4 +10,3 @@ export const userExists = gql`
     }
   }
 `
-console.log(userExists)
