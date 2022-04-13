@@ -21,6 +21,8 @@
     "@graphql-codegen/typescript-graphql-request": "4.4.4",
     "@graphql-codegen/typescript-operations": "2.3.5",
     "@graphql-codegen/typescript-react-apollo": "3.2.11",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
     "eslint-plugin-import": "2.25.4",
     "prettier": "2.6.1",
     "scaffdog": "1.2.0",

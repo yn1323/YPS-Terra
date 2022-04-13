@@ -7,7 +7,7 @@ import { getCookieValue } from '@/helpers/string'
 
 export const authCheck = async (context: GetServerSidePropsContext) => {
   const { data, errors } = await client.query({
-    query: userExists as any,
+    query: userExists,
     variables: { token: getCookieValue(context.req.headers.cookie) },
     ...ssrGqlCommon(context),
   })
