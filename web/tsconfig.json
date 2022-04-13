@@ -12,7 +12,6 @@
       "@/config/*": ["src/config/*"],
       "@/firebase/*": ["src/firebase/*"],
       "@/graphql/*": ["graphql/*"],
-      "@/graphql": ["graphql"],
       "@/atoms/*": ["components/atoms/*"],
       "@/molecules/*": ["components/molecules/*"],
       "@/organisms/*": ["components/organisms/*"],
