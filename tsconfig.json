@@ -17,4 +17,5 @@
       "@/organisms/*": ["components/organisms/*"],
       "@/templates/*": ["components/templates/*"]
     }
+  }
 }
