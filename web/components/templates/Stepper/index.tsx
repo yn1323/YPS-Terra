@@ -13,6 +13,7 @@ type PropTypes = {
   completed: () => void
   onStepChanged?: (nextStep: number, prevStep: number) => void
   moveStep?: number
+  loading?: boolean
 }
 
 export const Stepper: FC<PropTypes> = ({
@@ -24,6 +25,7 @@ export const Stepper: FC<PropTypes> = ({
   completed,
   onStepChanged,
   moveStep,
+  loading = false,
 }) => {
   const [activeStep, setActiveStep] = useState(0)
   useEffect(() => setActiveStep(moveStep ?? 0), [moveStep])
@@ -80,14 +82,22 @@ export const Stepper: FC<PropTypes> = ({
 
       <div css={styles.buttons}>
         {showPrevButton ? (
-          <Button onClick={goPrev} variant="outlined">
+          <Button onClick={goPrev} variant="outlined" loading={loading}>
             戻る
           </Button>
         ) : (
           <div />
         )}
-        {showNextButton && <Button onClick={goNext}>次へ</Button>}
-        {showCompleteButton && <Button onClick={complete}>完了</Button>}
+        {showNextButton && (
+          <Button onClick={goNext} loading={loading}>
+            次へ
+          </Button>
+        )}
+        {showCompleteButton && (
+          <Button onClick={complete} loading={loading}>
+            完了
+          </Button>
+        )}
       </div>
     </div>
   )

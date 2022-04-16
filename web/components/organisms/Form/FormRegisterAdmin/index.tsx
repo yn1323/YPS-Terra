@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
+import { useRouter } from 'next/router'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { useRegisterAdminUserAndShop } from 'services/register/registerAdminUserAndShop'
@@ -27,9 +28,20 @@ type PropTypes = {
 }
 
 export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
-  const { registerAdminUserAndShopMutation, loading, error } =
-    useRegisterAdminUserAndShop()
+  const {
+    registerAdminUserAndShopMutation,
+    loading,
+    error,
+    mutationSucceeded,
+  } = useRegisterAdminUserAndShop()
   const { uid } = useRecoilValue(userInfoState)
+
+  const router = useRouter()
+  useEffect(() => {
+    if (mutationSucceeded) {
+      router.push('/dashboard')
+    }
+  }, [mutationSucceeded, router])
 
   const [moveStep, setMoveStep] = useState<undefined | number>(undefined)
   const StepperLabels = ['ユーザー名', '店舗情報設定', 'シフト設定', '権限設定']
@@ -116,6 +128,7 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
         _contentCss={styles.content}
         onStepChanged={stepHandler}
         moveStep={moveStep}
+        loading={loading}
       >
         <section css={styles.section}>
           <div css={styles.items}>

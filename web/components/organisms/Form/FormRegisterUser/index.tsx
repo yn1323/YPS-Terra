@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { FC, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import { FC, useEffect, useRef, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { Button } from '@/atoms/Button/Button'
 import { Heading } from '@/atoms/Text/Heading'
@@ -16,13 +17,21 @@ type PropTypes = {
 }
 
 export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
-  const { registerUserMutation, loading, error } = useRegisterUser()
+  const { registerUserMutation, loading, error, mutationSucceeded } =
+    useRegisterUser()
   const { uid } = useRecoilValue(userInfoState)
   const userNameRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
 
   const [success, setSuccess] = useState({
     userName: true,
   })
+
+  useEffect(() => {
+    if (mutationSucceeded) {
+      router.push('/dashboard')
+    }
+  }, [mutationSucceeded, router])
 
   const handleSubmit = () => {
     const targetValidation = [userNameRef.current?.value]
@@ -57,7 +66,9 @@ export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
       </section>
 
       <div css={styles.submitButton}>
-        <Button onClick={handleSubmit}>設定完了</Button>
+        <Button onClick={handleSubmit} loading={loading}>
+          登録
+        </Button>
       </div>
     </div>
   )
