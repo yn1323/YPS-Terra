@@ -22,9 +22,9 @@ export const ListMenu: FC<PropTypes> = ({
 }) => {
   const router = useRouter()
   const { singOut } = useLogout()
-  const routeTo = (link: string) => {
+  const routeTo = async (link: string) => {
     if (link === '/logout') {
-      singOut()
+      await singOut()
       router.push('/')
     } else {
       router.push(link)
