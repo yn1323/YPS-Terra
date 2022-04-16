@@ -9,6 +9,7 @@ export default class MyDocument extends Document {
       <Html lang="ja">
         <Head>
           <meta name="theme-color" content={theme.palette.primary.main} />
+          {/* eslint-disable-next-line */}
           {(this.props as any).emotionStyleTags}
         </Head>
         <body>
@@ -27,6 +28,7 @@ MyDocument.getInitialProps = async ctx => {
 
   ctx.renderPage = () =>
     originalRenderPage({
+      // eslint-disable-next-line
       enhanceApp: (App: any) =>
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />

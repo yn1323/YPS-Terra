@@ -1,5 +1,6 @@
 import { HttpErrorCodes } from '@/constants/errorCodes'
 
+// eslint-disable-next-line
 export const getErrorCode = (errors: any): 0 | HttpErrorCodes | number => {
   if (!errors) {
     return 200

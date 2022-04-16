@@ -1,4 +1,3 @@
-import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { FormControlLabel, Switch as MaterialUiSwitch } from '@mui/material'
 import type { SwitchProps } from '@mui/material'
