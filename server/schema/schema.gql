@@ -15,6 +15,7 @@ type Mutation {
   operation(shopId: ID!): [Operation!]!
   organization(organizationName: String!, organizationOwnerId: ID!, shopId: ID!): Organization!
   registerAdminUserAndShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!, userId: ID!, userName: String!): UserAndShop!
+  registerUser(shopId: ID!, userId: ID!, userName: String!): UserAndShop!
   request(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Request!
   requestCondition(dateFrom: Timestamp!, dateTo: Timestamp!, done: Boolean!, shopId: ID!, userId: ID!): RequestCondition!
   shift(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Shift!

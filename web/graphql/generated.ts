@@ -38,6 +38,7 @@ export type Mutation = {
   operation: Array<Operation>
   organization: Organization
   registerAdminUserAndShop: UserAndShop
+  registerUser: UserAndShop
   request: Request
   requestCondition: RequestCondition
   shift: Shift
@@ -72,6 +73,12 @@ export type MutationRegisterAdminUserAndShopArgs = {
   submitFrequency: Scalars['String']
   timeUnit: Scalars['Int']
   useTimeCard: Scalars['Boolean']
+  userId: Scalars['ID']
+  userName: Scalars['String']
+}
+
+export type MutationRegisterUserArgs = {
+  shopId: Scalars['ID']
   userId: Scalars['ID']
   userName: Scalars['String']
 }
@@ -353,6 +360,22 @@ export type RegisterAdminUserAndShopMutation = {
   }
 }
 
+export type RegisterUserMutationVariables = Exact<{
+  userId: Scalars['ID']
+  shopId: Scalars['ID']
+  userName: Scalars['String']
+}>
+
+export type RegisterUserMutation = {
+  __typename?: 'Mutation'
+  registerUser: {
+    __typename?: 'UserAndShop'
+    userId: string
+    userName: string
+    shopId: string
+  }
+}
+
 export type ShopQueryVariables = Exact<{
   shopId: Scalars['ID']
 }>
@@ -534,6 +557,60 @@ export type RegisterAdminUserAndShopMutationOptions =
     RegisterAdminUserAndShopMutation,
     RegisterAdminUserAndShopMutationVariables
   >
+export const RegisterUserDocument = gql`
+  mutation registerUser($userId: ID!, $shopId: ID!, $userName: String!) {
+    registerUser(userId: $userId, shopId: $shopId, userName: $userName) {
+      userId
+      userName
+      shopId
+    }
+  }
+`
+export type RegisterUserMutationFn = Apollo.MutationFunction<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
+>
+
+/**
+ * __useRegisterUserMutation__
+ *
+ * To run a mutation, you first call `useRegisterUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerUserMutation, { data, loading, error }] = useRegisterUserMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      shopId: // value for 'shopId'
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function useRegisterUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >(RegisterUserDocument, options)
+}
+export type RegisterUserMutationHookResult = ReturnType<
+  typeof useRegisterUserMutation
+>
+export type RegisterUserMutationResult =
+  Apollo.MutationResult<RegisterUserMutation>
+export type RegisterUserMutationOptions = Apollo.BaseMutationOptions<
+  RegisterUserMutation,
+  RegisterUserMutationVariables
+>
 export const ShopDocument = gql`
   query shop($shopId: ID!) {
     shop(shopId: $shopId) {

@@ -44,3 +44,17 @@ export class RegisterAdminArgs extends IntersectionType(
   _RegisterAdminArgsShop,
   _RegisterAdminArgsUser
 ) {}
+
+@ArgsType()
+class _RegisterUserArgsUser extends PickType(UserArgs, [
+  'userId',
+  'userName',
+] as const) {}
+
+@ArgsType()
+class _RegisterUserArgsShop extends PickType(ShopArgs, ['shopId'] as const) {}
+@ArgsType()
+export class RegisterUserArgs extends IntersectionType(
+  _RegisterUserArgsUser,
+  _RegisterUserArgsShop
+) {}

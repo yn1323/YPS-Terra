@@ -5,6 +5,7 @@ import {
   GetUserArgs,
   GetUserByTokenArgs,
   RegisterAdminArgs,
+  RegisterUserArgs,
 } from '@/modules/User/args/index'
 import { UserService } from '@/modules/User/index.service'
 import { UserAndShop } from '@/modules/User/objectType'
@@ -31,5 +32,10 @@ export class UserResolver {
   @Mutation(returns => UserAndShop, { name: 'registerAdminUserAndShop' })
   async registerAdminUserAndShop(@Args() args: RegisterAdminArgs) {
     return this.userService.registerAdminUserAndShop(args)
+  }
+
+  @Mutation(returns => UserAndShop, { name: 'registerUser' })
+  async registerUser(@Args() args: RegisterUserArgs) {
+    return this.userService.registerUser(args)
   }
 }

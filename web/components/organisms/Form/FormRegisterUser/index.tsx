@@ -1,10 +1,13 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
 import { FC, useRef, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import { Button } from '@/atoms/Button/Button'
 import { Heading } from '@/atoms/Text/Heading'
 import { FORM_ERROR_TEXT } from '@/constants/validations'
 import { FormUserName } from '@/molecules/Form/FormUserName'
+import { userInfoState } from '@/recoil/userInfo'
+import { useRegisterUser } from '@/services/register/registerUser'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 
 type PropTypes = {
@@ -13,7 +16,8 @@ type PropTypes = {
 }
 
 export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
-  shopId
+  const { registerUserMutation, loading, error } = useRegisterUser()
+  const { uid } = useRecoilValue(userInfoState)
   const userNameRef = useRef<HTMLInputElement>(null)
 
   const [success, setSuccess] = useState({
@@ -27,6 +31,14 @@ export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
     if (!allSuccess) {
       setSuccess({
         userName: !!userNameRef.current?.value,
+      })
+    } else {
+      registerUserMutation({
+        variables: {
+          userId: uid,
+          shopId,
+          userName: userNameRef.current?.value ?? '',
+        },
       })
     }
   }

@@ -13,6 +13,7 @@ import {
   GetUserArgs,
   GetUserByTokenArgs,
   RegisterAdminArgs,
+  RegisterUserArgs,
 } from '@/modules/User/args'
 
 @Injectable()
@@ -29,7 +30,7 @@ export class UserService {
   }
 
   async createUser(args: CreateUserArgs) {
-    const userId = args.userId
+    const { userId } = args
     const data = this.createUserData(args)
 
     const result = await collections.user
@@ -88,6 +89,60 @@ export class UserService {
         await t.set(userCollection, userInfo)
         await t.set(shopCollection, shopInfo)
         return { ...userInfo, ...shopInfo }
+      })
+      .catch(e => console.log(e))
+    return result
+  }
+
+  async registerUser(args: RegisterUserArgs) {
+    const { userId, shopId } = args
+
+    const userCollection = collections.user.doc(userId)
+    const shopCollection = collections.shop.doc(shopId)
+
+    const result = await db
+      .runTransaction(async t => {
+        const userDoc = await t.get(userCollection)
+        const shopDoc = await t.get(shopCollection)
+
+        if (!shopDoc.exists) {
+          return new BadRequestException()
+        }
+
+        if (userDoc.exists) {
+          const newMemberOf = await this.addMemberOf({ userId, shopId })
+          console.log({ ...userDoc.data, memberOf: newMemberOf, shopId })
+          return { ...userDoc.data(), memberOf: newMemberOf, shopId }
+        }
+
+        const userInfo = this.createUserData({ ...args, shopId })
+        await t.set(userCollection, userInfo)
+        return { ...userInfo, shopId }
+      })
+      .catch(e => console.log(e))
+    return result
+  }
+
+  async addMemberOf(args: { userId: string; shopId: string }) {
+    const { userId, shopId } = args
+
+    const userCollection = collections.user.doc(userId)
+    const shopCollection = collections.shop.doc(shopId)
+
+    const result = await db
+      .runTransaction(async t => {
+        const userDoc = await t.get(userCollection)
+        const shopDoc = await t.get(shopCollection)
+
+        if (!shopDoc.exists || !userDoc.exists) {
+          return new BadRequestException()
+        }
+
+        const { memberOf } = userDoc.data()
+        const newMemberOf = Array.from(new Set([...memberOf, shopId]))
+        userCollection.update({ memberOf: newMemberOf })
+
+        return newMemberOf
       })
       .catch(e => console.log(e))
     return result

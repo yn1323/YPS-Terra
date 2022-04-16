@@ -38,3 +38,13 @@ export const registerAdminUserAndShop = gql`
     }
   }
 `
+
+export const registerUser = gql`
+  mutation registerUser($userId: ID!, $shopId: ID!, $userName: String!) {
+    registerUser(userId: $userId, shopId: $shopId, userName: $userName) {
+      userId
+      userName
+      shopId
+    }
+  }
+`
