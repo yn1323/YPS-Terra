@@ -12,16 +12,23 @@ import {
 
 @Injectable()
 export class OrganizationService {
+  createOrganizationData(
+    args: CreateOrganizationArgs & { organizationId: string }
+  ) {
+    return {
+      organizationId: args.organizationId,
+      organizationName: args.organizationName,
+      organizationOwnerIds: [args.organizationOwnerId],
+      shopIds: [args.shopId],
+    }
+  }
+
   async createOrganization(args: CreateOrganizationArgs) {
     const organizationId = getRandomId()
+
     const result = await collections.organization
       .doc(organizationId)
-      .create({
-        organizationId,
-        organizationName: args.organizationName,
-        organizationOwnerIds: [args.organizationOwnerId],
-        shopIds: [args.shopId],
-      })
+      .create(this.createOrganizationData({ ...args, organizationId }))
       .catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()

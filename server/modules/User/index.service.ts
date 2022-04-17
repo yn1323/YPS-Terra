@@ -7,6 +7,7 @@ import {
 import { getAuthFromToken } from '@/firebase/auth'
 import { collections, db, getRandomId } from '@/firebase/common'
 import { User } from '@/models/User'
+import { OrganizationService } from '@/modules/Organization/index.service'
 import { ShopService } from '@/modules/Shop/index.service'
 import {
   CreateUserArgs,
@@ -18,7 +19,10 @@ import {
 
 @Injectable()
 export class UserService {
-  constructor(private shopService: ShopService) {}
+  constructor(
+    private shopService: ShopService,
+    private origanizationService: OrganizationService
+  ) {}
 
   createUserData(args: CreateUserArgs) {
     return {
@@ -70,25 +74,36 @@ export class UserService {
   async registerAdminUserAndShop(args: RegisterAdminArgs) {
     const userId = args.userId
     const shopId = getRandomId()
+    const organizationId = getRandomId()
 
     const userCollection = collections.user.doc(userId)
     const shopCollection = collections.shop.doc(shopId)
+    const organizationCollection = collections.organization.doc(organizationId)
 
     const result = await db
       .runTransaction(async t => {
         const userDoc = await t.get(userCollection)
         const shopDoc = await t.get(shopCollection)
+        const organizationDoc = await t.get(organizationCollection)
 
-        if (userDoc.exists || shopDoc.exists) {
+        if (userDoc.exists || shopDoc.exists || organizationDoc.exists) {
           return new BadRequestException()
         }
 
         const userInfo = this.createUserData({ ...args, shopId })
         const shopInfo = this.shopService.createShopData({ ...args, shopId })
+        const organizationInfo =
+          this.origanizationService.createOrganizationData({
+            organizationId,
+            organizationName: args.shopName,
+            organizationOwnerId: userId,
+            shopId,
+          })
 
         await t.set(userCollection, userInfo)
         await t.set(shopCollection, shopInfo)
-        return { ...userInfo, ...shopInfo }
+        await t.set(organizationCollection, organizationInfo)
+        return { ...userInfo, ...shopInfo, ...organizationInfo }
       })
       .catch(e => console.log(e))
     return result

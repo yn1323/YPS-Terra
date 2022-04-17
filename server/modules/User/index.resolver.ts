@@ -8,7 +8,7 @@ import {
   RegisterUserArgs,
 } from '@/modules/User/args/index'
 import { UserService } from '@/modules/User/index.service'
-import { UserAndShop } from '@/modules/User/objectType'
+import { RegisterUserOrAdmin, UserAndShop } from '@/modules/User/objectType'
 
 @Resolver(of => User)
 export class UserResolver {
@@ -29,12 +29,14 @@ export class UserResolver {
     return this.userService.findOneByToken(args)
   }
 
-  @Mutation(returns => UserAndShop, { name: 'registerAdminUserAndShop' })
+  @Mutation(returns => RegisterUserOrAdmin, {
+    name: 'registerAdminUserAndShop',
+  })
   async registerAdminUserAndShop(@Args() args: RegisterAdminArgs) {
     return this.userService.registerAdminUserAndShop(args)
   }
 
-  @Mutation(returns => UserAndShop, { name: 'registerUser' })
+  @Mutation(returns => RegisterUserOrAdmin, { name: 'registerUser' })
   async registerUser(@Args() args: RegisterUserArgs) {
     return this.userService.registerUser(args)
   }

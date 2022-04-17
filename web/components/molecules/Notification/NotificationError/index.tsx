@@ -1,7 +1,7 @@
 import type { SerializedStyles } from '@emotion/react'
 import { FC, Fragment, useMemo } from 'react'
-import { replaceToBrTag } from 'src/helpers/react'
 import { Snackbar } from '@/atoms/Text/Snackbar'
+import { replaceToBrTag } from '@/localHelpers/react'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
