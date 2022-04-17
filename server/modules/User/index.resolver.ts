@@ -8,7 +8,7 @@ import {
   RegisterUserArgs,
 } from '@/modules/User/args/index'
 import { UserService } from '@/modules/User/index.service'
-import { RegisterUserOrAdmin, UserAndShop } from '@/modules/User/objectType'
+import { RegisterUserOrAdmin } from '@/modules/User/objectType'
 
 @Resolver(of => User)
 export class UserResolver {
