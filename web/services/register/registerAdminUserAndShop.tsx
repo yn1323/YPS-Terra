@@ -1,5 +1,5 @@
-import { getErrorCode } from 'services/helpers/common/getErrorCode'
 import { useRegisterAdminUserAndShopMutation } from '@/graphql/generated'
+import { getErrorCode } from '@/services/helpers/common/getErrorCode'
 
 export const useRegisterAdminUserAndShop = () => {
   const [registerAdminUserAndShopMutation, { loading, error, data }] =

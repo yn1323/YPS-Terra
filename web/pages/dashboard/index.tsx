@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
-import { authPageRedirectTo } from 'services/helpers/ssrProps/authPageRedirectTo'
+import { authPageRedirectTo } from '@/services/helpers/ssrProps/authPageRedirectTo'
 import { Animation } from '@/templates/Animation'
 import { Layout } from '@/templates/Layout'
 

@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next'
-import { authCheck } from 'services/auth/authCheck'
+import { authCheck } from '@/services/auth/authCheck'
 
 export const loginPageRedirectTo = async (
   context: GetServerSidePropsContext

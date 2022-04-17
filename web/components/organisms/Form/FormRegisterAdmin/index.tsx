@@ -3,7 +3,6 @@ import type { SerializedStyles } from '@emotion/react'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useRef, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { useRegisterAdminUserAndShop } from 'services/register/registerAdminUserAndShop'
 import { Heading } from '@/atoms/Text/Heading'
 import {
   ShiftSubmitFrequency,
@@ -20,6 +19,7 @@ import { FormTimeCardAuth } from '@/molecules/Form/FormTimeCardAuth'
 import { FormTimeUnit } from '@/molecules/Form/FormTimeUnit'
 import { FormUserName } from '@/molecules/Form/FormUserName'
 import { userInfoState } from '@/recoil/userInfo'
+import { useRegisterAdminUserAndShop } from '@/services/register/registerAdminUserAndShop'
 import { Stepper } from '@/templates/Stepper'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 
