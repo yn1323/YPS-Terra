@@ -16,6 +16,7 @@ import {
   RegisterAdminArgs,
   RegisterUserArgs,
 } from '@/modules/User/args'
+import { LoginInfo } from '@/modules/User/objectType'
 
 @Injectable()
 export class UserService {
@@ -82,9 +83,11 @@ export class UserService {
 
     const result = await db
       .runTransaction(async t => {
-        const userDoc = await t.get(userCollection)
-        const shopDoc = await t.get(shopCollection)
-        const organizationDoc = await t.get(organizationCollection)
+        const [userDoc, shopDoc, organizationDoc] = await Promise.all([
+          await t.get(userCollection),
+          await t.get(shopCollection),
+          await t.get(organizationCollection),
+        ])
 
         if (userDoc.exists || shopDoc.exists || organizationDoc.exists) {
           return new BadRequestException()
@@ -99,14 +102,14 @@ export class UserService {
             organizationOwnerId: userId,
             shopId,
           })
-
-        await t.set(userCollection, userInfo)
-        await t.set(shopCollection, shopInfo)
-        await t.set(organizationCollection, organizationInfo)
-        return { ...userInfo, ...shopInfo, ...organizationInfo }
+        await Promise.all([
+          await t.set(userCollection, userInfo),
+          await t.set(shopCollection, shopInfo),
+          await t.set(organizationCollection, organizationInfo),
+        ])
       })
       .catch(e => console.log(e))
-    return result
+    return this.getLoginInfo({ userId })
   }
 
   async registerUser(args: RegisterUserArgs) {
@@ -115,26 +118,27 @@ export class UserService {
     const userCollection = collections.user.doc(userId)
     const shopCollection = collections.shop.doc(shopId)
 
-    const result = await db
+    await db
       .runTransaction(async t => {
-        const userDoc = await t.get(userCollection)
-        const shopDoc = await t.get(shopCollection)
+        const [userDoc, shopDoc] = await Promise.all([
+          await t.get(userCollection),
+          await t.get(shopCollection),
+        ])
 
         if (!shopDoc.exists) {
           return new NotFoundException()
         }
+        const userInfo = this.createUserData({ ...args, shopId })
 
         if (userDoc.exists) {
-          const newMemberOf = await this.addMemberOf({ userId, shopId })
-          return { ...userDoc.data(), memberOf: newMemberOf, shopId }
+          await t.update(userCollection, userInfo)
+        } else {
+          await t.set(userCollection, userInfo)
         }
-
-        const userInfo = this.createUserData({ ...args, shopId })
-        await t.set(userCollection, userInfo)
-        return { ...userInfo, shopId }
       })
       .catch(e => console.log(e))
-    return result
+
+    return this.getLoginInfo({ userId })
   }
 
   async addMemberOf(args: { userId: string; shopId: string }) {
@@ -145,8 +149,10 @@ export class UserService {
 
     const result = await db
       .runTransaction(async t => {
-        const userDoc = await t.get(userCollection)
-        const shopDoc = await t.get(shopCollection)
+        const [userDoc, shopDoc] = await Promise.all([
+          await t.get(userCollection),
+          await t.get(shopCollection),
+        ])
 
         if (!shopDoc.exists || !userDoc.exists) {
           return new NotFoundException()
@@ -154,11 +160,45 @@ export class UserService {
 
         const { memberOf } = userDoc.data()
         const newMemberOf = Array.from(new Set([...memberOf, shopId]))
-        userCollection.update({ memberOf: newMemberOf })
+        await userCollection.update({ memberOf: newMemberOf })
 
         return newMemberOf
       })
       .catch(e => console.log(e))
     return result
+  }
+
+  async getLoginInfo({ userId }: { userId: string }) {
+    const userCollection = collections.user.doc(userId)
+
+    const loginAllInfo = await db
+      .runTransaction(async t => {
+        const userDoc = await t.get(userCollection)
+        if (!userDoc.exists) {
+          return new NotFoundException()
+        }
+
+        const user = userDoc.data()
+        const shopIds: string[] = user.memberOf
+
+        const [shops, organizations] = await Promise.all([
+          await this.shopService.findShopsByShopIds({
+            shopIds,
+          }),
+          ...shopIds.map(async shopId => {
+            return await this.origanizationService.findOrganizationsByShopId({
+              shopId,
+            })
+          }),
+        ])
+
+        return {
+          user: userDoc.data(),
+          shops,
+          organizations,
+        }
+      })
+      .catch(e => console.log(e))
+    return loginAllInfo
   }
 }

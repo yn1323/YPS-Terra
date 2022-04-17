@@ -8,6 +8,7 @@ import { Organization } from '@/models/Organization'
 import {
   CreateOrganizationArgs,
   GetOrganizationArgs,
+  GetOrganizationByShopIdArgs,
 } from '@/modules/Organization/args'
 
 @Injectable()
@@ -56,6 +57,17 @@ export class OrganizationService {
       return new NotFoundException()
     }
     const ret = snapshot.data() as Organization
+
+    return ret
+  }
+
+  async findOrganizationsByShopId(args: GetOrganizationByShopIdArgs) {
+    const snapshot = await collections.organization
+      .where('shopIds', 'array-contains', args.shopId)
+      .get()
+
+    const ret: Organization[] = []
+    snapshot.forEach(d => ret.push(d.data() as Organization))
 
     return ret
   }

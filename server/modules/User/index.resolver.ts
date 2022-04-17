@@ -4,11 +4,12 @@ import {
   CreateUserArgs,
   GetUserArgs,
   GetUserByTokenArgs,
+  LoginInfoArgs,
   RegisterAdminArgs,
   RegisterUserArgs,
 } from '@/modules/User/args/index'
 import { UserService } from '@/modules/User/index.service'
-import { RegisterUserOrAdmin } from '@/modules/User/objectType'
+import { LoginInfo } from '@/modules/User/objectType'
 
 @Resolver(of => User)
 export class UserResolver {
@@ -29,15 +30,20 @@ export class UserResolver {
     return this.userService.findOneByToken(args)
   }
 
-  @Mutation(returns => RegisterUserOrAdmin, {
+  @Mutation(returns => LoginInfo, {
     name: 'registerAdminUserAndShop',
   })
   async registerAdminUserAndShop(@Args() args: RegisterAdminArgs) {
     return this.userService.registerAdminUserAndShop(args)
   }
 
-  @Mutation(returns => RegisterUserOrAdmin, { name: 'registerUser' })
+  @Mutation(returns => LoginInfo, { name: 'registerUser' })
   async registerUser(@Args() args: RegisterUserArgs) {
     return this.userService.registerUser(args)
+  }
+
+  @Query(returns => LoginInfo, { name: 'loginInfo' })
+  async getLoginInfo(@Args() args: LoginInfoArgs) {
+    return this.userService.getLoginInfo(args)
   }
 }

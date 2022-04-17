@@ -10,12 +10,18 @@ type Announce {
   shopId: ID!
 }
 
+type LoginInfo {
+  organizations: [Organization!]!
+  shops: [Shop!]!
+  user: User!
+}
+
 type Mutation {
   announce(announceDateFrom: Timestamp!, announceDateTo: Timestamp!, message: String!, organizationId: ID!, shopId: ID!): Announce!
   operation(shopId: ID!): [Operation!]!
   organization(organizationName: String!, organizationOwnerId: ID!, shopId: ID!): Organization!
-  registerAdminUserAndShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!, userId: ID!, userName: String!): RegisterUserOrAdmin!
-  registerUser(shopId: ID!, userId: ID!, userName: String!): RegisterUserOrAdmin!
+  registerAdminUserAndShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!, userId: ID!, userName: String!): LoginInfo!
+  registerUser(shopId: ID!, userId: ID!, userName: String!): LoginInfo!
   request(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Request!
   requestCondition(dateFrom: Timestamp!, dateTo: Timestamp!, done: Boolean!, shopId: ID!, userId: ID!): RequestCondition!
   shift(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Shift!
@@ -41,36 +47,19 @@ type Organization {
 
 type Query {
   announce(organizationId: ID!, shopId: ID!): [Announce!]!
+  findOrganizationsByShopId(shopId: ID!): [Organization!]!
+  loginInfo(userId: ID!): LoginInfo!
   operations(shopId: ID!): [Operation!]!
   organization(organizationId: ID!): Organization!
   request(shopId: ID!, userId: ID!): [Request!]!
   requestCondition(shopId: ID!, userId: ID!): [RequestCondition!]!
   shift(shopId: ID!, userId: ID!): [Shift!]!
   shop(shopId: ID!): Shop!
+  shops(shopIds: [ID!]!): [Shop!]!
   temporaryClosed(organizationId: ID!, shopId: ID!): [TemporaryClosed!]!
   timeCard(shopId: ID!, userId: ID!): [TimeCard!]!
   user(userId: ID!): User!
   userExists(token: ID!): User!
-}
-
-type RegisterUserOrAdmin {
-  avatar: String!
-  closeTime: Timestamp!
-  closedWeekday: [Int!]!
-  memberOf: [ID!]!
-  openTime: Timestamp!
-  organizationId: ID!
-  organizationName: String!
-  organizationOwnerIds: [ID!]!
-  shopId: ID!
-  shopIds: [ID!]!
-  shopName: String!
-  shopOwnerIds: [ID!]!
-  submitFrequency: String!
-  timeUnit: Int!
-  useTimeCard: Boolean!
-  userId: ID!
-  userName: String!
 }
 
 type Request {

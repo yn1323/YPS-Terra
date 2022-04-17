@@ -1,7 +1,7 @@
 import { Args, Resolver, Query, Mutation, Subscription } from '@nestjs/graphql'
 import { PubSub } from 'graphql-subscriptions'
 import { Shop } from '@/models/Shop'
-import { CreateShopArgs, GetShopArgs } from '@/modules/Shop/args'
+import { CreateShopArgs, GetShopArgs, GetShopsArgs } from '@/modules/Shop/args'
 import { ShopService } from '@/modules/Shop/index.service'
 
 @Resolver(of => Shop)
@@ -15,9 +15,15 @@ export class ShopResolver {
   createShop(@Args() args: CreateShopArgs) {
     return this.shopService.createShop(args)
   }
+
   @Query(returns => Shop, { name: 'shop' })
   findShopByShopId(@Args() args: GetShopArgs) {
     return this.shopService.findOneByShopId(args)
+  }
+
+  @Query(returns => [Shop], { name: 'shops' })
+  findShopsByShopIds(@Args() args: GetShopsArgs) {
+    return this.shopService.findShopsByShopIds(args)
   }
 
   @Subscription(returns => Shop, {

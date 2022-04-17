@@ -58,3 +58,6 @@ export class RegisterUserArgs extends IntersectionType(
   _RegisterUserArgsUser,
   _RegisterUserArgsShop
 ) {}
+
+@ArgsType()
+export class LoginInfoArgs extends PickType(UserArgs, ['userId'] as const) {}

@@ -4,26 +4,13 @@ import { Shop } from '@/models/Shop'
 import { User } from '@/models/User'
 
 @ObjectType()
-export class UserAndShop extends IntersectionType(User, Shop) {}
+export class LoginInfo {
+  @Field(type => User)
+  user: User
 
-@ObjectType()
-export class RegisterUserOrAdmin extends IntersectionType(
-  UserAndShop,
-  Organization
-) {
-  // NOTE: IntersectionTypeで配列は正常に継承できないかも
-  @Field(type => [ID])
-  memberOf: string[]
+  @Field(type => [Shop])
+  shops: Shop[]
 
-  @Field(type => [Int])
-  closedWeekday: number[]
-
-  @Field(type => [ID])
-  shopOwnerIds: string[]
-
-  @Field(type => [ID])
-  organizationOwnerIds: string[]
-
-  @Field(type => [ID])
-  shopIds: string[]
+  @Field(type => [Organization])
+  organizations: Organization[]
 }

@@ -6,7 +6,7 @@ import {
 import { PubSub } from 'graphql-subscriptions'
 import { collections, getRandomId } from '@/firebase/common'
 import { Shop } from '@/models/Shop'
-import { CreateShopArgs, GetShopArgs } from '@/modules/Shop/args'
+import { CreateShopArgs, GetShopArgs, GetShopsArgs } from '@/modules/Shop/args'
 
 @Injectable()
 export class ShopService {
@@ -57,6 +57,20 @@ export class ShopService {
       closeTime: ret.closeTime.toDate(),
     }
   }
+
+  async findShopsByShopIds({ shopIds }: GetShopsArgs) {
+    const shops = await Promise.all(
+      shopIds.map(async shopId =>
+        (await collections.shop.doc(shopId).get()).data()
+      )
+    )
+    return shops.map(shop => ({
+      ...shop,
+      openTime: shop.openTime.toDate(),
+      closeTime: shop.closeTime.toDate(),
+    }))
+  }
+
   subscribeOneShopFromFirestore({ shopId }: GetShopArgs, pubSub: PubSub) {
     if (this.subscribes[shopId]) {
       this.subscribes[shopId]()

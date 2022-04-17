@@ -3,6 +3,7 @@ import { Organization } from '@/models/Organization'
 import {
   CreateOrganizationArgs,
   GetOrganizationArgs,
+  GetOrganizationByShopIdArgs,
 } from '@/modules/Organization/args/index'
 import { OrganizationService } from '@/modules/Organization/index.service'
 
@@ -18,5 +19,10 @@ export class OrganizationResolver {
   @Query(returns => Organization, { name: 'organization' })
   findShopByOrganizationId(@Args() args: GetOrganizationArgs) {
     return this.organizationService.findOneByOrganizationId(args)
+  }
+
+  @Query(returns => [Organization], { name: 'findOrganizationsByShopId' })
+  findOrganizationsByShopId(@Args() args: GetOrganizationByShopIdArgs) {
+    return this.organizationService.findOrganizationsByShopId(args)
   }
 }
