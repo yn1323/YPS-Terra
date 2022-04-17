@@ -9,6 +9,7 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/services/*": ["services/*"],
       "@/recoil/*": ["src/recoil/*"],
+      "@/localHelpers/*": ["src/helpers/*"],
       "@/config/*": ["src/config/*"],
       "@/firebase/*": ["src/firebase/*"],
       "@/graphql/*": ["graphql/*"],

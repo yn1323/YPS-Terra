@@ -13,4 +13,7 @@ const args = {
   severity: 'success' as AlertColor,
 }
 
-export const Basic: StoryObj = { args }
+export const Basic: StoryObj = {
+  args,
+  parameters: { chromatic: { viewports: [414, 1080] } },
+}

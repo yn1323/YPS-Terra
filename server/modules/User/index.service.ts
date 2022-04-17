@@ -106,12 +106,11 @@ export class UserService {
         const shopDoc = await t.get(shopCollection)
 
         if (!shopDoc.exists) {
-          return new BadRequestException()
+          return new NotFoundException()
         }
 
         if (userDoc.exists) {
           const newMemberOf = await this.addMemberOf({ userId, shopId })
-          console.log({ ...userDoc.data, memberOf: newMemberOf, shopId })
           return { ...userDoc.data(), memberOf: newMemberOf, shopId }
         }
 
@@ -135,7 +134,7 @@ export class UserService {
         const shopDoc = await t.get(shopCollection)
 
         if (!shopDoc.exists || !userDoc.exists) {
-          return new BadRequestException()
+          return new NotFoundException()
         }
 
         const { memberOf } = userDoc.data()

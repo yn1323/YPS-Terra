@@ -1,11 +1,6 @@
 import { atom } from 'recoil'
 
-export interface UserInfo {
-  token: string
-  uid: string
-  isAnonymous: boolean
-}
-
+export type UserInfo = typeof defaultUserInfo
 export const defaultUserInfo = {
   token: '',
   uid: '',

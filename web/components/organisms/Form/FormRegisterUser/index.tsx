@@ -7,6 +7,7 @@ import { Button } from '@/atoms/Button/Button'
 import { Heading } from '@/atoms/Text/Heading'
 import { FORM_ERROR_TEXT } from '@/constants/validations'
 import { FormUserName } from '@/molecules/Form/FormUserName'
+import { NotificationError } from '@/molecules/Notification/NotificationError'
 import { userInfoState } from '@/recoil/userInfo'
 import { useRegisterUser } from '@/services/register/registerUser'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
@@ -17,8 +18,13 @@ type PropTypes = {
 }
 
 export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
-  const { registerUserMutation, loading, error, mutationSucceeded } =
-    useRegisterUser()
+  const {
+    registerUserMutation,
+    loading,
+    error,
+    errorMessage,
+    mutationSucceeded,
+  } = useRegisterUser()
   const { uid } = useRecoilValue(userInfoState)
   const userNameRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
@@ -54,6 +60,10 @@ export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
 
   return (
     <div css={[_css, styles.container]}>
+      {error && (
+        <NotificationError show={true}>{errorMessage}</NotificationError>
+      )}
+
       <section css={styles.section}>
         <Heading underline>初期設定</Heading>
         <div css={styles.items}>

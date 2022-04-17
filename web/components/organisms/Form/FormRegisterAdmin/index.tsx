@@ -18,6 +18,7 @@ import { FormSubmitFrequency } from '@/molecules/Form/FormSubmitFrequency'
 import { FormTimeCardAuth } from '@/molecules/Form/FormTimeCardAuth'
 import { FormTimeUnit } from '@/molecules/Form/FormTimeUnit'
 import { FormUserName } from '@/molecules/Form/FormUserName'
+import { NotificationError } from '@/molecules/Notification/NotificationError'
 import { userInfoState } from '@/recoil/userInfo'
 import { useRegisterAdminUserAndShop } from '@/services/register/registerAdminUserAndShop'
 import { Stepper } from '@/templates/Stepper'
@@ -119,6 +120,7 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
 
   return (
     <div css={[_css, styles.container]}>
+      {error && <NotificationError show={true} />}
       <Heading underline>YPS初期設定</Heading>
 
       <Stepper
