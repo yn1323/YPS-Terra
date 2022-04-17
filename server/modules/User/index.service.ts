@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common'
 import { getAuthFromToken } from '@/firebase/auth'
 import { collections, db, getRandomId } from '@/firebase/common'
+import { organizationAndShopCombination } from '@/helpers/structure'
 import { User } from '@/models/User'
 import { OrganizationService } from '@/modules/Organization/index.service'
 import { ShopService } from '@/modules/Shop/index.service'
@@ -16,7 +17,6 @@ import {
   RegisterAdminArgs,
   RegisterUserArgs,
 } from '@/modules/User/args'
-import { LoginInfo } from '@/modules/User/objectType'
 
 @Injectable()
 export class UserService {
@@ -107,9 +107,11 @@ export class UserService {
           await t.set(shopCollection, shopInfo),
           await t.set(organizationCollection, organizationInfo),
         ])
+        return this.getLoginInfo({ userId })
       })
       .catch(e => console.log(e))
-    return this.getLoginInfo({ userId })
+
+    return result
   }
 
   async registerUser(args: RegisterUserArgs) {
@@ -118,7 +120,7 @@ export class UserService {
     const userCollection = collections.user.doc(userId)
     const shopCollection = collections.shop.doc(shopId)
 
-    await db
+    const result = await db
       .runTransaction(async t => {
         const [userDoc, shopDoc] = await Promise.all([
           await t.get(userCollection),
@@ -135,10 +137,11 @@ export class UserService {
         } else {
           await t.set(userCollection, userInfo)
         }
+        return this.getLoginInfo({ userId })
       })
       .catch(e => console.log(e))
 
-    return this.getLoginInfo({ userId })
+    return result
   }
 
   async addMemberOf(args: { userId: string; shopId: string }) {
@@ -185,17 +188,22 @@ export class UserService {
           await this.shopService.findShopsByShopIds({
             shopIds,
           }),
-          ...shopIds.map(async shopId => {
-            return await this.origanizationService.findOrganizationsByShopId({
-              shopId,
-            })
+          await this.origanizationService.findOrganizationsByShopIds({
+            shopIds,
           }),
         ])
+
+        const structure = organizationAndShopCombination({
+          userId,
+          shops,
+          organizations,
+        })
 
         return {
           user: userDoc.data(),
           shops,
           organizations,
+          structure,
         }
       })
       .catch(e => console.log(e))

@@ -64,11 +64,12 @@ export class ShopService {
         (await collections.shop.doc(shopId).get()).data()
       )
     )
+
     return shops.map(shop => ({
       ...shop,
       openTime: shop.openTime.toDate(),
       closeTime: shop.closeTime.toDate(),
-    }))
+    })) as Shop[]
   }
 
   subscribeOneShopFromFirestore({ shopId }: GetShopArgs, pubSub: PubSub) {

@@ -13,6 +13,7 @@ type Announce {
 type LoginInfo {
   organizations: [Organization!]!
   shops: [Shop!]!
+  structure: [StructureCombination!]!
   user: User!
 }
 
@@ -47,7 +48,7 @@ type Organization {
 
 type Query {
   announce(organizationId: ID!, shopId: ID!): [Announce!]!
-  findOrganizationsByShopId(shopId: ID!): [Organization!]!
+  findOrganizationsByShopIds(shopIds: [ID!]!): [Organization!]!
   loginInfo(userId: ID!): LoginInfo!
   operations(shopId: ID!): [Operation!]!
   organization(organizationId: ID!): Organization!
@@ -99,6 +100,12 @@ type Shop {
   submitFrequency: String!
   timeUnit: Int!
   useTimeCard: Boolean!
+}
+
+type StructureCombination {
+  organizationId: ID!
+  shopId: ID!
+  userId: ID!
 }
 
 type Subscription {

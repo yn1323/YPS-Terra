@@ -19,6 +19,7 @@ export class CreateOrganizationArgs extends PickType(OrganizationArgs, [
 }
 
 @ArgsType()
-export class GetOrganizationByShopIdArgs extends PickType(ShopArgs, [
-  'shopId',
-] as const) {}
+export class GetOrganizationsByShopIdsArgs {
+  @Field(type => [ID])
+  shopIds: string[]
+}

@@ -8,7 +8,7 @@ import { Organization } from '@/models/Organization'
 import {
   CreateOrganizationArgs,
   GetOrganizationArgs,
-  GetOrganizationByShopIdArgs,
+  GetOrganizationsByShopIdsArgs,
 } from '@/modules/Organization/args'
 
 @Injectable()
@@ -61,14 +61,20 @@ export class OrganizationService {
     return ret
   }
 
-  async findOrganizationsByShopId(args: GetOrganizationByShopIdArgs) {
-    const snapshot = await collections.organization
-      .where('shopIds', 'array-contains', args.shopId)
-      .get()
+  async findOrganizationsByShopIds({ shopIds }: GetOrganizationsByShopIdsArgs) {
+    const snapshot = await Promise.all(
+      shopIds.map(
+        async shopId =>
+          await collections.organization
+            .where('shopIds', 'array-contains', shopId)
+            .get()
+      )
+    )
+    const organizations: Organization[] = []
+    snapshot.forEach(a =>
+      a.forEach(b => organizations.push(b.data() as Organization))
+    )
 
-    const ret: Organization[] = []
-    snapshot.forEach(d => ret.push(d.data() as Organization))
-
-    return ret
+    return organizations
   }
 }
