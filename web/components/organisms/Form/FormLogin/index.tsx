@@ -18,7 +18,7 @@ export const FormLogin: FC<PropTypes> = ({ _css }) => {
   const { signIn, isLoading } = useLogIn()
   const router = useRouter()
   const {
-    query: { shopId },
+    query: { shopId = '' },
   } = router
 
   const handleSignIn = async (
