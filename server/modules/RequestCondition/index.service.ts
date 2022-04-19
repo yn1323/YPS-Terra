@@ -14,7 +14,9 @@ import {
 @Injectable()
 export class RequestConditionService {
   async addRequestCondition(@Args() args: AddRequestConditionArgs) {
-    const result = await collections.requestCondition.add(args).catch(e => null)
+    const result = await collections.requestCondition
+      .add(args)
+      .catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()
     }
@@ -29,7 +31,7 @@ export class RequestConditionService {
       .where('userId', '==', args.userId)
       .where('shopId', '==', args.shopId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()

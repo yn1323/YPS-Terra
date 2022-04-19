@@ -1,5 +1,8 @@
 import { createTheme } from '@mui/material/styles'
 export const themes = {
+  typography: {
+    fontSize: 13,
+  },
   palette: {
     primary: {
       main: '#FF8E3C',

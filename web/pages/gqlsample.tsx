@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { Button } from '@/atoms/Button/Button'
 import { useShopQuery } from '@/graphql/generated'
-import { authPageRedirectTo } from '@/services/ssrProps/authPageRedirectTo'
+import { authPageRedirectTo } from '@/services/helpers/ssrProps/authPageRedirectTo'
 
 const Home: NextPage = () => {
   const { loading, error, data } = useShopQuery({

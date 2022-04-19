@@ -17,6 +17,9 @@ type PropTypes = {
 export const FormLogin: FC<PropTypes> = ({ _css }) => {
   const { signIn, isLoading } = useLogIn()
   const router = useRouter()
+  const {
+    query: { shopId = '' },
+  } = router
 
   const handleSignIn = async (
     type: Parameters<typeof signIn>[0],
@@ -24,7 +27,11 @@ export const FormLogin: FC<PropTypes> = ({ _css }) => {
   ) => {
     const result = await signIn(type, options)
     if (result) {
-      router.push('/register')
+      if (shopId) {
+        router.push({ pathname: '/register', query: { shopId } })
+      } else {
+        router.push('/register')
+      }
     }
   }
 

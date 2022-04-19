@@ -49,7 +49,7 @@ const styles = {
   container: css`
     flex-grow: 1;
     display: none;
-    ${mediaQueries('sm')} {
+    ${mediaQueries('md')} {
       display: block;
     }
     > * {

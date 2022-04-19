@@ -16,7 +16,8 @@ export const collections: Collections = {
   temporaryClosed: null,
   announce: null,
 } as const
-let db: FirebaseFirestore.Firestore
+
+export let db: FirebaseFirestore.Firestore
 
 export const firebaseInit = () => {
   initializeApp({

@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
 import { FormSignup } from '@/organisms/Form/FormSignup'
-import { loginPageRedirectTo } from '@/services/ssrProps/loginPageRedirectTo'
+import { loginPageRedirectTo } from '@/services/helpers/ssrProps/loginPageRedirectTo'
 import { Animation } from '@/templates/Animation'
 import { Layout } from '@/templates/Layout'
 

@@ -11,7 +11,9 @@ import { AddAnnounceArgs, GetAnnounceArgs } from '@/modules/Announce/args'
 @Injectable()
 export class AnnounceService {
   async addAnnounce(@Args() args: AddAnnounceArgs) {
-    const result = await collections.announce.add(args).catch(e => null)
+    const result = await collections.announce
+      .add(args)
+      .catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()
     }
@@ -26,7 +28,7 @@ export class AnnounceService {
       .where('organizationId', '==', args.organizationId)
       .where('shopId', '==', args.shopId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()

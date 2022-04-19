@@ -8,6 +8,7 @@ import { theme } from '../src/ui/theme'
 import * as nextImage from 'next/image'
 import { RecoilRoot } from 'recoil'
 import { useRecoilSnapshot } from 'recoil'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -15,6 +16,13 @@ export const parameters = {
     storySort: {
       order: ['atom', 'molecule', 'organism', 'template', 'page'],
     },
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
+    path: '/',
+    asPath: '/',
+    query: {},
+    push() {},
   },
 }
 

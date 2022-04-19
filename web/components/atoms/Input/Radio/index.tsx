@@ -61,7 +61,7 @@ export const Radio: FC<PropTypes> = ({
             <FormControlLabel
               value={value}
               control={<MaterialUIRadio size="small" color={color} />}
-              label={<div css={styles.label}>{label}</div>}
+              label={<div>{label}</div>}
               disabled={disabled}
             />
             {note && <Note>{note}</Note>}
@@ -74,8 +74,5 @@ export const Radio: FC<PropTypes> = ({
 const styles = {
   labelContainer: css`
     display: flex;
-  `,
-  label: css`
-    font-size: 0.9rem;
   `,
 }

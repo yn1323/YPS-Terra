@@ -61,7 +61,6 @@ const styles = {
     justify-content: center;
     &:before {
       content: '〜';
-      font-size: 0.9rem;
       position: absolute;
       margin-top: 12px;
     }

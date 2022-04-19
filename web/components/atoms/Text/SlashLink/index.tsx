@@ -25,7 +25,6 @@ export const SlashLink: FC<PropTypes> = ({ _css, links }) => {
 }
 const styles = {
   container: css`
-    font-size: 0.85rem;
     margin: 0 4px;
     color: ${themes.palette.text.primary};
   `,

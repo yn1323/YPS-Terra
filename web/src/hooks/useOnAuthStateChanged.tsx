@@ -3,7 +3,7 @@ import type { User, Unsubscribe } from 'firebase/auth'
 import { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { auth } from '@/firebase/common'
-import { UserInfo, userInfoState } from '@/recoil/userInfo'
+import { userInfoState } from '@/recoil/userInfo'
 
 const unsubscribe: { [key: string]: Unsubscribe | null } = {
   authChange: null,
@@ -12,26 +12,21 @@ const unsubscribe: { [key: string]: Unsubscribe | null } = {
 export const useOnAuthStateChanged = () => {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState)
 
-  const updateUserInfo = ({ uid, token, isAnonymous }: UserInfo) => {
-    setUserInfo({ ...userInfo, token, uid, isAnonymous })
-    document.cookie = `yps-token=${token}`
-  }
-
   useEffect(() => {
     if (unsubscribe.authChange) {
       unsubscribe.authChange()
-    }
-    if (!onAuthStateChanged) {
-      return
     }
 
     unsubscribe.authChange = onAuthStateChanged(auth, user => {
       if (!user) {
         return
       }
+      // eslint-disable-next-line
       const tmp: User & { [key: string]: any } = user
       const { uid, accessToken = '', isAnonymous } = tmp
-      updateUserInfo({ uid, token: accessToken, isAnonymous })
+      setUserInfo({ ...userInfo, token: accessToken, uid, isAnonymous })
+      document.cookie = `yps-token=${accessToken}`
+      document.cookie = `uid=${uid}`
     })
   }, [])
 }

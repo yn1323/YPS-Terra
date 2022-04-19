@@ -11,7 +11,7 @@ import { AddShiftArgs, GetShiftArgs } from '@/modules/Shift/args'
 @Injectable()
 export class ShiftService {
   async addShift(@Args() args: AddShiftArgs) {
-    const result = await collections.shift.add(args).catch(e => null)
+    const result = await collections.shift.add(args).catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()
     }
@@ -25,7 +25,7 @@ export class ShiftService {
       .where('userId', '==', args.userId)
       .where('shopId', '==', args.shopId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
     if (!snapshot) {
       return new BadRequestException()
     }

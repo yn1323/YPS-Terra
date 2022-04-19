@@ -23,7 +23,7 @@ type PropTypes = {
   initialValue: UserType
   setter: Dispatch<SetStateAction<UserType>>
 }
-
+// TODO: DELETE
 export const FormUserType: FC<PropTypes> = ({ _css, initialValue, setter }) => {
   return (
     <Form css={_css} definition="ユーザー種別">

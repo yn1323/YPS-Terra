@@ -24,7 +24,7 @@ export const FormSignup: FC<PropTypes> = ({ _css }) => {
   const handleRefreshPassword = async (
     option: Parameters<typeof refreshPassword>[0]
   ) => {
-    const result = await refreshPassword(option)
+    await refreshPassword(option)
     // TODO: メール送信メッセージ表示
   }
 

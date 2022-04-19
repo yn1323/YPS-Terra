@@ -6,6 +6,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    'storybook-addon-next-router',
   ],
   features: {
     interactionsDebugger: true,
@@ -30,7 +31,8 @@ module.exports = {
       '@/config': path.resolve(__dirname, '../src/config'),
       '@/graphql': path.resolve(__dirname, '../graphql'),
       '@/hooks': path.resolve(__dirname, '../src/hooks'),
-      '@/services': path.resolve(__dirname, '../src/services'),
+      '@/services': path.resolve(__dirname, '../services'),
+      '@/localHelpers': path.resolve(__dirname, '../src/helpers'),
       '@/firebase': path.resolve(__dirname, '../src/firebase'),
       '@/atoms': path.resolve(__dirname, '../components/atoms'),
       '@/molecules': path.resolve(__dirname, '../components/molecules'),

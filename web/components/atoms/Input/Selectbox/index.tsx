@@ -49,6 +49,7 @@ export const Selectbox: FC<PropTypes> = ({
 
       <Select
         css={_css}
+        // eslint-disable-next-line
         value={val as any}
         onChange={handleChange}
         displayEmpty

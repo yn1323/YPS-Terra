@@ -10,17 +10,38 @@ type Announce {
   shopId: ID!
 }
 
+type LoginInfo {
+  names: Names!
+  organizations: [Organization!]!
+  shops: [Shop!]!
+  structure: [StructureCombination!]!
+  user: User!
+}
+
 type Mutation {
   announce(announceDateFrom: Timestamp!, announceDateTo: Timestamp!, message: String!, organizationId: ID!, shopId: ID!): Announce!
   operation(shopId: ID!): [Operation!]!
   organization(organizationName: String!, organizationOwnerId: ID!, shopId: ID!): Organization!
+  registerAdminUserAndShop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!, userId: ID!, userName: String!): LoginInfo!
+  registerUser(shopId: ID!, userId: ID!, userName: String!): LoginInfo!
   request(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Request!
   requestCondition(dateFrom: Timestamp!, dateTo: Timestamp!, done: Boolean!, shopId: ID!, userId: ID!): RequestCondition!
   shift(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): Shift!
   shop(closeTime: Timestamp!, openTime: Timestamp!, shopName: String!, submitFrequency: String!, timeUnit: Int!, useTimeCard: Boolean!): Shop!
   temporaryClosed(date: Timestamp!, organizationId: ID!, shopId: ID!): TemporaryClosed!
   timeCard(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): TimeCard!
-  user(shopId: ID!, userName: String!): User!
+  user(shopId: ID!, userId: ID!, userName: String!): User!
+}
+
+type NameObject {
+  id: ID!
+  name: String!
+}
+
+type Names {
+  organization: [NameObject!]!
+  shop: [NameObject!]!
+  user: [NameObject!]!
 }
 
 type Operation {
@@ -39,12 +60,15 @@ type Organization {
 
 type Query {
   announce(organizationId: ID!, shopId: ID!): [Announce!]!
+  findOrganizationsByShopIds(shopIds: [ID!]!): [Organization!]!
+  loginInfo(userId: ID!): LoginInfo!
   operations(shopId: ID!): [Operation!]!
   organization(organizationId: ID!): Organization!
   request(shopId: ID!, userId: ID!): [Request!]!
   requestCondition(shopId: ID!, userId: ID!): [RequestCondition!]!
   shift(shopId: ID!, userId: ID!): [Shift!]!
   shop(shopId: ID!): Shop!
+  shops(shopIds: [ID!]!): [Shop!]!
   temporaryClosed(organizationId: ID!, shopId: ID!): [TemporaryClosed!]!
   timeCard(shopId: ID!, userId: ID!): [TimeCard!]!
   user(userId: ID!): User!
@@ -88,6 +112,12 @@ type Shop {
   submitFrequency: String!
   timeUnit: Int!
   useTimeCard: Boolean!
+}
+
+type StructureCombination {
+  organizationId: ID!
+  shopId: ID!
+  userId: ID!
 }
 
 type Subscription {

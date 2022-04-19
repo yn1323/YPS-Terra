@@ -16,6 +16,7 @@ import { theme } from '@/ui/theme'
 
 const clientSideEmotionCache = createEmotionCache()
 interface MyAppProps extends AppProps {
+  // eslint-disable-next-line
   emotionCache?: any
 }
 
@@ -27,6 +28,7 @@ function MyApp(props: MyAppProps) {
     useEffect(() => {
       for (const node of snapshot.getNodes_UNSTABLE({
         isModified: true,
+        // eslint-disable-next-line
       }) as any) {
         console.debug(node.key, snapshot.getLoadable(node))
       }

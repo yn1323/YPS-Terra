@@ -14,7 +14,9 @@ import {
 @Injectable()
 export class TemporaryClosedService {
   async addTemporaryClosed(@Args() args: AddTemporaryClosedArgs) {
-    const result = await collections.temporaryClosed.add(args).catch(e => null)
+    const result = await collections.temporaryClosed
+      .add(args)
+      .catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()
     }
@@ -31,7 +33,7 @@ export class TemporaryClosedService {
       .where('organizationId', '==', args.organizationId)
       .where('shopId', '==', args.shopId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()

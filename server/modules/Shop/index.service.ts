@@ -6,25 +6,29 @@ import {
 import { PubSub } from 'graphql-subscriptions'
 import { collections, getRandomId } from '@/firebase/common'
 import { Shop } from '@/models/Shop'
-import { CreateShopArgs, GetShopArgs } from '@/modules/Shop/args'
+import { CreateShopArgs, GetShopArgs, GetShopsArgs } from '@/modules/Shop/args'
 
 @Injectable()
 export class ShopService {
   private subscribes = {}
 
-  async createShop(args: CreateShopArgs) {
-    const shopId = getRandomId()
-    const d: Shop = {
-      shopId,
+  createShopData(args: CreateShopArgs & { shopId: string }): Shop {
+    return {
+      shopId: args.shopId,
       avatar: '',
       closedWeekday: [],
       shopOwnerIds: [],
       ...args,
     }
+  }
+
+  async createShop(args: CreateShopArgs) {
+    const shopId = getRandomId()
+    const d = this.createShopData({ ...args, shopId })
     const result = await collections.shop
       .doc(shopId)
       .create(d)
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!result) {
       return new BadRequestException()
@@ -36,7 +40,7 @@ export class ShopService {
     const snapshot = await collections.shop
       .doc(shopId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()
@@ -53,6 +57,21 @@ export class ShopService {
       closeTime: ret.closeTime.toDate(),
     }
   }
+
+  async findShopsByShopIds({ shopIds }: GetShopsArgs) {
+    const shops = await Promise.all(
+      shopIds.map(async shopId =>
+        (await collections.shop.doc(shopId).get()).data()
+      )
+    )
+
+    return shops.map(shop => ({
+      ...shop,
+      openTime: shop.openTime.toDate(),
+      closeTime: shop.closeTime.toDate(),
+    })) as Shop[]
+  }
+
   subscribeOneShopFromFirestore({ shopId }: GetShopArgs, pubSub: PubSub) {
     if (this.subscribes[shopId]) {
       this.subscribes[shopId]()

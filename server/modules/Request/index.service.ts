@@ -11,7 +11,9 @@ import { AddRequestArgs, GetRequestArgs } from '@/modules/Request/args'
 @Injectable()
 export class RequestService {
   async addRequest(@Args() args: AddRequestArgs) {
-    const result = await collections.request.add(args).catch(e => null)
+    const result = await collections.request
+      .add(args)
+      .catch(e => console.log(e))
     if (!result) {
       return new BadRequestException()
     }
@@ -26,7 +28,7 @@ export class RequestService {
       .where('userId', '==', args.userId)
       .where('shopId', '==', args.shopId)
       .get()
-      .catch(e => null)
+      .catch(e => console.log(e))
 
     if (!snapshot) {
       return new BadRequestException()
