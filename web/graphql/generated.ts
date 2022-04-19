@@ -32,13 +32,22 @@ export type Announce = {
   shopId: Scalars['ID']
 }
 
+export type LoginInfo = {
+  __typename?: 'LoginInfo'
+  names: Names
+  organizations: Array<Organization>
+  shops: Array<Shop>
+  structure: Array<StructureCombination>
+  user: User
+}
+
 export type Mutation = {
   __typename?: 'Mutation'
   announce: Announce
   operation: Array<Operation>
   organization: Organization
-  registerAdminUserAndShop: UserAndShop
-  registerUser: UserAndShop
+  registerAdminUserAndShop: LoginInfo
+  registerUser: LoginInfo
   request: Request
   requestCondition: RequestCondition
   shift: Shift
@@ -139,6 +148,19 @@ export type MutationUserArgs = {
   userName: Scalars['String']
 }
 
+export type NameObject = {
+  __typename?: 'NameObject'
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type Names = {
+  __typename?: 'Names'
+  organization: Array<NameObject>
+  shop: Array<NameObject>
+  user: Array<NameObject>
+}
+
 export type Operation = {
   __typename?: 'Operation'
   color: Scalars['String']
@@ -158,12 +180,15 @@ export type Organization = {
 export type Query = {
   __typename?: 'Query'
   announce: Array<Announce>
+  findOrganizationsByShopIds: Array<Organization>
+  loginInfo: LoginInfo
   operations: Array<Operation>
   organization: Organization
   request: Array<Request>
   requestCondition: Array<RequestCondition>
   shift: Array<Shift>
   shop: Shop
+  shops: Array<Shop>
   temporaryClosed: Array<TemporaryClosed>
   timeCard: Array<TimeCard>
   user: User
@@ -173,6 +198,14 @@ export type Query = {
 export type QueryAnnounceArgs = {
   organizationId: Scalars['ID']
   shopId: Scalars['ID']
+}
+
+export type QueryFindOrganizationsByShopIdsArgs = {
+  shopIds: Array<Scalars['ID']>
+}
+
+export type QueryLoginInfoArgs = {
+  userId: Scalars['ID']
 }
 
 export type QueryOperationsArgs = {
@@ -200,6 +233,10 @@ export type QueryShiftArgs = {
 
 export type QueryShopArgs = {
   shopId: Scalars['ID']
+}
+
+export type QueryShopsArgs = {
+  shopIds: Array<Scalars['ID']>
 }
 
 export type QueryTemporaryClosedArgs = {
@@ -263,6 +300,13 @@ export type Shop = {
   useTimeCard: Scalars['Boolean']
 }
 
+export type StructureCombination = {
+  __typename?: 'StructureCombination'
+  organizationId: Scalars['ID']
+  shopId: Scalars['ID']
+  userId: Scalars['ID']
+}
+
 export type Subscription = {
   __typename?: 'Subscription'
   shop: Shop
@@ -297,23 +341,6 @@ export type User = {
   userName: Scalars['String']
 }
 
-export type UserAndShop = {
-  __typename?: 'UserAndShop'
-  avatar: Scalars['String']
-  closeTime: Scalars['Timestamp']
-  closedWeekday: Array<Scalars['Int']>
-  memberOf: Array<Scalars['ID']>
-  openTime: Scalars['Timestamp']
-  shopId: Scalars['ID']
-  shopName: Scalars['String']
-  shopOwnerIds: Array<Scalars['ID']>
-  submitFrequency: Scalars['String']
-  timeUnit: Scalars['Int']
-  useTimeCard: Scalars['Boolean']
-  userId: Scalars['ID']
-  userName: Scalars['String']
-}
-
 export type UserExistsQueryVariables = Exact<{
   token: Scalars['ID']
 }>
@@ -343,20 +370,34 @@ export type RegisterAdminUserAndShopMutationVariables = Exact<{
 export type RegisterAdminUserAndShopMutation = {
   __typename?: 'Mutation'
   registerAdminUserAndShop: {
-    __typename?: 'UserAndShop'
-    userId: string
-    userName: string
-    avatar: string
-    memberOf: Array<string>
-    shopId: string
-    shopName: string
-    openTime: any
-    closeTime: any
-    timeUnit: number
-    submitFrequency: string
-    useTimeCard: boolean
-    closedWeekday: Array<number>
-    shopOwnerIds: Array<string>
+    __typename?: 'LoginInfo'
+    user: {
+      __typename?: 'User'
+      userId: string
+      userName: string
+      avatar: string
+      memberOf: Array<string>
+    }
+    shops: Array<{
+      __typename?: 'Shop'
+      shopId: string
+      shopName: string
+      openTime: any
+      closeTime: any
+      timeUnit: number
+      submitFrequency: string
+      avatar: string
+      useTimeCard: boolean
+      closedWeekday: Array<number>
+      shopOwnerIds: Array<string>
+    }>
+    organizations: Array<{
+      __typename?: 'Organization'
+      organizationId: string
+      organizationName: string
+      shopIds: Array<string>
+      organizationOwnerIds: Array<string>
+    }>
   }
 }
 
@@ -369,10 +410,34 @@ export type RegisterUserMutationVariables = Exact<{
 export type RegisterUserMutation = {
   __typename?: 'Mutation'
   registerUser: {
-    __typename?: 'UserAndShop'
-    userId: string
-    userName: string
-    shopId: string
+    __typename?: 'LoginInfo'
+    user: {
+      __typename?: 'User'
+      userId: string
+      userName: string
+      avatar: string
+      memberOf: Array<string>
+    }
+    shops: Array<{
+      __typename?: 'Shop'
+      shopId: string
+      shopName: string
+      openTime: any
+      closeTime: any
+      timeUnit: number
+      submitFrequency: string
+      avatar: string
+      useTimeCard: boolean
+      closedWeekday: Array<number>
+      shopOwnerIds: Array<string>
+    }>
+    organizations: Array<{
+      __typename?: 'Organization'
+      organizationId: string
+      organizationName: string
+      shopIds: Array<string>
+      organizationOwnerIds: Array<string>
+    }>
   }
 }
 
@@ -391,6 +456,60 @@ export type ShopQuery = {
     timeUnit: number
     submitFrequency: string
     useTimeCard: boolean
+  }
+}
+
+export type Unnamed_1_QueryVariables = Exact<{
+  userId: Scalars['ID']
+}>
+
+export type Unnamed_1_Query = {
+  __typename?: 'Query'
+  loginInfo: {
+    __typename?: 'LoginInfo'
+    user: {
+      __typename?: 'User'
+      userId: string
+      userName: string
+      avatar: string
+      memberOf: Array<string>
+    }
+    shops: Array<{
+      __typename?: 'Shop'
+      shopId: string
+      shopName: string
+      openTime: any
+      closeTime: any
+      timeUnit: number
+      submitFrequency: string
+      avatar: string
+      useTimeCard: boolean
+      closedWeekday: Array<number>
+      shopOwnerIds: Array<string>
+    }>
+    organizations: Array<{
+      __typename?: 'Organization'
+      organizationId: string
+      organizationName: string
+      shopIds: Array<string>
+      organizationOwnerIds: Array<string>
+    }>
+    structure: Array<{
+      __typename?: 'StructureCombination'
+      organizationId: string
+      shopId: string
+      userId: string
+    }>
+    names: {
+      __typename?: 'Names'
+      user: Array<{ __typename?: 'NameObject'; id: string; name: string }>
+      shop: Array<{ __typename?: 'NameObject'; id: string; name: string }>
+      organization: Array<{
+        __typename?: 'NameObject'
+        id: string
+        name: string
+      }>
+    }
   }
 }
 
@@ -489,20 +608,30 @@ export const RegisterAdminUserAndShopDocument = gql`
       submitFrequency: $submitFrequency
       useTimeCard: $useTimeCard
     ) {
-      userId
-      userName
-      avatar
-      memberOf
-      shopId
-      shopName
-      openTime
-      closeTime
-      timeUnit
-      submitFrequency
-      avatar
-      useTimeCard
-      closedWeekday
-      shopOwnerIds
+      user {
+        userId
+        userName
+        avatar
+        memberOf
+      }
+      shops {
+        shopId
+        shopName
+        openTime
+        closeTime
+        timeUnit
+        submitFrequency
+        avatar
+        useTimeCard
+        closedWeekday
+        shopOwnerIds
+      }
+      organizations {
+        organizationId
+        organizationName
+        shopIds
+        organizationOwnerIds
+      }
     }
   }
 `
@@ -560,9 +689,30 @@ export type RegisterAdminUserAndShopMutationOptions =
 export const RegisterUserDocument = gql`
   mutation registerUser($userId: ID!, $shopId: ID!, $userName: String!) {
     registerUser(userId: $userId, shopId: $shopId, userName: $userName) {
-      userId
-      userName
-      shopId
+      user {
+        userId
+        userName
+        avatar
+        memberOf
+      }
+      shops {
+        shopId
+        shopName
+        openTime
+        closeTime
+        timeUnit
+        submitFrequency
+        avatar
+        useTimeCard
+        closedWeekday
+        shopOwnerIds
+      }
+      organizations {
+        organizationId
+        organizationName
+        shopIds
+        organizationOwnerIds
+      }
     }
   }
 `
@@ -659,6 +809,87 @@ export function useShopLazyQuery(
 export type ShopQueryHookResult = ReturnType<typeof useShopQuery>
 export type ShopLazyQueryHookResult = ReturnType<typeof useShopLazyQuery>
 export type ShopQueryResult = Apollo.QueryResult<ShopQuery, ShopQueryVariables>
+export const Document = gql`
+  query ($userId: ID!) {
+    loginInfo(userId: $userId) {
+      user {
+        userId
+        userName
+        avatar
+        memberOf
+      }
+      shops {
+        shopId
+        shopName
+        openTime
+        closeTime
+        timeUnit
+        submitFrequency
+        avatar
+        useTimeCard
+        closedWeekday
+        shopOwnerIds
+      }
+      organizations {
+        organizationId
+        organizationName
+        shopIds
+        organizationOwnerIds
+      }
+      structure {
+        organizationId
+        shopId
+        userId
+      }
+      names {
+        user {
+          id
+          name
+        }
+        shop {
+          id
+          name
+        }
+        organization {
+          id
+          name
+        }
+      }
+    }
+  }
+`
+
+/**
+ * __useQuery__
+ *
+ * To run a query within a React component, call `useQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useQuery(
+  baseOptions: Apollo.QueryHookOptions<Query, QueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<Query, QueryVariables>(Document, options)
+}
+export function useLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Query, QueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<Query, QueryVariables>(Document, options)
+}
+export type QueryHookResult = ReturnType<typeof useQuery>
+export type LazyQueryHookResult = ReturnType<typeof useLazyQuery>
+export type QueryResult = Apollo.QueryResult<Query, QueryVariables>
 export const GetUserDocument = gql`
   query getUser($userId: ID!) {
     user(userId: $userId) {

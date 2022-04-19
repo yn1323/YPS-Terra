@@ -1,8 +1,9 @@
 import { Organization } from '@/models/Organization'
 import { Shop } from '@/models/Shop'
 import { StructureCombination } from '@/models/StructureCombination'
+import { User } from '@/models/User'
 
-type OrganizationAndShopCombinationArgs = {
+type OrganizationAndShopCombination = {
   userId: string
   shops: Shop[]
   organizations: Organization[]
@@ -11,7 +12,7 @@ export const organizationAndShopCombination = ({
   userId,
   shops,
   organizations,
-}: OrganizationAndShopCombinationArgs) => {
+}: OrganizationAndShopCombination) => {
   const ret: StructureCombination[] = []
 
   const shopIdsInShops = shops.map(({ shopId }) => shopId)
@@ -29,4 +30,25 @@ export const organizationAndShopCombination = ({
   })
 
   return ret
+}
+
+type GetGroupNamesArgs = {
+  user: User
+  shops: Shop[]
+  organizations: Organization[]
+}
+
+export const getGroupNames = ({
+  user,
+  shops,
+  organizations,
+}: GetGroupNamesArgs) => {
+  return {
+    user: [{ id: user.userId, name: user.userName }],
+    shop: shops.map(({ shopId, shopName }) => ({ id: shopId, name: shopName })),
+    organization: organizations.map(({ organizationId, organizationName }) => ({
+      id: organizationId,
+      name: organizationName,
+    })),
+  }
 }

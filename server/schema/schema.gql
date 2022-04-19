@@ -11,6 +11,7 @@ type Announce {
 }
 
 type LoginInfo {
+  names: Names!
   organizations: [Organization!]!
   shops: [Shop!]!
   structure: [StructureCombination!]!
@@ -30,6 +31,17 @@ type Mutation {
   temporaryClosed(date: Timestamp!, organizationId: ID!, shopId: ID!): TemporaryClosed!
   timeCard(breakFrom: Timestamp!, breakTo: Timestamp!, shopId: ID!, userId: ID!, workFrom: Timestamp!, workTo: Timestamp!): TimeCard!
   user(shopId: ID!, userId: ID!, userName: String!): User!
+}
+
+type NameObject {
+  id: ID!
+  name: String!
+}
+
+type Names {
+  organization: [NameObject!]!
+  shop: [NameObject!]!
+  user: [NameObject!]!
 }
 
 type Operation {

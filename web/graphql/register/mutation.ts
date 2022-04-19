@@ -21,20 +21,30 @@ export const registerAdminUserAndShop = gql`
       submitFrequency: $submitFrequency
       useTimeCard: $useTimeCard
     ) {
-      userId
-      userName
-      avatar
-      memberOf
-      shopId
-      shopName
-      openTime
-      closeTime
-      timeUnit
-      submitFrequency
-      avatar
-      useTimeCard
-      closedWeekday
-      shopOwnerIds
+      user {
+        userId
+        userName
+        avatar
+        memberOf
+      }
+      shops {
+        shopId
+        shopName
+        openTime
+        closeTime
+        timeUnit
+        submitFrequency
+        avatar
+        useTimeCard
+        closedWeekday
+        shopOwnerIds
+      }
+      organizations {
+        organizationId
+        organizationName
+        shopIds
+        organizationOwnerIds
+      }
     }
   }
 `
@@ -42,9 +52,30 @@ export const registerAdminUserAndShop = gql`
 export const registerUser = gql`
   mutation registerUser($userId: ID!, $shopId: ID!, $userName: String!) {
     registerUser(userId: $userId, shopId: $shopId, userName: $userName) {
-      userId
-      userName
-      shopId
+      user {
+        userId
+        userName
+        avatar
+        memberOf
+      }
+      shops {
+        shopId
+        shopName
+        openTime
+        closeTime
+        timeUnit
+        submitFrequency
+        avatar
+        useTimeCard
+        closedWeekday
+        shopOwnerIds
+      }
+      organizations {
+        organizationId
+        organizationName
+        shopIds
+        organizationOwnerIds
+      }
     }
   }
 `

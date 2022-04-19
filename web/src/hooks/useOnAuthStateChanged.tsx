@@ -26,6 +26,7 @@ export const useOnAuthStateChanged = () => {
       const { uid, accessToken = '', isAnonymous } = tmp
       setUserInfo({ ...userInfo, token: accessToken, uid, isAnonymous })
       document.cookie = `yps-token=${accessToken}`
+      document.cookie = `uid=${uid}`
     })
   }, [])
 }

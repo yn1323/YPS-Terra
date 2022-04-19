@@ -3,5 +3,5 @@ export const getCookieValue = (str?: string, key = 'yps-token') => {
     return ''
   }
   const keyValue = str.split(' ').find(s => s.includes(`${key}=`))
-  return keyValue?.replace(`${key}=`, '') ?? ''
+  return keyValue?.replace(`${key}=`, '').replace(';', '') ?? ''
 }

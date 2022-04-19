@@ -6,7 +6,10 @@ import {
 } from '@nestjs/common'
 import { getAuthFromToken } from '@/firebase/auth'
 import { collections, db, getRandomId } from '@/firebase/common'
-import { organizationAndShopCombination } from '@/helpers/structure'
+import {
+  getGroupNames,
+  organizationAndShopCombination,
+} from '@/helpers/structure'
 import { User } from '@/models/User'
 import { OrganizationService } from '@/modules/Organization/index.service'
 import { ShopService } from '@/modules/Shop/index.service'
@@ -181,7 +184,7 @@ export class UserService {
           return new NotFoundException()
         }
 
-        const user = userDoc.data()
+        const user = userDoc.data() as User
         const shopIds: string[] = user.memberOf
 
         const [shops, organizations] = await Promise.all([
@@ -199,11 +202,14 @@ export class UserService {
           organizations,
         })
 
+        const names = getGroupNames({ user, shops, organizations })
+
         return {
-          user: userDoc.data(),
+          user,
           shops,
           organizations,
           structure,
+          names,
         }
       })
       .catch(e => console.log(e))
