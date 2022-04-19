@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from 'next'
 import client from '@/config/apollo-client'
-import { getLoginInfo } from '@/graphql/user/getLoginInfo'
+import { getLoginInfo } from '@/graphql/login/getLoginInfo'
 import { getCookieValue } from '@/helpers/string'
 import { getErrorCode } from '@/services/helpers/common/getErrorCode'
 import { ssrGqlCommon } from '@/services/helpers/common/ssrGqlCommon'
