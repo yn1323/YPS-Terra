@@ -459,11 +459,11 @@ export type ShopQuery = {
   }
 }
 
-export type Unnamed_1_QueryVariables = Exact<{
+export type LoginInfoQueryVariables = Exact<{
   userId: Scalars['ID']
 }>
 
-export type Unnamed_1_Query = {
+export type LoginInfoQuery = {
   __typename?: 'Query'
   loginInfo: {
     __typename?: 'LoginInfo'
@@ -809,8 +809,8 @@ export function useShopLazyQuery(
 export type ShopQueryHookResult = ReturnType<typeof useShopQuery>
 export type ShopLazyQueryHookResult = ReturnType<typeof useShopLazyQuery>
 export type ShopQueryResult = Apollo.QueryResult<ShopQuery, ShopQueryVariables>
-export const Document = gql`
-  query ($userId: ID!) {
+export const LoginInfoDocument = gql`
+  query loginInfo($userId: ID!) {
     loginInfo(userId: $userId) {
       user {
         userId
@@ -860,36 +860,50 @@ export const Document = gql`
 `
 
 /**
- * __useQuery__
+ * __useLoginInfoQuery__
  *
- * To run a query within a React component, call `useQuery` and pass it any options that fit your needs.
- * When your component renders, `useQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useLoginInfoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLoginInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useQuery({
+ * const { data, loading, error } = useLoginInfoQuery({
  *   variables: {
  *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useQuery(
-  baseOptions: Apollo.QueryHookOptions<Query, QueryVariables>
+export function useLoginInfoQuery(
+  baseOptions: Apollo.QueryHookOptions<LoginInfoQuery, LoginInfoQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<Query, QueryVariables>(Document, options)
+  return Apollo.useQuery<LoginInfoQuery, LoginInfoQueryVariables>(
+    LoginInfoDocument,
+    options
+  )
 }
-export function useLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<Query, QueryVariables>
+export function useLoginInfoLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    LoginInfoQuery,
+    LoginInfoQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<Query, QueryVariables>(Document, options)
+  return Apollo.useLazyQuery<LoginInfoQuery, LoginInfoQueryVariables>(
+    LoginInfoDocument,
+    options
+  )
 }
-export type QueryHookResult = ReturnType<typeof useQuery>
-export type LazyQueryHookResult = ReturnType<typeof useLazyQuery>
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>
+export type LoginInfoQueryHookResult = ReturnType<typeof useLoginInfoQuery>
+export type LoginInfoLazyQueryHookResult = ReturnType<
+  typeof useLoginInfoLazyQuery
+>
+export type LoginInfoQueryResult = Apollo.QueryResult<
+  LoginInfoQuery,
+  LoginInfoQueryVariables
+>
 export const GetUserDocument = gql`
   query getUser($userId: ID!) {
     user(userId: $userId) {
