@@ -58,7 +58,10 @@ const styles = {
   toolbar: css`
     color: ${themes.palette.secondary.contrastText};
     ${mediaQueries('sm')} {
-      width: ${themes.breakpoints.values.lg}px;
+      width: ${themes.breakpoints.values.sm}px;
+    }
+    ${mediaQueries('md')} {
+      width: ${themes.breakpoints.values.md}px;
     }
   `,
   toolbarSpace: css`
