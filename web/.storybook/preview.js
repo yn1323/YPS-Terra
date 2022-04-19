@@ -8,7 +8,7 @@ import { theme } from '../src/ui/theme'
 import * as nextImage from 'next/image'
 import { RecoilRoot } from 'recoil'
 import { useRecoilSnapshot } from 'recoil'
-import * as nextRouter from 'next/router'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -16,6 +16,13 @@ export const parameters = {
     storySort: {
       order: ['atom', 'molecule', 'organism', 'template', 'page'],
     },
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
+    path: '/',
+    asPath: '/',
+    query: {},
+    push() {},
   },
 }
 
@@ -48,12 +55,4 @@ export const decorators = [withThemeProvider]
 Object.defineProperty(nextImage, 'default', {
   configurable: true,
   value: props => <img {...props} style={{ objectFit: 'contain' }} />,
-})
-
-nextRouter.useRouter = () => ({
-  route: '/',
-  pathname: '/about',
-  query: { query: 'Next.js Storybook' },
-  asPath: '',
-  basePath: '',
 })
