@@ -12,27 +12,29 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import { MenuAvatar } from '@/molecules/Menu/MenuAvatar'
+import { userInfoState } from '@/recoil/userInfo'
 import { MENU } from '@/ui/layout/menu'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
-  userName: string
-  imagePath: string
+  open?: boolean
 }
 
-export const MenuList: FC<PropTypes> = ({ _css, userName, imagePath }) => {
+export const MenuList: FC<PropTypes> = ({ _css, open = true }) => {
+  const { userName, avatarPath } = useRecoilValue(userInfoState)
   const router = useRouter()
-  const [iconOnly, setOnlyIcon] = useState(false)
+  const [iconOnly, setOnlyIcon] = useState(!open)
   const clickHandler = (link: string) => {
     router.push(link)
   }
   const menus = [MENU.TOP, MENU.SHIFT, MENU.ATTENDANCE, MENU.TIMECARD]
   const menuDelimeter = [1]
   const configs = [MENU.CONFIG, MENU.HOWTO, MENU.LOGOUT]
-  const configDelimeter = [0, 2]
+  const configDelimeter = [2]
   return (
-    <List css={styles.container}>
+    <List css={[_css, styles.container]}>
       <Box>
         <div
           css={[
@@ -51,7 +53,7 @@ export const MenuList: FC<PropTypes> = ({ _css, userName, imagePath }) => {
           <MenuAvatar
             _css={styles.avatar}
             userName={userName}
-            imagePath={imagePath}
+            imagePath={avatarPath}
             onlyImage={iconOnly}
           />
         )}

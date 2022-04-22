@@ -7,10 +7,12 @@ export default {
   component: MenuList,
 } as ComponentMeta<typeof MenuList>
 const args = {
-  userName: 'userName',
-  imagePath: '',
+  open: true,
 }
 
 export const Basic: StoryObj = {
   args,
+}
+export const IconOnly: StoryObj = {
+  args: { ...args, open: false },
 }
