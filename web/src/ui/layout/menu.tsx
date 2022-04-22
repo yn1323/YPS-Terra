@@ -1,13 +1,3 @@
-import {
-  Alarm,
-  Assessment,
-  Build,
-  ExitToApp,
-  HelpOutline,
-  Home,
-  LibraryBooks,
-} from '@mui/icons-material'
-
 export type MenuItem = {
   icon: JSX.Element
   label: string

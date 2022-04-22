@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles'
+import { extendTheme } from '@chakra-ui/react'
 export const themes = {
   typography: {
     fontSize: 13,
@@ -38,4 +38,29 @@ export const themes = {
   },
 }
 
-export const theme = createTheme(themes)
+const colors = {
+  brand: {
+    900: '#1a365d',
+    800: '#153e75',
+    700: '#2a69ac',
+  },
+}
+
+const disabledBoxShadowComponents = ['Button', 'Popover']
+const componentObj = disabledBoxShadowComponents.reduce((acc, cur) => {
+  return {
+    ...acc,
+    [cur]: {
+      baseStyle: {
+        _focus: {
+          boxShadow: 'none',
+        },
+      },
+    },
+  }
+}, {})
+
+export const themeChakra = extendTheme({
+  colors,
+  components: componentObj,
+})

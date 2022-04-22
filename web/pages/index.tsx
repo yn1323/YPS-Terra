@@ -1,7 +1,6 @@
 import type { NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
 import { Animation } from '@/templates/Animation'
-import { Layout } from '@/templates/Layout'
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -12,7 +11,7 @@ const Home: NextPageWithLayout = () => {
 }
 
 Home.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <SidebarLayout>{page}</SidebarLayout>
 }
 
 export default Home
