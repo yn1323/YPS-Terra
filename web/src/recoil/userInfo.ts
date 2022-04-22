@@ -5,6 +5,8 @@ export const defaultUserInfo = {
   token: '',
   uid: '',
   isAnonymous: false,
+  userName: 'userName',
+  avatarPath: '',
 }
 
 export const userInfoState = atom<UserInfo>({

@@ -13,8 +13,8 @@ type PropTypes = {
   icon: JSX.Element
   items?: MenuItem[]
   delimeterPosition?: number[]
-  hasMenu: boolean
-  link: string
+  showArrow?: boolean
+  link?: string
 }
 
 export const MenuButton: FC<PropTypes> = ({
@@ -22,8 +22,8 @@ export const MenuButton: FC<PropTypes> = ({
   icon,
   items = [],
   delimeterPosition,
-  hasMenu,
-  link,
+  showArrow = false,
+  link = '',
   children,
 }) => {
   const [show, setShow] = useState(false)
@@ -33,7 +33,7 @@ export const MenuButton: FC<PropTypes> = ({
       <Button
         css={[_css, styles.button]}
         startIcon={icon}
-        endIcon={hasMenu ? <KeyboardArrowDown /> : undefined}
+        endIcon={showArrow ? <KeyboardArrowDown /> : undefined}
         href={link ? link : undefined}
         onClick={!link ? () => setShow(true) : undefined}
         ref={ref}
