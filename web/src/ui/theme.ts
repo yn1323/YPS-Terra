@@ -39,10 +39,23 @@ export const themes = {
 }
 
 const colors = {
-  brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac',
+  primary: {
+    main: '#FF8E3C',
+    contrastText: '#EFEFEF',
+    50: '#e3f2fd',
+    100: '#bbdefb',
+    200: '#90caf9',
+    300: '#64b5f6',
+    400: '#42a5f5',
+    500: '#2196f3',
+    600: '#1e88e5',
+    700: '#1976d2',
+    800: '#1565c0',
+    900: '#0d47a1',
+  },
+  secondary: {
+    main: '#EFF0F3',
+    contrastText: '#0D0D0D',
   },
 }
 
