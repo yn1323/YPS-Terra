@@ -14,7 +14,7 @@ const args = {}
 
 export const Basic: StoryObj = {
   args,
-  parameters: { chromatic: { viewports: [414, 1080] } }, // SP/PCで同じなら削除
+  parameters: { chromatic: { viewports: [414, 1080] } },
 }
 
 export const Demo: StoryObj = {
@@ -22,14 +22,7 @@ export const Demo: StoryObj = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    await userEvent.type(canvas.getByTestId('sidebarlayout'), 'somevalue', {
-      delay: 300,
-    })
-    await userEvent.type(canvas.getByTestId('age'), '20', {
-      delay: 300,
-    })
-    await userEvent.selectOptions(canvas.getByTestId('sex'), '1')
-    await screen.findByText('登録')
-    await userEvent.click(canvas.getByRole('button'))
+    await userEvent.click(canvas.getByTestId('closeButton'))
+    await screen.findByText('マイページ')
   },
 }

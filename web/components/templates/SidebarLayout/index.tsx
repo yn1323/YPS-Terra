@@ -31,9 +31,9 @@ export const SidebarLayout: FC = () => {
       animate={{
         width: showLabel ? '200px' : '50px',
       }}
+      data-testid="drawer"
     >
       <VStack
-        data-testid="menulist"
         alignItems={'flex-start'}
         borderRight="1px"
         borderColor={useColorModeValue('gray.200', 'gray.600')}
@@ -46,6 +46,7 @@ export const SidebarLayout: FC = () => {
             onClick={() => setShowLabel(!showLabel)}
             leftIcon={<FcPrevious />}
             {...buttonProps({ showLabel })}
+            data-testid="closeButton"
           />
         )}
         {!showLabel && (
@@ -53,6 +54,7 @@ export const SidebarLayout: FC = () => {
             onClick={() => setShowLabel(!showLabel)}
             leftIcon={<FcNext />}
             {...buttonProps({ showLabel })}
+            data-testid="openButton"
           />
         )}
         <Divider />
