@@ -1,8 +1,14 @@
-import { Box, Button, useColorModeValue, VStack } from '@chakra-ui/react'
+import {
+  Button,
+  Divider,
+  Spacer,
+  useColorModeValue,
+  VStack,
+} from '@chakra-ui/react'
 import { FC, useState } from 'react'
 import { MENU } from '@/ui/layout/menu'
 import { FcNext, FcPrevious } from 'react-icons/fc'
-import { motion, isValidMotionProp } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 export const SidebarLayout: FC = () => {
   const tasks = [MENU.TOP, MENU.SHIFT, MENU.ATTENDANCE, MENU.TIMECARD]
@@ -49,12 +55,14 @@ export const SidebarLayout: FC = () => {
             {...buttonProps({ showLabel })}
           />
         )}
-
+        <Divider />
         {tasks.map(({ icon, label, link }, i) => (
           <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
             {showLabel ? label : ''}
           </Button>
         ))}
+        <Spacer />
+        <Divider />
         {commons.map(({ icon, label, link }, i) => (
           <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
             {showLabel ? label : ''}
