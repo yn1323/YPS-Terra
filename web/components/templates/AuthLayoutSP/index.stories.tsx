@@ -1,12 +1,15 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import { within, userEvent, screen } from '@storybook/testing-library'
-import { MenuList } from '.'
+import { AuthLayoutSP } from '.'
 
-type StoryObj = ComponentStoryObj<typeof MenuList>
+type StoryObj = ComponentStoryObj<typeof AuthLayoutSP>
 export default {
-  title: 'organisms/Menu/MenuList',
-  component: MenuList,
-} as ComponentMeta<typeof MenuList>
+  title: 'templates/AuthLayoutSp',
+  component: AuthLayoutSP,
+  parameters: {
+    layout: 'fullscreen',
+  },
+} as ComponentMeta<typeof AuthLayoutSP>
 const args = {}
 
 export const Basic: StoryObj = {
@@ -19,7 +22,7 @@ export const Demo: StoryObj = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    await userEvent.type(canvas.getByTestId('menulist'), 'somevalue', {
+    await userEvent.type(canvas.getByTestId('authlayoutsp'), 'somevalue', {
       delay: 300,
     })
     await userEvent.type(canvas.getByTestId('age'), '20', {

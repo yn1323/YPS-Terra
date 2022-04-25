@@ -58,6 +58,13 @@ const colors = {
     contrastText: '#0D0D0D',
   },
 }
+const breakpoints = {
+  sm: '30em',
+  md: '48em',
+  lg: '62em',
+  xl: '80em',
+  '2xl': '96em',
+}
 
 const disabledBoxShadowComponents = ['Button', 'Popover']
 const componentObj = disabledBoxShadowComponents.reduce((acc, cur) => {
@@ -75,5 +82,6 @@ const componentObj = disabledBoxShadowComponents.reduce((acc, cur) => {
 
 export const themeChakra = extendTheme({
   colors,
+  breakpoints,
   components: componentObj,
 })

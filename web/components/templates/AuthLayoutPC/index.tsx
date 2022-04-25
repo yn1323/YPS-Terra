@@ -10,7 +10,7 @@ import { MENU } from '@/ui/layout/menu'
 import { FcNext, FcPrevious } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 
-export const SidebarLayout: FC = () => {
+export const AuthLayoutPC: FC = () => {
   const tasks = [MENU.TOP, MENU.SHIFT, MENU.ATTENDANCE, MENU.TIMECARD]
   const commons = [MENU.CONFIG, MENU.HOWTO, MENU.LOGOUT]
   const [showLabel, setShowLabel] = useState(true)
@@ -23,14 +23,14 @@ export const SidebarLayout: FC = () => {
     rounded: 0,
   })
 
+  const drawerAnimation = {
+    width: showLabel ? '200px' : '50px',
+  }
+
   return (
     <motion.div
-      initial={{
-        width: showLabel ? '200px' : '50px',
-      }}
-      animate={{
-        width: showLabel ? '200px' : '50px',
-      }}
+      initial={drawerAnimation}
+      animate={drawerAnimation}
       data-testid="drawer"
     >
       <VStack
@@ -47,6 +47,7 @@ export const SidebarLayout: FC = () => {
             leftIcon={<FcPrevious />}
             {...buttonProps({ showLabel })}
             data-testid="closeButton"
+            display={{ base: 'none', md: 'flex' }}
           />
         )}
         {!showLabel && (
@@ -55,9 +56,10 @@ export const SidebarLayout: FC = () => {
             leftIcon={<FcNext />}
             {...buttonProps({ showLabel })}
             data-testid="openButton"
+            display={{ base: 'none', md: 'flex' }}
           />
         )}
-        <Divider />
+        <Divider display={{ base: 'none', md: 'flex' }} />
         {tasks.map(({ icon, label, link }, i) => (
           <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
             {showLabel ? label : ''}
