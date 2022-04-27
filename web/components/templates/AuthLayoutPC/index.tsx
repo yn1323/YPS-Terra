@@ -1,6 +1,9 @@
 import {
+  Box,
   Button,
   Divider,
+  Flex,
+  HStack,
   Spacer,
   useColorModeValue,
   VStack,
@@ -10,7 +13,12 @@ import { MENU } from '@/ui/layout/menu'
 import { FcNext, FcPrevious } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 
-export const AuthLayoutPC: FC = () => {
+type PropTypes = {
+  children: JSX.Element | JSX.Element[]
+}
+
+export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
+  const showElement = Array.isArray(children) ? children : [children]
   const tasks = [MENU.TOP, MENU.SHIFT, MENU.ATTENDANCE, MENU.TIMECARD]
   const commons = [MENU.CONFIG, MENU.HOWTO, MENU.LOGOUT]
   const [showLabel, setShowLabel] = useState(true)
@@ -33,46 +41,51 @@ export const AuthLayoutPC: FC = () => {
       animate={drawerAnimation}
       data-testid="drawer"
     >
-      <VStack
-        alignItems={'flex-start'}
-        borderRight="1px"
-        borderColor={useColorModeValue('gray.200', 'gray.600')}
-        h="100vh"
-        w="100%"
-        background={useColorModeValue('gray.50', undefined)}
-      >
-        {showLabel && (
-          <Button
-            onClick={() => setShowLabel(!showLabel)}
-            leftIcon={<FcPrevious />}
-            {...buttonProps({ showLabel })}
-            data-testid="closeButton"
-            display={{ base: 'none', md: 'flex' }}
-          />
-        )}
-        {!showLabel && (
-          <Button
-            onClick={() => setShowLabel(!showLabel)}
-            leftIcon={<FcNext />}
-            {...buttonProps({ showLabel })}
-            data-testid="openButton"
-            display={{ base: 'none', md: 'flex' }}
-          />
-        )}
-        <Divider display={{ base: 'none', md: 'flex' }} />
-        {tasks.map(({ icon, label, link }, i) => (
-          <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
-            {showLabel ? label : ''}
-          </Button>
-        ))}
-        <Spacer />
-        <Divider />
-        {commons.map(({ icon, label, link }, i) => (
-          <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
-            {showLabel ? label : ''}
-          </Button>
-        ))}
-      </VStack>
+      <Flex>
+        <VStack
+          alignItems={'flex-start'}
+          borderRight="1px"
+          borderColor={useColorModeValue('gray.200', 'gray.600')}
+          h="100vh"
+          w="100%"
+          background={useColorModeValue('gray.50', undefined)}
+        >
+          {showLabel && (
+            <Button
+              onClick={() => setShowLabel(!showLabel)}
+              leftIcon={<FcPrevious />}
+              {...buttonProps({ showLabel })}
+              data-testid="closeButton"
+              display={{ base: 'none', md: 'flex' }}
+            />
+          )}
+          {!showLabel && (
+            <Button
+              onClick={() => setShowLabel(!showLabel)}
+              leftIcon={<FcNext />}
+              {...buttonProps({ showLabel })}
+              data-testid="openButton"
+              display={{ base: 'none', md: 'flex' }}
+            />
+          )}
+          <Divider display={{ base: 'none', md: 'flex' }} />
+          {tasks.map(({ icon, label, link }, i) => (
+            <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
+              {showLabel ? label : ''}
+            </Button>
+          ))}
+          <Spacer />
+          <Divider />
+          {commons.map(({ icon, label, link }, i) => (
+            <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
+              {showLabel ? label : ''}
+            </Button>
+          ))}
+        </VStack>
+        <Box w={`calc(100vw - ${drawerAnimation.width})`} p={4}>
+          {children}
+        </Box>
+      </Flex>
     </motion.div>
   )
 }
