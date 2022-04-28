@@ -21,6 +21,7 @@ export const Basic: StoryObj = {
 
 export const Demo: StoryObj = {
   args,
+  parameters: { chromatic: { viewports: [414] } },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 

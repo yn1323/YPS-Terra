@@ -47,7 +47,6 @@ function MyApp(props: MyAppProps) {
             />
           </Head>
           <ChakraProvider theme={themeChakra}>
-            <CssBaseline />
             {getLayout(
               <AnimatePresence exitBeforeEnter>
                 <Component {...pageProps} />
