@@ -3,8 +3,6 @@ import { AppBar, Button, Toolbar } from '@mui/material'
 import { useRouter } from 'next/router'
 import { FC, useMemo, Fragment } from 'react'
 import { HeaderTitle } from '@/atoms/Text/HeaderTitle'
-import { MenuAvatar } from '@/molecules/Menu/MenuAvatar'
-import { MenuHeader } from '@/molecules/Menu/MenuHeader'
 import { mediaQueries } from '@/ui/mixins/breakpoint'
 import { themes } from '@/ui/theme'
 
@@ -16,8 +14,6 @@ export const Header: FC<PropTypes> = ({ isLoggedIn = false }) => {
   const router = useRouter()
   const headerItems = useMemo(
     () => [
-      isLoggedIn && <MenuHeader isAdmin showTimeCard />,
-      isLoggedIn && <MenuAvatar />,
       !isLoggedIn && (
         <Button
           variant="contained"

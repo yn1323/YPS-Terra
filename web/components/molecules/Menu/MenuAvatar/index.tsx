@@ -1,49 +1,28 @@
 import { css } from '@emotion/react'
 import type { SerializedStyles } from '@emotion/react'
-import { KeyboardArrowDown } from '@mui/icons-material'
 import { Avatar, Button } from '@mui/material'
-import { FC, useRef, useState, Fragment } from 'react'
-import { ListMenu } from '@/atoms/List/ListMenu'
-import { Popper } from '@/atoms/Text/Popper'
-import { useScreenSize } from '@/hooks/useScreenSize'
-import { USER_MENU } from '@/ui/layout/menu'
+import { FC, Fragment } from 'react'
 import { themes } from '@/ui/theme'
 
 type PropTypes = {
   _css?: SerializedStyles | SerializedStyles[]
+  userName: string
+  imagePath?: string
+  onlyImage?: boolean
 }
 
-export const MenuAvatar: FC<PropTypes> = ({ _css }) => {
-  const [show, setShow] = useState(false)
-  const { isPC } = useScreenSize()
-  const ref = useRef(null)
-  const clickHandler = () => setShow(true)
-
+export const MenuAvatar: FC<PropTypes> = ({
+  _css,
+  userName,
+  imagePath = '/static/images/avatar/1.jpg',
+  onlyImage = false,
+}) => {
   return (
     <Fragment>
-      <div css={[_css, styles.space]} />
-      <Button
-        css={styles.button}
-        endIcon={isPC ? <KeyboardArrowDown /> : undefined}
-        ref={ref}
-        onClick={clickHandler}
-        data-testid="button"
-      >
-        <Avatar alt="Somebody" src="/static/images/avatar/1.jpg" />
+      <Button css={[_css, styles.button]} data-testid="button">
+        <Avatar alt={userName} src={imagePath} />
+        {!onlyImage && <span css={styles.name}>{userName}</span>}
       </Button>
-      <Popper
-        show={show}
-        setShow={setShow}
-        anchorEl={ref.current}
-        placement="bottom-end"
-        data-testid="container"
-      >
-        <ListMenu
-          close={() => setShow(false)}
-          items={USER_MENU}
-          delimeterPosition={[1]}
-        />
-      </Popper>
     </Fragment>
   )
 }
@@ -55,5 +34,8 @@ const styles = {
   button: css`
     color: ${themes.palette.text.secondary};
     padding: 2px 8px;
+  `,
+  name: css`
+    margin-left: 10px;
   `,
 }

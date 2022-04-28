@@ -1,6 +1,6 @@
+import { Build, Home, LibraryBooks } from '@mui/icons-material'
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import { ListMenu } from '.'
-import { COMMON_MENU } from '@/ui/layout/menu'
 
 type StoryObj = ComponentStoryObj<typeof ListMenu>
 export default {
@@ -8,7 +8,23 @@ export default {
   component: ListMenu,
 } as ComponentMeta<typeof ListMenu>
 const args = {
-  items: COMMON_MENU[1].items,
+  items: [
+    {
+      icon: <Home />,
+      label: 'HOME',
+      link: '/1',
+    },
+    {
+      icon: <LibraryBooks />,
+      label: 'LIBRARYBOOKS',
+      link: '/2',
+    },
+    {
+      icon: <Build />,
+      label: 'BUILD',
+      link: '/3',
+    },
+  ],
   delimeterPosition: [1],
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   close: () => {},
