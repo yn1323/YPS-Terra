@@ -11,7 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof AuthLayoutSP>
 const args = {
-  children: <div>hoge</div>,
+  children: <div key={0}>hoge</div>,
 }
 
 export const Basic: StoryObj = {
@@ -19,7 +19,7 @@ export const Basic: StoryObj = {
   parameters: { chromatic: { viewports: [414] } },
 }
 
-export const Demo: StoryObj = {
+export const Drawer: StoryObj = {
   args,
   parameters: { chromatic: { viewports: [414] } },
   play: async ({ canvasElement }) => {
