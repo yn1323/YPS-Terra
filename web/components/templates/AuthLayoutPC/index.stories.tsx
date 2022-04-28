@@ -1,5 +1,4 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/testing-library'
 import { AuthLayoutPC } from '.'
 
 type StoryObj = ComponentStoryObj<typeof AuthLayoutPC>
@@ -8,7 +7,6 @@ export default {
   component: AuthLayoutPC,
   parameters: {
     layout: 'fullscreen',
-    parameters: { chromatic: { viewports: [414, 1080] } },
   },
 } as ComponentMeta<typeof AuthLayoutPC>
 const args = {

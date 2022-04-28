@@ -10,11 +10,13 @@ export default {
     layout: 'fullscreen',
   },
 } as ComponentMeta<typeof AuthLayoutSP>
-const args = {}
+const args = {
+  children: <div>hoge</div>,
+}
 
 export const Basic: StoryObj = {
   args,
-  parameters: { chromatic: { viewports: [414, 1080] } }, // SP/PCで同じなら削除
+  parameters: { chromatic: { viewports: [414] } },
 }
 
 export const Demo: StoryObj = {
@@ -22,14 +24,13 @@ export const Demo: StoryObj = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    await userEvent.type(canvas.getByTestId('authlayoutsp'), 'somevalue', {
-      delay: 300,
-    })
-    await userEvent.type(canvas.getByTestId('age'), '20', {
-      delay: 300,
-    })
-    await userEvent.selectOptions(canvas.getByTestId('sex'), '1')
-    await screen.findByText('登録')
-    await userEvent.click(canvas.getByRole('button'))
+    await screen.findByText('マイページ')
+    await screen.findByText('シフト')
+    await screen.findByText('勤務記録')
+    await screen.findByText('打刻')
+    await userEvent.click(canvas.getByTestId('ellipsis'))
+    await screen.findByText('設定')
+    await screen.findByText('使い方')
+    await screen.findByText('ログアウト')
   },
 }

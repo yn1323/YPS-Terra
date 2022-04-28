@@ -3,15 +3,14 @@ import {
   Button,
   Divider,
   Flex,
-  HStack,
   Spacer,
   useColorModeValue,
   VStack,
 } from '@chakra-ui/react'
-import { FC, useState } from 'react'
-import { MENU } from '@/ui/layout/menu'
-import { FcNext, FcPrevious } from 'react-icons/fc'
 import { motion } from 'framer-motion'
+import { FC, useState } from 'react'
+import { FcNext, FcPrevious } from 'react-icons/fc'
+import { MENU } from '@/ui/layout/menu'
 
 type PropTypes = {
   children: JSX.Element | JSX.Element[]
@@ -22,12 +21,13 @@ export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
   const tasks = [MENU.TOP, MENU.SHIFT, MENU.ATTENDANCE, MENU.TIMECARD]
   const commons = [MENU.CONFIG, MENU.HOWTO, MENU.LOGOUT]
   const [showLabel, setShowLabel] = useState(true)
+  const buttonHoverColor = useColorModeValue('gray.100', 'gray.700')
 
   const buttonProps = ({ showLabel }: { showLabel: boolean }) => ({
     variant: 'ghost',
     w: showLabel ? '100%' : '100%',
     justifyContent: 'flex-start',
-    _hover: { bg: useColorModeValue('gray.100', 'gray.700') },
+    _hover: { bg: buttonHoverColor },
     rounded: 0,
   })
 
@@ -83,7 +83,7 @@ export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
           ))}
         </VStack>
         <Box w={`calc(100vw - ${drawerAnimation.width})`} p={4}>
-          {children}
+          {showElement}
         </Box>
       </Flex>
     </motion.div>
