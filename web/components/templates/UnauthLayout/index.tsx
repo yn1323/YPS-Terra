@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Flex,
   HStack,
   Spacer,
   Text,
@@ -9,19 +8,25 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FC } from 'react'
 import { useScreenSize } from '@/hooks/useScreenSize'
 
 type PropTypes = {
   children: JSX.Element | JSX.Element[]
+  showLoginButton?: boolean
 }
 
-export const UnauthHeader: FC<PropTypes> = ({ children }) => {
+export const UnauthHeader: FC<PropTypes> = ({
+  children,
+  showLoginButton = true,
+}) => {
   const showElement = Array.isArray(children) ? children : [children]
   const { isPC } = useScreenSize()
   const { breakpoints } = useTheme()
   const styles = {
     header: {
+      height: isPC ? '56px' : '52px',
       width: isPC ? breakpoints.lg : '100%',
     },
     loginButon: {
@@ -35,22 +40,34 @@ export const UnauthHeader: FC<PropTypes> = ({ children }) => {
   return (
     <Box>
       <VStack p={2}>
-        <HStack w={styles.header.width}>
+        <HStack w={styles.header.width} h={styles.header.height}>
           <Box>
-            <HStack>
-              <Image alt="logo" src="/images/logo.png" width={32} height={32} />
-              <Text fontSize="2xl">YPS</Text>
-            </HStack>
+            <Link href="/" passHref>
+              <HStack as="a">
+                <Image
+                  alt="logo"
+                  src="/images/logo.png"
+                  width={32}
+                  height={32}
+                />
+                <Text fontSize="2xl">YPS</Text>
+              </HStack>
+            </Link>
           </Box>
           <Spacer />
           <Box>
-            <Button
-              variant="outline"
-              colorScheme="primary"
-              size={styles.loginButon.size}
-            >
-              ログイン
-            </Button>
+            {showLoginButton && (
+              <Link href="/login" passHref>
+                <Button
+                  variant="outline"
+                  colorScheme="primary"
+                  size={styles.loginButon.size}
+                  as="a"
+                >
+                  ログイン
+                </Button>
+              </Link>
+            )}
           </Box>
         </HStack>
       </VStack>

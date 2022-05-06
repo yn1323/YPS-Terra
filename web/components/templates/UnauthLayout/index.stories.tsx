@@ -14,3 +14,7 @@ export const Basic: StoryObj = {
   args,
   parameters: { chromatic: { viewports: [414, 1080] }, layout: 'fullscreen' },
 }
+export const NoLogin: StoryObj = {
+  args: { ...args, showLoginButton: false },
+  parameters: { chromatic: { viewports: [414, 1080] }, layout: 'fullscreen' },
+}

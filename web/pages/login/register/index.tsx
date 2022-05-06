@@ -1,20 +1,23 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
-import { FormSignup } from '@/organisms/Form/FormSignup'
+import { FormMail } from '@/organisms/Form/FormMail'
 import { loginPageRedirectTo } from '@/services/helpers/ssrProps/loginPageRedirectTo'
 import { Animation } from '@/templates/Animation'
-import { Layout } from '@/templates/Layout'
+import { CenterBox } from '@/templates/CenterBox'
+import { UnauthHeader } from '@/templates/UnauthLayout'
 
 export const Register: NextPageWithLayout = ({}) => {
   return (
     <Animation>
-      <FormSignup />
+      <CenterBox>
+        <FormMail isSignUp={true} />
+      </CenterBox>
     </Animation>
   )
 }
 
 Register.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <UnauthHeader showLoginButton={false}>{page}</UnauthHeader>
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {

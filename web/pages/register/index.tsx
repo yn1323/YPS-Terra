@@ -4,7 +4,6 @@ import { FormRegisterAdmin } from '@/organisms/Form/FormRegisterAdmin'
 import { FormRegisterUser } from '@/organisms/Form/FormRegisterUser'
 import { registerPageRedirectTo } from '@/services/helpers/ssrProps/registerPageRedirectTo'
 import { Animation } from '@/templates/Animation'
-import { Layout } from '@/templates/Layout'
 
 type PropTypes = {
   shopId: string
