@@ -13,17 +13,28 @@ import { FC } from 'react'
 import { FiMail } from 'react-icons/fi'
 import { RiLockPasswordLine } from 'react-icons/ri'
 
+const SUBMIT_LABELS = {
+  signUp: '登録する',
+  login: 'ログイン',
+  reset: 'パスワードリセット',
+} as const
+
+export type MailFormType = keyof typeof SUBMIT_LABELS
+
 type PropTypes = {
-  isSignUp?: boolean
+  mailFormType: MailFormType
 }
 
-export const FormMail: FC<PropTypes> = ({ isSignUp = false }) => {
+export const FormMail: FC<PropTypes> = ({ mailFormType }) => {
+  const isSignUp = mailFormType === 'signUp'
+  const isLogin = mailFormType === 'login'
+  const isForget = mailFormType === 'reset'
   const mailOptionButtons = [
-    { label: '新規登録', url: '/login/register', show: !isSignUp },
-    { label: 'パスワードを忘れた方', url: '/login/forget', show: !isSignUp },
-    { label: 'ログイン画面に戻る', url: '/login', show: isSignUp },
+    { label: '新規登録', url: '/login/register', show: isLogin },
+    { label: 'パスワードを忘れた方', url: '/login/reset', show: isLogin },
+    { label: 'ログイン画面に戻る', url: '/login', show: isSignUp || isForget },
   ]
-  const submitLabel = isSignUp ? '登録する' : 'ログイン'
+  const submitLabel = SUBMIT_LABELS[mailFormType]
 
   return (
     <Stack spacing={4} w="300px">
@@ -33,12 +44,14 @@ export const FormMail: FC<PropTypes> = ({ isSignUp = false }) => {
         </InputLeftElement>
         <Input type="email" placeholder="Eメールアドレス" />
       </InputGroup>
-      <InputGroup>
-        <InputLeftElement color="gray.300" pointerEvents="none">
-          <RiLockPasswordLine />
-        </InputLeftElement>
-        <Input type="password" placeholder="パスワード" />
-      </InputGroup>
+      {!isForget && (
+        <InputGroup>
+          <InputLeftElement color="gray.300" pointerEvents="none">
+            <RiLockPasswordLine />
+          </InputLeftElement>
+          <Input type="password" placeholder="パスワード" />
+        </InputGroup>
+      )}
       <Box pt={2} w="100%">
         <Button colorScheme="primary" w="100%">
           {submitLabel}

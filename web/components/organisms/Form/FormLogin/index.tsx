@@ -1,13 +1,13 @@
 import { Box, Divider, HStack, VStack } from '@chakra-ui/react'
 import { FC } from 'react'
 import { ButtonLogin } from '@/molecules/Button/ButtonLogin'
-import { FormMail } from '@/organisms/Form/FormMail'
+import { FormMail, MailFormType } from '@/organisms/Form/FormMail'
 
 type PropTypes = {
-  isSignUp: boolean
+  mailFormType: MailFormType
 }
 
-export const FormLogin: FC<PropTypes> = ({ isSignUp }) => {
+export const FormLogin: FC<PropTypes> = ({ mailFormType }) => {
   return (
     <VStack w="360px" spacing={4}>
       <ButtonLogin />
@@ -16,7 +16,7 @@ export const FormLogin: FC<PropTypes> = ({ isSignUp }) => {
         <Box>or</Box>
         <Divider />
       </HStack>
-      <FormMail isSignUp={isSignUp} />
+      <FormMail mailFormType={mailFormType} />
     </VStack>
   )
 }

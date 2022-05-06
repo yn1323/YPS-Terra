@@ -6,11 +6,11 @@ import { Animation } from '@/templates/Animation'
 import { CenterBox } from '@/templates/CenterBox'
 import { UnauthHeader } from '@/templates/UnauthLayout'
 
-export const Register: NextPageWithLayout = ({}) => {
+export const Register: NextPageWithLayout = () => {
   return (
     <Animation>
       <CenterBox>
-        <FormMail isSignUp={true} />
+        <FormMail mailFormType="signUp" />
       </CenterBox>
     </Animation>
   )
