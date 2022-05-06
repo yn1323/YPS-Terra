@@ -1,6 +1,7 @@
 import type { NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
 import { Animation } from '@/templates/Animation'
+import { UnauthHeader } from '@/templates/UnauthLayout'
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -11,7 +12,7 @@ const Home: NextPageWithLayout = () => {
 }
 
 Home.getLayout = (page: ReactElement) => {
-  return <SidebarLayout>{page}</SidebarLayout>
+  return <UnauthHeader>{page}</UnauthHeader>
 }
 
 export default Home

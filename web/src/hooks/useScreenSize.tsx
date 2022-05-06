@@ -2,7 +2,7 @@ import { useMediaQuery, useTheme } from '@chakra-ui/react'
 
 export const useScreenSize = () => {
   const theme = useTheme()
-  const [isSmallerThan] = useMediaQuery(`(max-width: ${theme.breakpoints.md})`)
+  const [isSmallerThan] = useMediaQuery(`(max-width: ${theme.breakpoints.lg})`)
   return {
     isPC: !isSmallerThan,
     isSP: isSmallerThan,
