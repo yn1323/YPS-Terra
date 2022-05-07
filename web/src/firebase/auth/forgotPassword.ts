@@ -5,5 +5,10 @@ type Args = {
   email: string
 }
 export const forgotPassword = async ({ email }: Args) => {
-  await sendPasswordResetEmail(auth, email).catch(e => console.log(e))
+  let result = true
+  await sendPasswordResetEmail(auth, email).catch(e => {
+    console.log(e)
+    result = false
+  })
+  return result
 }

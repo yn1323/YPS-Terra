@@ -10,6 +10,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
+import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 import { useScreenSize } from '@/hooks/useScreenSize'
 
 type PropTypes = {
@@ -24,6 +25,8 @@ export const UnauthHeader: FC<PropTypes> = ({
   const showElement = Array.isArray(children) ? children : [children]
   const { isPC } = useScreenSize()
   const { breakpoints } = useTheme()
+  useOnAuthStateChanged()
+
   const styles = {
     header: {
       height: isPC ? '56px' : '52px',

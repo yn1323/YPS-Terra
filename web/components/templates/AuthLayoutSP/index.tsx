@@ -115,7 +115,6 @@ export const AuthLayoutSP: FC<PropTypes> = ({ children }) => {
           ))}
 
           <Button
-            aria-label={'aaa'}
             h={`${HEIGHTS.FOOTER}rem`}
             w={4}
             variant="ghost"
