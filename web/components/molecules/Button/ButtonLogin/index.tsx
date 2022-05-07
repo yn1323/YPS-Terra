@@ -1,40 +1,63 @@
 import { Button, VStack } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { FaTwitter, FaUserAlt } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
+import { useLogIn } from '@/hooks/useLogIn'
 
 export const ButtonLogin: FC = () => {
-  const styles = {
+  const router = useRouter()
+  const {
+    query: { shopId = '' },
+  } = router
+  const { signIn, isLoading } = useLogIn()
+
+  const handleSignIn = async (
+    type: Parameters<typeof signIn>[0],
+    options?: Parameters<typeof signIn>[1]
+  ) => {
+    const result = await signIn(type, options)
+    if (result) {
+      if (shopId) {
+        router.push({ pathname: '/register', query: { shopId } })
+      } else {
+        router.push('/register')
+      }
+    }
+  }
+
+  const props = {
+    button: {
+      w: 300,
+      fontSize: 'sm',
+      isLoading: isLoading,
+    },
     icon: {
       fontSize: 18,
-    },
-    button: {
-      width: 300,
-      fontSize: 'sm',
     },
   }
   return (
     <VStack data-testid="buttonlogin" spacing={4}>
       <Button
-        leftIcon={<FcGoogle fontSize={styles.icon.fontSize} />}
-        w={styles.button.width}
-        fontSize={styles.button.fontSize}
+        {...props.button}
+        leftIcon={<FcGoogle {...props.icon} />}
+        onClick={() => handleSignIn('google')}
       >
         Googleでログイン
       </Button>
       <Button
-        leftIcon={<FaTwitter fontSize={styles.icon.fontSize} />}
+        {...props.button}
+        leftIcon={<FaTwitter {...props.icon} />}
         colorScheme="twitter"
-        fontSize={styles.button.fontSize}
-        w={styles.button.width}
+        onClick={() => handleSignIn('twitter')}
       >
         Twitterでログイン
       </Button>
       <Button
-        leftIcon={<FaUserAlt fontSize={styles.icon.fontSize} />}
+        {...props.button}
+        leftIcon={<FaUserAlt {...props.icon} />}
         colorScheme="green"
-        fontSize={styles.button.fontSize}
-        w={styles.button.width}
+        onClick={() => handleSignIn('anonymously')}
       >
         ゲストでログイン
       </Button>
