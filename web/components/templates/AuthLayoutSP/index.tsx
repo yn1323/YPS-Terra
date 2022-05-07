@@ -14,7 +14,7 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { FC } from 'react'
 import {
   FaHome,
@@ -26,37 +26,37 @@ import {
   FaQuestionCircle,
   FaSignOutAlt,
 } from 'react-icons/fa'
+import { MENU } from '@/ui/layout/menu'
 
 const HEIGHTS = {
   HEADER: 10,
   FOOTER: 3,
 } as const
 const NAVBAR_BUTTONS = [
-  { icon: FaHome, label: 'マイページ', link: '' },
-  { icon: FaCalendarAlt, label: 'シフト', link: '' },
-  { icon: FaFolderOpen, label: '勤務記録', link: '' },
-  { icon: FaClock, label: '打刻', link: '' },
+  { ...MENU.TOP, icon: FaHome },
+  { ...MENU.SHIFT, icon: FaCalendarAlt },
+  { ...MENU.ATTENDANCE, icon: FaFolderOpen },
+  { ...MENU.TIMECARD, icon: FaClock, label: '打刻' },
 ] as const
 const DRAWER_BUTTONS = [
-  { icon: <FaWrench />, label: '設定', link: '' },
-  { icon: <FaQuestionCircle />, label: '使い方', link: '' },
-  { icon: <FaSignOutAlt />, label: 'ログアウト', link: '' },
+  { ...MENU.CONFIG, icon: <FaWrench /> },
+  { ...MENU.HOWTO, icon: <FaQuestionCircle /> },
+  {
+    ...MENU.LOGOUT,
+    icon: <FaSignOutAlt />,
+  },
 ] as const
 
 type PropTypes = {
   children: JSX.Element | JSX.Element[]
 }
 export const AuthLayoutSP: FC<PropTypes> = ({ children }) => {
-  const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const showElement = Array.isArray(children) ? children : [children]
   const uiProps = {
     icon: {
       color: useColorModeValue('gray.600', 'gray.300'),
     },
-  }
-  const linkHandler = (link: string) => {
-    router.push(link)
   }
 
   return (
@@ -88,30 +88,31 @@ export const AuthLayoutSP: FC<PropTypes> = ({ children }) => {
       >
         <HStack h="100%" justifyContent="space-between">
           {NAVBAR_BUTTONS.map(({ icon, label, link }, i) => (
-            <Button
-              aria-label={label}
-              h={`${HEIGHTS.FOOTER}rem`}
-              key={i}
-              variant="ghost"
-              onClick={() => linkHandler(link)}
-            >
-              <Flex
+            <Link key={i} href={link} passHref>
+              <Button
+                aria-label={label}
                 h={`${HEIGHTS.FOOTER}rem`}
-                flexDirection="column"
-                alignItems={'center'}
+                variant="ghost"
+                as="a"
               >
-                <Icon
-                  mt={1.5}
-                  w={6}
-                  h={6}
-                  as={icon}
-                  color={uiProps.icon.color}
-                />
-                <Text fontSize="10px" color={uiProps.icon.color}>
-                  {label}
-                </Text>
-              </Flex>
-            </Button>
+                <Flex
+                  h={`${HEIGHTS.FOOTER}rem`}
+                  flexDirection="column"
+                  alignItems={'center'}
+                >
+                  <Icon
+                    mt={1.5}
+                    w={6}
+                    h={6}
+                    as={icon}
+                    color={uiProps.icon.color}
+                  />
+                  <Text fontSize="10px" color={uiProps.icon.color}>
+                    {label}
+                  </Text>
+                </Flex>
+              </Button>
+            </Link>
           ))}
 
           <Button
@@ -132,16 +133,17 @@ export const AuthLayoutSP: FC<PropTypes> = ({ children }) => {
           <DrawerBody>
             <VStack>
               {DRAWER_BUTTONS.map(({ icon, label, link }, i) => (
-                <Button
-                  key={i}
-                  leftIcon={icon}
-                  variant="ghost"
-                  w="100%"
-                  justifyContent={'flex-start'}
-                  onClick={() => linkHandler(link)}
-                >
-                  {label}
-                </Button>
+                <Link key={i} href={link} passHref>
+                  <Button
+                    as="a"
+                    leftIcon={icon}
+                    variant="ghost"
+                    w="100%"
+                    justifyContent={'flex-start'}
+                  >
+                    {label}
+                  </Button>
+                </Link>
               ))}
             </VStack>
           </DrawerBody>

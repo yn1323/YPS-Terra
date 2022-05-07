@@ -8,6 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { FC, useState } from 'react'
 import { FcNext, FcPrevious } from 'react-icons/fc'
 import { MENU } from '@/ui/layout/menu'
@@ -70,16 +71,20 @@ export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
           )}
           <Divider display={{ base: 'none', md: 'flex' }} />
           {tasks.map(({ icon, label, link }, i) => (
-            <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
-              {showLabel ? label : ''}
-            </Button>
+            <Link key={i} href={link} passHref>
+              <Button leftIcon={icon} {...buttonProps({ showLabel })}>
+                {showLabel ? label : ''}
+              </Button>
+            </Link>
           ))}
           <Spacer />
           <Divider />
           {commons.map(({ icon, label, link }, i) => (
-            <Button leftIcon={icon} key={i} {...buttonProps({ showLabel })}>
-              {showLabel ? label : ''}
-            </Button>
+            <Link href={link} key={i} passHref>
+              <Button leftIcon={icon} {...buttonProps({ showLabel })} as="a">
+                {showLabel ? label : ''}
+              </Button>
+            </Link>
           ))}
         </VStack>
         <Box w={`calc(100vw - ${drawerAnimation.width})`} p={4}>
