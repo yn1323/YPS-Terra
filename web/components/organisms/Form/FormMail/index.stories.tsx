@@ -1,5 +1,4 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/testing-library'
 import { FormMail } from '.'
 
 type StoryObj = ComponentStoryObj<typeof FormMail>
@@ -8,7 +7,7 @@ export default {
   component: FormMail,
 } as ComponentMeta<typeof FormMail>
 
-export const Basic: StoryObj = {
+export const Login: StoryObj = {
   args: {
     mailFormType: 'login',
   },

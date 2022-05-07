@@ -7,16 +7,10 @@ export default {
   title: 'molecules/Button/ButtonLogin',
   component: ButtonLogin,
 } as ComponentMeta<typeof ButtonLogin>
-const args = {}
 
-export const Basic: StoryObj = {
-  args,
-  parameters: { chromatic: { viewports: [414, 1080] } }, // SP/PCで同じなら削除
-}
-
+export const Basic: StoryObj = {}
 
 export const Demo: StoryObj = {
-  args,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 

@@ -13,10 +13,10 @@ import { FC } from 'react'
 import { FiMail } from 'react-icons/fi'
 import { RiLockPasswordLine } from 'react-icons/ri'
 
-const SUBMIT_LABELS = {
-  signUp: '登録する',
+export const SUBMIT_LABELS = {
   login: 'ログイン',
   reset: 'パスワードリセット',
+  signUp: '登録する',
 } as const
 
 export type MailFormType = keyof typeof SUBMIT_LABELS

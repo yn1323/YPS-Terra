@@ -23,19 +23,16 @@ export const ButtonLogin: FC = () => {
         Googleでログイン
       </Button>
       <Button
-        leftIcon={<FaTwitter color="white" fontSize={styles.icon.fontSize} />}
+        leftIcon={<FaTwitter fontSize={styles.icon.fontSize} />}
         colorScheme="twitter"
-        color="white"
         fontSize={styles.button.fontSize}
         w={styles.button.width}
       >
         Twitterでログイン
       </Button>
       <Button
-        leftIcon={<FaUserAlt color="white" fontSize={styles.icon.fontSize} />}
-        bg="green"
-        _hover={{ bg: 'green.600' }}
-        color="white"
+        leftIcon={<FaUserAlt fontSize={styles.icon.fontSize} />}
+        colorScheme="green"
         fontSize={styles.button.fontSize}
         w={styles.button.width}
       >
