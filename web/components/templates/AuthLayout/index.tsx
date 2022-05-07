@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { CommonMeta } from '@/atoms/Meta/CommonMeta'
 import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 import { useScreenSize } from '@/hooks/useScreenSize'
 import { AuthLayoutPC } from '@/templates/AuthLayoutPC'
@@ -13,9 +14,14 @@ export const AuthLayout: FC<PropTypes> = ({ children }) => {
   const { isPC } = useScreenSize()
   useOnAuthStateChanged()
 
-  return isPC ? (
-    <AuthLayoutPC>{showElement}</AuthLayoutPC>
-  ) : (
-    <AuthLayoutSP>{showElement}</AuthLayoutSP>
+  return (
+    <>
+      <CommonMeta />
+      {isPC ? (
+        <AuthLayoutPC>{showElement}</AuthLayoutPC>
+      ) : (
+        <AuthLayoutSP>{showElement}</AuthLayoutSP>
+      )}
+    </>
   )
 }

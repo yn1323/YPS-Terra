@@ -10,6 +10,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
+import { CommonMeta } from '@/atoms/Meta/CommonMeta'
 import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 import { useScreenSize } from '@/hooks/useScreenSize'
 
@@ -42,6 +43,7 @@ export const UnauthHeader: FC<PropTypes> = ({
 
   return (
     <Box>
+      <CommonMeta />
       <VStack p={2}>
         <HStack w={styles.header.width} h={styles.header.height}>
           <Box>
