@@ -24,9 +24,10 @@ export const showToast = ({
   })
 }
 
-export const showCommonServerError = () => {
+export const showCommonServerError = (message?: string) => {
   showToast({
     title:
+      message ||
       'エラーが発生しました。もう一度試していただくか、しばらく時間をおいてください',
     status: 'error',
   })

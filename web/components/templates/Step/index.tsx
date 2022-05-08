@@ -5,7 +5,7 @@ import { StepButton } from '@/atoms/Step/StepButton'
 
 type PropTypes = {
   labels: string[]
-  children: JSX.Element[]
+  children: JSX.Element | JSX.Element[]
   defaultStep?: number
   onSubmit: (values: any) => void
   isLoading?: boolean
@@ -18,6 +18,7 @@ export const Step: FC<PropTypes> = ({
   onSubmit,
   isLoading = false,
 }) => {
+  children = Array.isArray(children) ? children : [children]
   if (labels.length !== children.length) {
     console.error('Step: labels and children must be same length')
   }
