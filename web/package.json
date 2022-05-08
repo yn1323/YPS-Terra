@@ -60,7 +60,7 @@
     "babel-plugin-import": "1.13.5",
     "chromatic": "6.5.4",
     "concurrently": "7.1.0",
-    "eslint": "8.14.0",
+    "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
     "graphql-request": "4.2.0",
     "http-server": "14.1.0",
