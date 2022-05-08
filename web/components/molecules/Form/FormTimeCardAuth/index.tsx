@@ -17,14 +17,14 @@ export const FormTimeCardAuth: FC = () => {
       <Text mb={2}>タイムカード入力権限</Text>
       <HStack spacing={1}>
         <Button
-          onClick={() => setTimeCardAuth(true)}
-          colorScheme={timeCardAuth ? 'primary' : 'gray'}
+          onClick={() => setTimeCardAuth(false)}
+          colorScheme={!timeCardAuth ? 'primary' : 'gray'}
         >
           管理者のみ
         </Button>
         <Button
-          onClick={() => setTimeCardAuth(false)}
-          colorScheme={!timeCardAuth ? 'primary' : 'gray'}
+          onClick={() => setTimeCardAuth(true)}
+          colorScheme={timeCardAuth ? 'primary' : 'gray'}
         >
           全員可
         </Button>
