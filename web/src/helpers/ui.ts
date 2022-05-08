@@ -23,3 +23,11 @@ export const showToast = ({
     position: 'top-right',
   })
 }
+
+export const showCommonServerError = () => {
+  showToast({
+    title:
+      'エラーが発生しました。もう一度試していただくか、しばらく時間をおいてください',
+    status: 'error',
+  })
+}

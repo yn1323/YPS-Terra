@@ -23,6 +23,7 @@ const args = {
   defaultStep: 0,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSubmit: () => {},
+  isLoading: false,
 }
 
 export const Basic: StoryObj = {

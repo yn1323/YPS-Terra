@@ -13,7 +13,7 @@ import { MAX_LENGTH } from '@/constants/validations'
 
 export const FormShopId: FC = () => {
   const form = useFormContext()
-  const props = form ? { ...form.register('shopId') } : {}
+  const props = form ? { ...form.register('shopId', { required: true }) } : {}
   return (
     <Box w="100%">
       <Text mb={2}>店舗ID</Text>

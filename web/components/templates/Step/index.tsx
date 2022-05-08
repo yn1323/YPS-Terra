@@ -1,5 +1,5 @@
 import { Box, Button, HStack, VStack } from '@chakra-ui/react'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { StepButton } from '@/atoms/Step/StepButton'
 
@@ -8,6 +8,7 @@ type PropTypes = {
   children: JSX.Element[]
   defaultStep?: number
   onSubmit: (values: any) => void
+  isLoading?: boolean
 }
 
 export const Step: FC<PropTypes> = ({
@@ -15,14 +16,19 @@ export const Step: FC<PropTypes> = ({
   children,
   defaultStep = 0,
   onSubmit,
+  isLoading = false,
 }) => {
   if (labels.length !== children.length) {
     console.error('Step: labels and children must be same length')
   }
-  const [currentStep, setCurrentStep] = useState(defaultStep)
+  const [currentStep, setCurrentStep] = useState(0)
+
+  useEffect(() => {
+    setCurrentStep(defaultStep === -1 ? 0 : defaultStep)
+  }, [defaultStep])
 
   const form = useFormContext()
-  const submit = form ? () => form.handleSubmit(onSubmit) : undefined
+  const submit = form ? form.handleSubmit(onSubmit) : undefined
 
   return (
     <VStack
@@ -61,7 +67,7 @@ export const Step: FC<PropTypes> = ({
           )}
 
           {currentStep === children.length - 1 && (
-            <Button colorScheme="primary" type="submit">
+            <Button colorScheme="primary" type="submit" isLoading={isLoading}>
               登録
             </Button>
           )}
