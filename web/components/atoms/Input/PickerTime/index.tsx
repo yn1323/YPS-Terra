@@ -1,12 +1,13 @@
 import { Select } from '@chakra-ui/react'
 import dayjs from 'dayjs'
 import { FC, useMemo } from 'react'
+import { ShiftTimeUnit } from '@/constants/validations'
 
 type PropTypes = {
   placeholder: string
   startTime: string
   endTime: string
-  step?: 5 | 10 | 15 | 30 | 60
+  step?: ShiftTimeUnit
 }
 
 export const PickerTime: FC<PropTypes> = ({

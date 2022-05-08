@@ -14,7 +14,6 @@ export const Basic: StoryObj = {
   parameters: { chromatic: { viewports: [414, 1080] } }, // SP/PCで同じなら削除
 }
 
-
 export const Demo: StoryObj = {
   args,
   play: async ({ canvasElement }) => {

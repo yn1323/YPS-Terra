@@ -21,6 +21,8 @@ const args = {
     <div key={2}>Step 3</div>,
   ],
   defaultStep: 0,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onSubmit: () => {},
 }
 
 export const Basic: StoryObj = {

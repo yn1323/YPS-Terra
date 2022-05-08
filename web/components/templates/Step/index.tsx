@@ -1,18 +1,28 @@
 import { Box, Button, HStack, VStack } from '@chakra-ui/react'
 import { FC, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { StepButton } from '@/atoms/Step/StepButton'
 
 type PropTypes = {
   labels: string[]
   children: JSX.Element[]
   defaultStep?: number
+  onSubmit: (values: any) => void
 }
 
-export const Step: FC<PropTypes> = ({ labels, children, defaultStep = 0 }) => {
+export const Step: FC<PropTypes> = ({
+  labels,
+  children,
+  defaultStep = 0,
+  onSubmit,
+}) => {
   if (labels.length !== children.length) {
     console.error('Step: labels and children must be same length')
   }
   const [currentStep, setCurrentStep] = useState(defaultStep)
+
+  const form = useFormContext()
+  const submit = form ? () => form.handleSubmit(onSubmit) : undefined
 
   return (
     <VStack
@@ -20,6 +30,8 @@ export const Step: FC<PropTypes> = ({ labels, children, defaultStep = 0 }) => {
       w="100%"
       spacing={4}
       justifyContent="space-between"
+      as="form"
+      onSubmit={submit}
     >
       <VStack spacing={4} w="100%">
         <StepButton
@@ -27,7 +39,7 @@ export const Step: FC<PropTypes> = ({ labels, children, defaultStep = 0 }) => {
           currentStep={currentStep}
           nextStep={setCurrentStep}
         />
-        <Box>{children[currentStep]}</Box>
+        <Box w="100%">{children[currentStep]}</Box>
       </VStack>
       <HStack w="100%" justifyContent="space-between">
         <Box>
@@ -49,7 +61,7 @@ export const Step: FC<PropTypes> = ({ labels, children, defaultStep = 0 }) => {
           )}
 
           {currentStep === children.length - 1 && (
-            <Button colorScheme="primary" onClick={() => alert('登録')}>
+            <Button colorScheme="primary" type="submit">
               登録
             </Button>
           )}

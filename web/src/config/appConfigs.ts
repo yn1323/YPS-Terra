@@ -1,9 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs'
+import { ShiftSubmitFrequency, ShiftTimeUnit } from '@/constants/validations'
 
 export type UserType = 'general' | 'admin'
 export type ShiftTime = Dayjs
-export type ShiftTimeUnit = '5' | '10' | '15' | '20' | '30'
-export type ShiftSubmitFrequency = '1w' | '2w' | '1m'
 export type TimeCardAuth = boolean
 export type UserName = string
 export type ShopName = string
@@ -33,7 +32,7 @@ export const SHOP_CONFIG: ShopConfig = {
   startShiftTime: dayjs('2021-10-02 9:00', 'YYYY-MM-DD hh:mm'),
   endShiftTime: dayjs('2021-10-02 18:00', 'YYYY-MM-DD hh:mm'),
   shiftSubmitFrequency: '1w',
-  shiftTimeUnit: '5',
+  shiftTimeUnit: 5,
   shopName: '',
   shopId: '',
 }
