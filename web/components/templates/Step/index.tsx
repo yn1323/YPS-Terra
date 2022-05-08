@@ -40,13 +40,18 @@ export const Step: FC<PropTypes> = ({ labels, children, defaultStep = 0 }) => {
 
         <Box>
           {currentStep < children.length - 1 && (
-            <Button onClick={() => setCurrentStep(currentStep + 1)}>
+            <Button
+              colorScheme="primary"
+              onClick={() => setCurrentStep(currentStep + 1)}
+            >
               次へ
             </Button>
           )}
 
           {currentStep === children.length - 1 && (
-            <Button onClick={() => alert('登録')}>登録</Button>
+            <Button colorScheme="primary" onClick={() => alert('登録')}>
+              登録
+            </Button>
           )}
         </Box>
       </HStack>
