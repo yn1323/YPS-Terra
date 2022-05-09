@@ -19,7 +19,11 @@ export const Register: NextPageWithLayout<PropTypes> = ({ shopId }) => {
 }
 
 Register.getLayout = (page: ReactElement) => {
-  return <UnauthHeader showLoginButton={false}>{page}</UnauthHeader>
+  return (
+    <UnauthHeader showLoginButton={false} showLogoutButton={true}>
+      {page}
+    </UnauthHeader>
+  )
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {

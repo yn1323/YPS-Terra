@@ -1,11 +1,11 @@
 import { VStack } from '@chakra-ui/react'
-import { Dayjs } from 'dayjs'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
 import { ShiftSubmitFrequency, ShiftTimeUnit } from '@/constants/validations'
-import { showCommonServerError, showToast } from '@/localHelpers/ui'
+import { timeStringToDate } from '@/localHelpers/string'
+import { showCommonServerError } from '@/localHelpers/ui'
 import { FormShiftRange } from '@/molecules/Form/FormShiftRange'
 import { FormShopName } from '@/molecules/Form/FormShopName'
 import { FormSubmitFrequency } from '@/molecules/Form/FormSubmitFrequency'
@@ -19,8 +19,8 @@ import { Step } from '@/templates/Step'
 export type FormRegisterAdminType = {
   userName: string
   shopName: string
-  openTime: Dayjs
-  closeTime: Dayjs
+  openTime: string
+  closeTime: string
   timeUnit: ShiftTimeUnit
   shiftSubmitFrequency: ShiftSubmitFrequency
   timeCardAuth: boolean
@@ -99,9 +99,9 @@ export const FormRegisterAdmin: FC = () => {
         userId: uid,
         userName,
         shopName,
-        openTime,
-        closeTime,
-        timeUnit: timeUnit,
+        openTime: timeStringToDate(openTime),
+        closeTime: timeStringToDate(closeTime),
+        timeUnit,
         submitFrequency: shiftSubmitFrequency,
         useTimeCard: timeCardAuth,
       },

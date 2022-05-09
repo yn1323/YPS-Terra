@@ -17,11 +17,13 @@ import { useScreenSize } from '@/hooks/useScreenSize'
 type PropTypes = {
   children: JSX.Element | JSX.Element[]
   showLoginButton?: boolean
+  showLogoutButton?: boolean
 }
 
 export const UnauthHeader: FC<PropTypes> = ({
   children,
   showLoginButton = true,
+  showLogoutButton = false,
 }) => {
   const showElement = Array.isArray(children) ? children : [children]
   const { isPC } = useScreenSize()
@@ -70,6 +72,18 @@ export const UnauthHeader: FC<PropTypes> = ({
                   as="a"
                 >
                   ログイン
+                </Button>
+              </Link>
+            )}
+            {showLogoutButton && (
+              <Link href="/logout" passHref>
+                <Button
+                  variant="outline"
+                  colorScheme="primary"
+                  size={styles.loginButon.size}
+                  as="a"
+                >
+                  ログアウト
                 </Button>
               </Link>
             )}

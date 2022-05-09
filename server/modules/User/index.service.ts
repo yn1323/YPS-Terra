@@ -84,7 +84,7 @@ export class UserService {
     const shopCollection = collections.shop.doc(shopId)
     const organizationCollection = collections.organization.doc(organizationId)
 
-    const result = await db
+    await db
       .runTransaction(async t => {
         const [userDoc, shopDoc, organizationDoc] = await Promise.all([
           await t.get(userCollection),
@@ -110,11 +110,10 @@ export class UserService {
           await t.set(shopCollection, shopInfo),
           await t.set(organizationCollection, organizationInfo),
         ])
-        return this.getLoginInfo({ userId })
       })
       .catch(e => console.log(e))
 
-    return result
+    return this.getLoginInfo({ userId })
   }
 
   async registerUser(args: RegisterUserArgs) {
@@ -123,7 +122,7 @@ export class UserService {
     const userCollection = collections.user.doc(userId)
     const shopCollection = collections.shop.doc(shopId)
 
-    const result = await db
+    await db
       .runTransaction(async t => {
         const [userDoc, shopDoc] = await Promise.all([
           await t.get(userCollection),
@@ -140,11 +139,10 @@ export class UserService {
         } else {
           await t.set(userCollection, userInfo)
         }
-        return this.getLoginInfo({ userId })
       })
       .catch(e => console.log(e))
 
-    return result
+    return this.getLoginInfo({ userId })
   }
 
   async addMemberOf(args: { userId: string; shopId: string }) {

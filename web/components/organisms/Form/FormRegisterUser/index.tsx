@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
-import { showCommonServerError, showToast } from '@/localHelpers/ui'
+import { showCommonServerError } from '@/localHelpers/ui'
 import { FormUserName } from '@/molecules/Form/FormUserName'
 import { userInfoState } from '@/recoil/userInfo'
 import { useRegisterUser } from '@/services/register/registerUser'
@@ -25,6 +25,7 @@ export const FormRegisterUser: FC<PropTypes> = ({ shopId }) => {
       userName: '',
     },
   })
+  const { setError } = methods
   const {
     registerUserMutation,
     loading,
@@ -49,7 +50,7 @@ export const FormRegisterUser: FC<PropTypes> = ({ shopId }) => {
 
   const onSubmit: SubmitHandler<FormRegisterUserType> = ({ userName }) => {
     if (!userName) {
-      showToast({ title: 'ユーザー名を入力してください', status: 'error' })
+      setError('userName', { message: 'ユーザー名を入力してください' })
       return
     }
     registerUserMutation({

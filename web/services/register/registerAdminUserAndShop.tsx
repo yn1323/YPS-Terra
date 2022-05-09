@@ -12,6 +12,7 @@ export const useRegisterAdminUserAndShop = () => {
 
   useEffect(() => {
     if (!!data) {
+      console.log(data)
       setMessage({ registerSucceeded: true })
     }
   }, [setMessage, data])

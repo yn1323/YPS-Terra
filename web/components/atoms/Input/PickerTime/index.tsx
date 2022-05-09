@@ -1,7 +1,7 @@
 import { Select } from '@chakra-ui/react'
-import dayjs from 'dayjs'
 import { FC, useMemo } from 'react'
 import { ShiftTimeUnit } from '@/constants/validations'
+import { timeStringToDate } from '@/localHelpers/string'
 
 type PropTypes = {
   placeholder: string
@@ -18,12 +18,8 @@ export const PickerTime: FC<PropTypes> = ({
 }) => {
   const time = useMemo(
     () => ({
-      startTime: dayjs()
-        .set('hour', parseInt(startTime.split(':')[0]))
-        .set('minute', parseInt(startTime.split(':')[1])),
-      endTime: dayjs()
-        .set('hour', parseInt(endTime.split(':')[0]))
-        .set('minute', parseInt(endTime.split(':')[1])),
+      startTime: timeStringToDate(startTime),
+      endTime: timeStringToDate(endTime),
     }),
     [startTime, endTime]
   )

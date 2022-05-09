@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement, useEffect } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { showToast } from '@/localHelpers/ui'
 import { pageMessage } from '@/recoil/pageMessage'
 import { loginInfo } from '@/services/auth/loginInfo'
@@ -9,12 +9,13 @@ import { Animation } from '@/templates/Animation'
 import { AuthLayout } from '@/templates/AuthLayout'
 
 export const Dashboard: NextPageWithLayout = () => {
-  const { registerSucceeded } = useRecoilValue(pageMessage)
+  const [pageMessages, setPageMessages] = useRecoilState(pageMessage)
   useEffect(() => {
-    if (registerSucceeded) {
+    if (pageMessages.registerSucceeded) {
       showToast({ title: '登録が完了しました', status: 'success' })
+      setPageMessages({ ...pageMessages, registerSucceeded: false })
     }
-  }, [registerSucceeded])
+  }, [pageMessages, setPageMessages])
 
   return (
     <Animation>
