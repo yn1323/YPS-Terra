@@ -135,8 +135,14 @@ export class UserService {
         const userInfo = this.createUserData({ ...args, shopId })
 
         if (userDoc.exists) {
-          await t.update(userCollection, userInfo)
+          const prevUserData = userDoc.data()
+          const nextUserInfo = {
+            ...prevUserData,
+            memberOf: Array.from(new Set([...prevUserData.memberOf, shopId])),
+          }
+          await t.update(userCollection, nextUserInfo)
         } else {
+          console.log('not exist')
           await t.set(userCollection, userInfo)
         }
       })
