@@ -25,7 +25,9 @@ export const Step: FC<PropTypes> = ({
   const [currentStep, setCurrentStep] = useState(0)
 
   useEffect(() => {
-    setCurrentStep(defaultStep === -1 ? 0 : defaultStep)
+    if (defaultStep !== -1) {
+      setCurrentStep(defaultStep)
+    }
   }, [defaultStep])
 
   const form = useFormContext()

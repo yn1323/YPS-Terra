@@ -40,6 +40,7 @@ export const FormRegisterAdmin: FC = () => {
       timeCardAuth: false,
     },
   })
+  const { setError } = methods
   const {
     registerAdminUserAndShopMutation,
     loading,
@@ -61,6 +62,12 @@ export const FormRegisterAdmin: FC = () => {
     }
   }, [error])
 
+  useEffect(() => {
+    if (defaultStep !== -1) {
+      setDefaultStep(_ => -1)
+    }
+  }, [defaultStep])
+
   const onSubmit: SubmitHandler<FormRegisterAdminType> = ({
     userName,
     shopName,
@@ -71,15 +78,20 @@ export const FormRegisterAdmin: FC = () => {
     timeCardAuth,
   }) => {
     let errorMessage = ''
+    let key: 'userName' | 'shopName' = ''
     if (!userName) {
       errorMessage = 'ユーザー名を入力してください'
+      key = 'userName'
+
       setDefaultStep(0)
     } else if (!shopName) {
       errorMessage = '店舗名を入力してください'
+      key = 'shopName'
+
       setDefaultStep(1)
     }
-    if (errorMessage) {
-      showToast({ title: errorMessage, status: 'error' })
+    if (errorMessage && key) {
+      setError(key, { message: errorMessage })
       return
     }
     registerAdminUserAndShopMutation({

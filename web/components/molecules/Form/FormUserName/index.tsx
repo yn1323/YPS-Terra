@@ -11,9 +11,14 @@ import { useFormContext } from 'react-hook-form'
 import { FaUserAlt } from 'react-icons/fa'
 import { MAX_LENGTH } from '@/constants/validations'
 
+const KEY = 'userName'
+
 export const FormUserName: FC = () => {
   const form = useFormContext()
-  const props = form ? { ...form.register('userName', { required: true }) } : {}
+  const props = form ? { ...form.register(KEY, { required: true }) } : {}
+  const isInvalid = !!form?.formState.errors[KEY]
+  const message = isInvalid ? form?.formState.errors[KEY].message : ''
+
   return (
     <Box w="100%">
       <Text mb={2}>ユーザー名</Text>
@@ -23,11 +28,18 @@ export const FormUserName: FC = () => {
         </InputLeftElement>
         <Input
           {...props}
+          isInvalid={!!isInvalid}
+          errorBorderColor="crimson"
           type="text"
           placeholder="〇〇 ✗✗"
           maxLength={MAX_LENGTH.USER_NAME}
         />
       </InputGroup>
+      {!!message && (
+        <Text size="sm" color="crimson">
+          {message}
+        </Text>
+      )}
     </Box>
   )
 }
