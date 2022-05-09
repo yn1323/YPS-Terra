@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 import { CommonMeta } from '@/atoms/Meta/CommonMeta'
 import { useOnAuthStateChanged } from '@/hooks/useOnAuthStateChanged'
 import { useScreenSize } from '@/hooks/useScreenSize'
@@ -15,13 +15,13 @@ export const AuthLayout: FC<PropTypes> = ({ children }) => {
   useOnAuthStateChanged()
 
   return (
-    <>
+    <Fragment>
       <CommonMeta />
       {isPC ? (
         <AuthLayoutPC>{showElement}</AuthLayoutPC>
       ) : (
         <AuthLayoutSP>{showElement}</AuthLayoutSP>
       )}
-    </>
+    </Fragment>
   )
 }
