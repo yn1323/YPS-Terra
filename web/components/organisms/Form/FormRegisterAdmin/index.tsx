@@ -78,7 +78,7 @@ export const FormRegisterAdmin: FC = () => {
     timeCardAuth,
   }) => {
     let errorMessage = ''
-    let key: 'userName' | 'shopName' = ''
+    let key = ''
     if (!userName) {
       errorMessage = 'ユーザー名を入力してください'
       key = 'userName'
@@ -90,7 +90,7 @@ export const FormRegisterAdmin: FC = () => {
 
       setDefaultStep(1)
     }
-    if (errorMessage && key) {
+    if ((errorMessage && key === 'userName') || key === 'shopName') {
       setError(key, { message: errorMessage })
       return
     }
