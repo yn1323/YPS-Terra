@@ -15,7 +15,9 @@ const KEY = 'userName'
 
 export const FormUserName: FC = () => {
   const form = useFormContext()
-  const props = form ? { ...form.register(KEY, { required: true }) } : {}
+  const props = form
+    ? { ...form.register(KEY, { required: 'ユーザー名を入力してください' }) }
+    : {}
   const isInvalid = !!form?.formState.errors[KEY]
   const message = isInvalid ? form?.formState.errors[KEY].message : ''
 

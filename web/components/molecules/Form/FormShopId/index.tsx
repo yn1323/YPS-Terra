@@ -15,7 +15,9 @@ const KEY = 'shopId'
 
 export const FormShopId: FC = () => {
   const form = useFormContext()
-  const props = form ? { ...form.register(KEY, { required: true }) } : {}
+  const props = form
+    ? { ...form.register(KEY, { required: '店舗IDを入力してください' }) }
+    : {}
   const isInvalid = !!form?.formState.errors[KEY]
   const message = isInvalid ? form?.formState.errors[KEY].message : ''
 

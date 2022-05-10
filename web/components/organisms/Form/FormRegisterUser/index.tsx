@@ -3,7 +3,8 @@ import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
-import { showCommonServerError } from '@/localHelpers/ui'
+import { Shop } from '@/graphql/generated'
+import { showCommonServerError, showToast } from '@/localHelpers/ui'
 import { FormUserName } from '@/molecules/Form/FormUserName'
 import { userInfoState } from '@/recoil/userInfo'
 import { useRegisterUser } from '@/services/register/registerUser'
@@ -15,17 +16,27 @@ export type FormRegisterUserType = {
 
 type PropTypes = {
   shopId: string
+  shopInfo: Shop
+  isUserExist: boolean
 }
 
-export const FormRegisterUser: FC<PropTypes> = ({ shopId }) => {
+export const FormRegisterUser: FC<PropTypes> = ({
+  shopId,
+  shopInfo,
+  isUserExist,
+}) => {
+  // 店舗情報表示(shopInfo)
+  if (isUserExist) {
+    // ユーザー名のインプットを隠す、
+    // 登録時の文言修正
+  }
   const [defaultStep] = useState(-1)
-  const labels = ['ユーザー名']
+  const labels = ['設定']
   const methods = useForm<FormRegisterUserType>({
     defaultValues: {
       userName: '',
     },
   })
-  const { setError } = methods
   const {
     registerUserMutation,
     loading,
@@ -49,10 +60,6 @@ export const FormRegisterUser: FC<PropTypes> = ({ shopId }) => {
   }, [error, errorMessage])
 
   const onSubmit: SubmitHandler<FormRegisterUserType> = ({ userName }) => {
-    if (!userName) {
-      setError('userName', { message: 'ユーザー名を入力してください' })
-      return
-    }
     registerUserMutation({
       variables: {
         userId: uid,

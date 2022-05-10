@@ -4,16 +4,17 @@ import { authCheck } from '@/services/auth/authCheck'
 export const registerPageRedirectTo = async (
   context: GetServerSidePropsContext
 ) => {
-  const {
-    isUserExist,
-    isAuthenticated,
-    userInfo: { userExists },
-  } = await authCheck(context)
+  const { isUserExist, isAuthenticated, userInfo } = await authCheck(context)
   let destination = ''
-  const { shopId = '' } = context.query
+  const ret: { [key: string]: any } = {
+    isUserExist,
+  }
+  const shopId = Array.isArray(context.query.shopId)
+    ? context.query.shopId.join(',')
+    : context.query.shopId || ''
 
   const alreadyRegisteredShop: boolean =
-    isUserExist && userExists.memberOf.includes(shopId)
+    isUserExist && userInfo && userInfo.userExists.memberOf.includes(shopId)
 
   if (!shopId) {
     if (isAuthenticated && isUserExist) {
@@ -28,13 +29,14 @@ export const registerPageRedirectTo = async (
   if (!isAuthenticated) {
     destination = '/login'
   }
-
   if (destination) {
-    return {
+    ret.redirect = {
       redirect: {
         permanent: false,
         destination,
       },
     }
   }
+
+  return ret
 }

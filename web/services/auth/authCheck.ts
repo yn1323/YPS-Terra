@@ -1,16 +1,18 @@
 import { GetServerSidePropsContext } from 'next'
 import client from '@/config/apollo-client'
 import { userExists } from '@/graphql/check/user'
+import { User } from '@/graphql/generated'
 import { getCookieValue } from '@/helpers/string'
 import { getErrorCode } from '@/services/helpers/common/getErrorCode'
 import { ssrGqlCommon } from '@/services/helpers/common/ssrGqlCommon'
 
 export const authCheck = async (context: GetServerSidePropsContext) => {
-  const { data, errors } = await client.query({
+  const { data, errors } = await client.query<{ userExists: User }>({
     query: userExists,
     variables: { token: getCookieValue(context.req.headers.cookie) },
     ...ssrGqlCommon(context),
   })
+
   const ret = {
     userInfo: data,
     isAuthenticated: getErrorCode(errors) !== 403,

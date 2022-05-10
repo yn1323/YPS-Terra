@@ -3,10 +3,12 @@ import { FC } from 'react'
 import { useScreenSize } from '@/hooks/useScreenSize'
 
 type PropTypes = {
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
 }
 
 export const CenterBox: FC<PropTypes> = ({ children }) => {
+  const showElement = Array.isArray(children) ? children : [children]
+
   const { isPC } = useScreenSize()
   return (
     <VStack h="calc(100vh - 100px)" justifyContent="center">
@@ -20,10 +22,10 @@ export const CenterBox: FC<PropTypes> = ({ children }) => {
           px={4}
           w="400px"
         >
-          {children}
+          {showElement}
         </VStack>
       ) : (
-        children
+        showElement
       )}
     </VStack>
   )
