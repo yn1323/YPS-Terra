@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
+import { env } from '@/config/env'
 import { FormLogin } from '@/organisms/Form/FormLogin'
 import { loginPageRedirectTo } from '@/services/helpers/ssrProps/loginPageRedirectTo'
 import { Animation } from '@/templates/Animation'
@@ -21,6 +22,7 @@ Login.getLayout = (page: ReactElement) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
+  console.log(env)
   const redirect = await loginPageRedirectTo(context)
   if (redirect) {
     return redirect
