@@ -6,6 +6,7 @@ import { APP_GUARD } from '@nestjs/core'
 import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGurd } from '@/gurds/AuthGurd'
 import { AnnounceModule } from '@/modules/Announce/index.module'
+import { DevOnlyModule } from '@/modules/DevOnly/index.module'
 import { OperationModule } from '@/modules/Operation/index.module'
 import { OrganizationModule } from '@/modules/Organization/index.module'
 import { RequestModule } from '@/modules/Request/index.module'
@@ -29,6 +30,7 @@ import { UserModule } from '@/modules/User/index.module'
     TimeCardModule,
     RequestModule,
     RequestConditionModule,
+    DevOnlyModule,
     // For env
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({

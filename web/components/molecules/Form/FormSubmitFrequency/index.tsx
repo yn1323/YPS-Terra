@@ -1,35 +1,21 @@
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
-import { Dispatch, FC, SetStateAction } from 'react'
-import { Selectbox } from '@/atoms/Input/Selectbox'
-import { ShiftSubmitFrequency } from '@/config/appConfigs'
+import { Select, Text, VStack } from '@chakra-ui/react'
+import { FC } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { SUBMIT_FREQUENCY } from '@/constants/validations'
-import { Form } from '@/templates/Form'
 
-type PropTypes = {
-  _css?: SerializedStyles | SerializedStyles[]
-  initialValue: ShiftSubmitFrequency
-  setter: Dispatch<SetStateAction<ShiftSubmitFrequency>>
-}
-
-export const FormSubmitFrequency: FC<PropTypes> = ({
-  _css,
-  initialValue,
-  setter,
-}) => {
+export const FormSubmitFrequency: FC = () => {
+  const form = useFormContext()
+  const props = form ? { ...form.register('shiftSubmitFrequency') } : {}
   return (
-    <Form css={[_css, styles.container]} definition="シフト提出頻度">
-      <Selectbox
-        _css={styles.container}
-        options={SUBMIT_FREQUENCY}
-        setter={setter as (v: string) => void}
-        initialValue={initialValue}
-      />
-    </Form>
+    <VStack alignItems="flex-start">
+      <Text>シフト提出頻度</Text>
+      <Select {...props}>
+        {SUBMIT_FREQUENCY.map(({ label, value }, i) => (
+          <option key={i} value={value}>
+            {label}
+          </option>
+        ))}
+      </Select>
+    </VStack>
   )
-}
-const styles = {
-  container: css`
-    width: 150px;
-  `,
 }

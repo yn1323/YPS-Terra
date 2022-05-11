@@ -6,11 +6,8 @@ export default {
   title: 'molecules/Form/FormShopId',
   component: FormShopId,
 } as ComponentMeta<typeof FormShopId>
-const args = {
-  error: false,
-  defaultValue: '',
-  required: false,
-  helperText: '必ず入力してください。',
-}
+const args = {}
 
-export const Basic: StoryObj = { args }
+export const Basic: StoryObj = {
+  args,
+}

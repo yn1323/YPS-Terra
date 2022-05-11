@@ -1,12 +1,12 @@
 import {
-  Alarm,
-  Assessment,
-  Build,
-  ExitToApp,
-  HelpOutline,
-  Home,
-  LibraryBooks,
-} from '@mui/icons-material'
+  FcHome,
+  FcOvertime,
+  FcAlarmClock,
+  FcAssistant,
+  FcSupport,
+  FcUndo,
+  FcOpenedFolder,
+} from 'react-icons/fc'
 
 export type MenuItem = {
   icon: JSX.Element
@@ -16,22 +16,26 @@ export type MenuItem = {
 type Menu = { [key: string]: MenuItem }
 
 export const MENU: Menu = {
-  TOP: { icon: <Home />, label: 'マイページ', link: '/mypage' },
-  SHIFT: { icon: <LibraryBooks />, label: 'シフト', link: '/shift' },
-  ATTENDANCE: { icon: <Assessment />, label: '勤務記録', link: '/history' },
-  TIMECARD: { icon: <Alarm />, label: 'タイムカード', link: '/timecard' },
+  TOP: { icon: <FcHome />, label: 'マイページ', link: '/mypage' },
+  SHIFT: { icon: <FcOvertime />, label: 'シフト', link: '/shift' },
+  ATTENDANCE: { icon: <FcOpenedFolder />, label: '勤務記録', link: '/history' },
+  TIMECARD: {
+    icon: <FcAlarmClock />,
+    label: 'タイムカード',
+    link: '/timecard',
+  },
   CONFIG: {
-    icon: <Build />,
+    icon: <FcSupport />,
     label: '設定',
     link: '/config',
   },
   HOWTO: {
-    icon: <HelpOutline />,
+    icon: <FcAssistant />,
     label: '使い方',
     link: '/help',
   },
   LOGOUT: {
-    icon: <ExitToApp />,
+    icon: <FcUndo />,
     label: 'ログアウト',
     link: '/logout',
   },

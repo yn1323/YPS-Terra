@@ -1,5 +1,4 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
-import dayjs, { Dayjs } from 'dayjs'
 import { PickerTime } from '.'
 
 type StoryObj = ComponentStoryObj<typeof PickerTime>
@@ -8,17 +7,12 @@ export default {
   component: PickerTime,
 } as ComponentMeta<typeof PickerTime>
 const args = {
-  error: false,
-  errorMessage: 'error message',
-  defaultTime: dayjs('13:35', 'HH:mm'),
-  label: 'label',
-  setter: (v: Dayjs) => {
-    v
-  },
-  minutesStep: 5,
-  maxTime: '13:30',
-  minTime: '8:45',
+  placeholder: 'Select time',
+  startTime: '07:15',
+  endTime: '19:15',
+  step: 5 as const,
 }
 
-export const Basic: StoryObj = { args }
-export const Error: StoryObj = { args: { ...args, error: true } }
+export const Basic: StoryObj = {
+  args,
+}

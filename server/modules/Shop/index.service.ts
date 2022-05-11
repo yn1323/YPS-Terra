@@ -12,13 +12,20 @@ import { CreateShopArgs, GetShopArgs, GetShopsArgs } from '@/modules/Shop/args'
 export class ShopService {
   private subscribes = {}
 
-  createShopData(args: CreateShopArgs & { shopId: string }): Shop {
+  createShopData(
+    args: CreateShopArgs & { shopId: string; userId: string }
+  ): Shop {
     return {
       shopId: args.shopId,
       avatar: '',
       closedWeekday: [],
-      shopOwnerIds: [],
-      ...args,
+      shopOwnerIds: [args.userId],
+      shopName: args.shopName,
+      openTime: args.openTime,
+      closeTime: args.closeTime,
+      timeUnit: args.timeUnit,
+      submitFrequency: args.submitFrequency,
+      useTimeCard: args.useTimeCard,
     }
   }
 

@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/named
 import { ApolloProvider } from '@apollo/client'
+import { ChakraProvider } from '@chakra-ui/react'
 import { CacheProvider } from '@emotion/react'
-import CssBaseline from '@mui/material/CssBaseline'
-import { ThemeProvider } from '@mui/material/styles'
 import { AnimatePresence } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -12,7 +11,7 @@ import { useRecoilSnapshot } from 'recoil'
 import client from '@/config/apollo-client'
 import { isProduction } from '@/config/env'
 import createEmotionCache from '@/ui/createEmotionCache'
-import { theme } from '@/ui/theme'
+import { themeChakra } from '@/ui/theme'
 
 const clientSideEmotionCache = createEmotionCache()
 interface MyAppProps extends AppProps {
@@ -47,14 +46,13 @@ function MyApp(props: MyAppProps) {
               content="initial-scale=1, width=device-width"
             />
           </Head>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
+          <ChakraProvider theme={themeChakra}>
             {getLayout(
               <AnimatePresence exitBeforeEnter>
                 <Component {...pageProps} />
               </AnimatePresence>
             )}
-          </ThemeProvider>
+          </ChakraProvider>
         </CacheProvider>
       </RecoilRoot>
     </ApolloProvider>

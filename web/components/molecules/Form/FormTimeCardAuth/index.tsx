@@ -1,38 +1,34 @@
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
-import { FC } from 'react'
-import { Toggle } from '@/atoms/Button/Toggle'
-import { Form } from '@/templates/Form'
+import { Button, HStack, Text, VStack } from '@chakra-ui/react'
+import { FC, useEffect, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
-const Label = ['管理者のみ', '全員可']
+export const FormTimeCardAuth: FC = () => {
+  const form = useFormContext()
+  const [timeCardAuth, setTimeCardAuth] = useState(false)
 
-type PropTypes = {
-  _css?: SerializedStyles | SerializedStyles[]
-  initialValue: boolean
-  setter: (v: boolean) => void
-}
-
-export const FormTimeCardAuth: FC<PropTypes> = ({
-  _css,
-  initialValue,
-  setter,
-}) => {
-  const localSetter = (v: string) => {
-    setter(v === Label[0])
-  }
+  useEffect(() => {
+    if (form && form.setValue) {
+      form.setValue('timeCardAuth', timeCardAuth)
+    }
+  }, [timeCardAuth, form])
 
   return (
-    <Form css={[_css, styles.container]} definition="タイムカード入力権限">
-      <Toggle
-        values={Label}
-        initialValue={initialValue ? Label[0] : Label[1]}
-        setter={localSetter}
-      ></Toggle>
-    </Form>
+    <VStack alignItems="flex-start" spacing={0}>
+      <Text mb={2}>タイムカード入力権限</Text>
+      <HStack spacing={1}>
+        <Button
+          onClick={() => setTimeCardAuth(false)}
+          colorScheme={!timeCardAuth ? 'primary' : 'gray'}
+        >
+          管理者のみ
+        </Button>
+        <Button
+          onClick={() => setTimeCardAuth(true)}
+          colorScheme={timeCardAuth ? 'primary' : 'gray'}
+        >
+          全員可
+        </Button>
+      </HStack>
+    </VStack>
   )
-}
-const styles = {
-  container: css`
-    width: 150px;
-  `,
 }

@@ -8,7 +8,8 @@ const Titles = [
     title: '',
   },
   { path: '/login', title: 'ログイン' },
-  { path: '/login/register', title: 'メールアドレス登録' },
+  { path: '/login/register', title: '新規登録' },
+  { path: '/login/reset', title: 'パスワードリセット' },
   { path: '/register', title: '登録' },
   { path: '/dashboard', title: 'ダッシュボード' },
 ]

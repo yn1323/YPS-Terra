@@ -1,114 +1,52 @@
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
-import {
-  LocalizationProvider,
-  DesktopTimePicker,
-  MobileTimePicker,
-} from '@mui/lab'
-import DateAdapter from '@mui/lab/AdapterDayjs'
-import { TextField } from '@mui/material'
-import dayjs, { Dayjs } from 'dayjs'
-import ja from 'dayjs/locale/ja'
-import { FC, useState } from 'react'
-import { mediaQueries } from '@/ui/mixins/breakpoint'
+import { Select } from '@chakra-ui/react'
+import { FC, useMemo } from 'react'
+import { ShiftTimeUnit } from '@/constants/validations'
+import { timeStringToDate } from '@/localHelpers/string'
 
 type PropTypes = {
-  _css?: SerializedStyles | SerializedStyles[]
-  setter: (date: Dayjs) => void
-  error?: boolean
-  errorMessage?: string
-  label?: string
-  defaultTime?: Dayjs
-  maxTime?: string
-  minTime?: string
-  minutesStep?: number
+  placeholder: string
+  startTime: string
+  endTime: string
+  step?: ShiftTimeUnit
 }
 
 export const PickerTime: FC<PropTypes> = ({
-  _css,
-  error,
-  errorMessage,
-  label,
-  defaultTime = dayjs(),
-  setter,
-  maxTime,
-  minTime,
-  minutesStep = 5,
+  placeholder,
+  startTime,
+  endTime,
+  step = 5,
 }) => {
-  const [value, setValue] = useState<Dayjs>(defaultTime)
-  const max = maxTime && dayjs(maxTime, 'HH:mm').add(1, 'minutes')
-  const min = minTime && dayjs(minTime, 'HH:mm')
+  const time = useMemo(
+    () => ({
+      startTime: timeStringToDate(startTime),
+      endTime: timeStringToDate(endTime),
+    }),
+    [startTime, endTime]
+  )
+  const isOverMidnight = time.startTime.isAfter(time.endTime)
+  const listTimeBetweenStartAndEndByStep = useMemo(() => {
+    const list = []
+    const start = isOverMidnight ? time.endTime : time.startTime
+    const end = isOverMidnight ? time.startTime : time.endTime
+
+    for (
+      let date = start;
+      date.isBefore(end) || date.isSame(end);
+      date = date.add(step, 'minute')
+    ) {
+      list.push(date.format('HH:mm'))
+    }
+
+    return list
+  }, [isOverMidnight, time, step])
 
   return (
-    <LocalizationProvider dateAdapter={DateAdapter} local={ja}>
-      <DesktopTimePicker
-        ampm={false}
-        inputFormat="HH:mm"
-        maxTime={max}
-        minTime={min}
-        label={label}
-        value={value}
-        minutesStep={minutesStep}
-        onChange={newValue => {
-          if (newValue) {
-            setter(newValue)
-            setValue(newValue)
-          }
-        }}
-        renderInput={params => {
-          const isError = !params.error ? error : params.error
-          return (
-            <TextField
-              css={[_css, styles.pc]}
-              variant="standard"
-              {...params}
-              error={isError}
-              helperText={isError && errorMessage}
-            />
-          )
-        }}
-      />
-      <MobileTimePicker
-        ampm={false}
-        inputFormat="HH:mm"
-        maxTime={max}
-        minTime={min}
-        label={label}
-        value={value}
-        minutesStep={minutesStep}
-        onChange={newValue => {
-          if (newValue) {
-            setter(newValue)
-            setValue(newValue)
-          }
-        }}
-        renderInput={params => {
-          const isError = !params.error ? error : params.error
-          return (
-            <TextField
-              css={[_css, styles.sp]}
-              variant="standard"
-              {...params}
-              error={isError}
-              helperText={isError && errorMessage}
-            />
-          )
-        }}
-      />
-    </LocalizationProvider>
+    <Select placeholder={placeholder}>
+      {listTimeBetweenStartAndEndByStep.map((time, i) => (
+        <option value={time} key={i}>
+          {time}
+        </option>
+      ))}
+    </Select>
   )
-}
-
-const styles = {
-  pc: css`
-    display: none;
-    ${mediaQueries('sm')} {
-      display: block;
-    }
-  `,
-  sp: css`
-    ${mediaQueries('sm')} {
-      display: none;
-    }
-  `,
 }

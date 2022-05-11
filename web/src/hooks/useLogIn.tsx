@@ -17,7 +17,7 @@ export const useLogIn = () => {
     type: 'google' | 'mail' | 'anonymously' | 'twitter',
     options: EmailSignIn = { email: '', password: '' }
   ) => {
-    let result
+    let result = false
     setIsLoading(true)
     if (type === 'google') {
       result = await signInGoogle()

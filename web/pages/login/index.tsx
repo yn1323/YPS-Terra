@@ -3,18 +3,21 @@ import { ReactElement } from 'react'
 import { FormLogin } from '@/organisms/Form/FormLogin'
 import { loginPageRedirectTo } from '@/services/helpers/ssrProps/loginPageRedirectTo'
 import { Animation } from '@/templates/Animation'
-import { Layout } from '@/templates/Layout'
+import { CenterBox } from '@/templates/CenterBox'
+import { UnauthHeader } from '@/templates/UnauthLayout'
 
 export const Login: NextPageWithLayout = () => {
   return (
     <Animation>
-      <FormLogin />
+      <CenterBox>
+        <FormLogin mailFormType="login" />
+      </CenterBox>
     </Animation>
   )
 }
 
 Login.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <UnauthHeader showLoginButton={false}>{page}</UnauthHeader>
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {

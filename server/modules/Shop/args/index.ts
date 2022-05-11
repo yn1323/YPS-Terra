@@ -9,7 +9,10 @@ export class CreateShopArgs extends PickType(ShopArgs, [
   'timeUnit',
   'submitFrequency',
   'useTimeCard',
-] as const) {}
+] as const) {
+  @Field(type => [ID])
+  userId: string
+}
 
 @ArgsType()
 export class GetShopArgs extends PickType(ShopArgs, ['shopId'] as const) {}

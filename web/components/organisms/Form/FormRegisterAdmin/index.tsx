@@ -1,34 +1,46 @@
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
+import { VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
-import { Heading } from '@/atoms/Text/Heading'
-import {
-  ShiftSubmitFrequency,
-  ShiftTime,
-  ShiftTimeUnit,
-  SHOP_CONFIG,
-  TimeCardAuth,
-} from '@/config/appConfigs'
-import { FORM_ERROR_TEXT } from '@/constants/validations'
+import { ShiftSubmitFrequency } from '@/constants/validations'
+import { timeStringToDate } from '@/localHelpers/string'
+import { showCommonServerError } from '@/localHelpers/ui'
 import { FormShiftRange } from '@/molecules/Form/FormShiftRange'
 import { FormShopName } from '@/molecules/Form/FormShopName'
 import { FormSubmitFrequency } from '@/molecules/Form/FormSubmitFrequency'
 import { FormTimeCardAuth } from '@/molecules/Form/FormTimeCardAuth'
 import { FormTimeUnit } from '@/molecules/Form/FormTimeUnit'
 import { FormUserName } from '@/molecules/Form/FormUserName'
-import { NotificationError } from '@/molecules/Notification/NotificationError'
 import { userInfoState } from '@/recoil/userInfo'
 import { useRegisterAdminUserAndShop } from '@/services/register/registerAdminUserAndShop'
-import { Stepper } from '@/templates/Stepper'
-import { mediaQueries } from '@/ui/mixins/breakpoint'
+import { Step } from '@/templates/Step'
 
-type PropTypes = {
-  _css?: SerializedStyles | SerializedStyles[]
+export type FormRegisterAdminType = {
+  userName: string
+  shopName: string
+  openTime: string
+  closeTime: string
+  timeUnit: string
+  shiftSubmitFrequency: ShiftSubmitFrequency
+  timeCardAuth: boolean
 }
 
-export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
+export const FormRegisterAdmin: FC = () => {
+  const [defaultStep, setDefaultStep] = useState(-1)
+  const labels = ['ユーザー名', '店舗情報', 'シフト設定', '権限設定']
+  const methods = useForm<FormRegisterAdminType>({
+    defaultValues: {
+      userName: '',
+      shopName: '',
+      openTime: '09:00',
+      closeTime: '18:00',
+      shiftSubmitFrequency: '0.5m',
+      timeUnit: '30',
+      timeCardAuth: false,
+    },
+  })
+  const { setError } = methods
   const {
     registerAdminUserAndShopMutation,
     loading,
@@ -36,180 +48,98 @@ export const FormRegisterAdmin: FC<PropTypes> = ({ _css }) => {
     mutationSucceeded,
   } = useRegisterAdminUserAndShop()
   const { uid } = useRecoilValue(userInfoState)
-
   const router = useRouter()
+
   useEffect(() => {
     if (mutationSucceeded) {
       router.push('/dashboard')
     }
   }, [mutationSucceeded, router])
 
-  const [moveStep, setMoveStep] = useState<undefined | number>(undefined)
-  const StepperLabels = ['ユーザー名', '店舗情報設定', 'シフト設定', '権限設定']
-  const [startShiftTime, setStartShiftTime] = useState<ShiftTime>(
-    SHOP_CONFIG.startShiftTime
-  )
-  const [endShiftTime, setEndShiftTime] = useState<ShiftTime>(
-    SHOP_CONFIG.endShiftTime
-  )
-  const [shiftTimeUnit, setShiftTimeUnit] = useState<ShiftTimeUnit>(
-    SHOP_CONFIG.shiftTimeUnit
-  )
-  const [shiftSubmitFrequency, setShiftSubmitFrequency] =
-    useState<ShiftSubmitFrequency>(SHOP_CONFIG.shiftSubmitFrequency)
-  const [timeCardAuth, setTimeCardAuth] = useState<TimeCardAuth>(false)
-
-  const [userName, setUserName] = useState('')
-  const [shopName, setShopName] = useState('')
-
-  const userNameRef = useRef<HTMLInputElement>(null)
-  const shopNameRef = useRef<HTMLInputElement>(null)
-
-  const stepHandler = (_: number, prevStep: number) => {
-    if (prevStep === 0) {
-      setUserName(userNameRef.current?.value ?? '')
-    } else if (prevStep === 1) {
-      setShopName(shopNameRef.current?.value ?? '')
+  useEffect(() => {
+    if (error) {
+      showCommonServerError()
     }
-  }
+  }, [error])
 
-  const [success, setSuccess] = useState({
-    userName: true,
-    shopName: true,
-  })
+  useEffect(() => {
+    if (defaultStep !== -1) {
+      setDefaultStep(_ => -1)
+    }
+  }, [defaultStep])
 
-  const handleSubmit = () => {
+  const onSubmit: SubmitHandler<FormRegisterAdminType> = ({
+    userName,
+    shopName,
+    openTime,
+    closeTime,
+    timeUnit,
+    shiftSubmitFrequency,
+    timeCardAuth,
+  }) => {
+    let errorMessage = ''
+    let key = ''
+    if (!userName) {
+      errorMessage = 'ユーザー名を入力してください'
+      key = 'userName'
+
+      setDefaultStep(0)
+    } else if (!shopName) {
+      errorMessage = '店舗名を入力してください'
+      key = 'shopName'
+
+      setDefaultStep(1)
+    }
+    if ((errorMessage && key === 'userName') || key === 'shopName') {
+      setError(key, { message: errorMessage })
+      return
+    }
+
     registerAdminUserAndShopMutation({
       variables: {
         userId: uid,
         userName,
         shopName,
-        openTime: startShiftTime,
-        closeTime: endShiftTime,
-        timeUnit: parseInt(shiftTimeUnit, 10),
-        submitFrequency: shiftTimeUnit,
+        openTime: timeStringToDate(openTime),
+        closeTime: timeStringToDate(closeTime),
+        timeUnit: parseInt(timeUnit),
+        submitFrequency: shiftSubmitFrequency,
         useTimeCard: timeCardAuth,
       },
     })
   }
 
-  const validationMessage = () => {
-    const targetValidation = [userName, shopName]
-    const allSuccess = targetValidation?.every(v => v)
-    if (!allSuccess) {
-      setSuccess({
-        userName: !!userName,
-        shopName: !!shopName,
-      })
-      if (!userName) {
-        setMoveStep(0)
-        return FORM_ERROR_TEXT.USER_NAME
-      } else if (!shopName) {
-        setMoveStep(1)
-        return FORM_ERROR_TEXT.SHOP_NAME
-      }
-    }
-    return ''
+  const props = {
+    vstack: {
+      spacing: 4,
+      alignItems: 'flex-start',
+      w: ['100%', '100%', '50%'],
+    },
   }
 
-  useEffect(() => {
-    if (moveStep !== undefined) {
-      setMoveStep(undefined)
-    }
-  }, [moveStep])
-
   return (
-    <div css={[_css, styles.container]}>
-      {error && <NotificationError show={true} />}
-      <Heading underline>YPS初期設定</Heading>
-
-      <Stepper
-        labels={StepperLabels}
-        validationMessage={validationMessage}
-        completed={handleSubmit}
-        _contentCss={styles.content}
-        onStepChanged={stepHandler}
-        moveStep={moveStep}
-        loading={loading}
+    <FormProvider {...methods}>
+      <Step
+        labels={labels}
+        onSubmit={onSubmit}
+        defaultStep={defaultStep}
+        isLoading={loading}
       >
-        <section css={styles.section}>
-          <div css={styles.items}>
-            <FormUserName
-              error={!success.userName}
-              helperText={FORM_ERROR_TEXT.USER_NAME}
-              ref={userNameRef}
-              defaultValue={userName}
-            />
-          </div>
-        </section>
-
-        <section css={styles.section}>
-          <div css={styles.items}>
-            <FormShopName
-              error={!success.shopName}
-              helperText={FORM_ERROR_TEXT.SHOP_NAME}
-              ref={shopNameRef}
-              defaultValue={shopName}
-            />
-          </div>
-        </section>
-
-        <section css={styles.section}>
-          <div css={styles.items}>
-            <FormShiftRange
-              startInitialValue={startShiftTime}
-              startTimeSetter={setStartShiftTime}
-              endInitialValue={endShiftTime}
-              endTimeSetter={setEndShiftTime}
-            />
-            <FormTimeUnit
-              initialValue={shiftTimeUnit}
-              setter={setShiftTimeUnit}
-            />
-            <FormSubmitFrequency
-              initialValue={shiftSubmitFrequency}
-              setter={setShiftSubmitFrequency}
-            />
-          </div>
-        </section>
-
-        <section css={styles.section}>
-          <div css={styles.items}>
-            <FormTimeCardAuth
-              initialValue={timeCardAuth}
-              setter={setTimeCardAuth}
-            />
-          </div>
-        </section>
-      </Stepper>
-    </div>
+        <VStack {...props.vstack}>
+          <FormUserName />
+        </VStack>
+        <VStack {...props.vstack}>
+          <FormShopName />
+        </VStack>
+        <VStack {...props.vstack}>
+          <FormShiftRange />
+          <FormSubmitFrequency />
+          <FormTimeUnit />
+        </VStack>
+        <VStack {...props.vstack}>
+          <FormTimeCardAuth />
+        </VStack>
+      </Step>
+    </FormProvider>
   )
-}
-
-const styles = {
-  container: css`
-    width: 100%;
-  `,
-  section: css`
-    margin-bottom: 32px;
-    ${mediaQueries('sm')} {
-      margin-bottom: 48px;
-    }
-  `,
-  items: css`
-    > * {
-      margin: 24px 0;
-      ${mediaQueries('sm')} {
-        margin: 12px 0;
-      }
-    }
-  `,
-  description: css`
-    margin-top: 4px;
-  `,
-
-  content: css`
-    height: 300px;
-    padding-top: 20px;
-  `,
 }

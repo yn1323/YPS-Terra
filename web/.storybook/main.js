@@ -7,6 +7,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     'storybook-addon-next-router',
+    '@chakra-ui/storybook-addon',
   ],
   features: {
     interactionsDebugger: true,
@@ -39,7 +40,7 @@ module.exports = {
       '@/organisms': path.resolve(__dirname, '../components/organisms'),
       '@/templates': path.resolve(__dirname, '../components/templates'),
     }
-    // StorybookとMUIのemotionのバージョンの違いを吸収
+    // Storybookとemotionのバージョンの違いを吸収
     // https://zenn.dev/enish/articles/ff678649ecb6d9
     delete config.resolve.alias['emotion-theming']
     delete config.resolve.alias['@emotion/styled']

@@ -1,48 +1,47 @@
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
-import { FC, forwardRef } from 'react'
-import { Textbox, PropTypes as TextboxProps } from '@/atoms/Input/Textbox'
+import {
+  Box,
+  Icon,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Text,
+} from '@chakra-ui/react'
+import { FC } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { FaIdCard } from 'react-icons/fa'
 import { MAX_LENGTH } from '@/constants/validations'
-import { Form } from '@/templates/Form'
 
-const PLACEHOLDER = 'xxxxxx'
-const LENGTH = MAX_LENGTH.SHOP_ID
+const KEY = 'shopId'
 
-type PropTypes = Pick<
-  TextboxProps,
-  Partial<'error' | 'defaultValue' | 'required' | 'helperText'> | 'ref'
-> & {
-  _css?: SerializedStyles | SerializedStyles[]
-}
+export const FormShopId: FC = () => {
+  const form = useFormContext()
+  const props = form
+    ? { ...form.register(KEY, { required: '店舗IDを入力してください' }) }
+    : {}
+  const isInvalid = !!form?.formState.errors[KEY]
+  const message = isInvalid ? form?.formState.errors[KEY].message : ''
 
-// TODO: DELETE
-export const FormShopId: FC<PropTypes> = forwardRef(
-  (
-    {
-      _css,
-      error = false,
-      defaultValue = '',
-      required = false,
-      helperText = '',
-    },
-    ref
-  ) => {
-    return (
-      <Form css={[_css, styles.container]} definition="店舗ID">
-        <Textbox
-          maxLength={LENGTH}
-          placeholder={PLACEHOLDER}
-          error={error}
-          defaultValue={defaultValue}
-          required={required}
-          helperText={helperText}
-          ref={ref}
+  return (
+    <Box w="100%">
+      <Text mb={2}>店舗ID</Text>
+      <InputGroup>
+        <InputLeftElement pointerEvents="none">
+          <Icon as={FaIdCard} color="gray.400" />
+        </InputLeftElement>
+        <Input
+          {...props}
+          isInvalid={!!isInvalid}
+          errorBorderColor="crimson"
+          type="text"
+          placeholder="xxxxxxx"
+          maxLength={MAX_LENGTH.SHOP_ID}
         />
-      </Form>
-    )
-  }
-)
-
-const styles = {
-  container: css``,
+      </InputGroup>
+      {!!message && (
+        <Text size="sm" color="crimson">
+          {message}
+        </Text>
+      )}
+    </Box>
+  )
 }

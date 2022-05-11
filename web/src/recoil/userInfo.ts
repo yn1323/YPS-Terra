@@ -5,7 +5,7 @@ export const defaultUserInfo = {
   token: '',
   uid: '',
   isAnonymous: false,
-  userName: 'userName',
+  userName: '',
   avatarPath: '',
 }
 

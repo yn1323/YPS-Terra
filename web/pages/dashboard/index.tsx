@@ -1,26 +1,31 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
-import { ReactElement } from 'react'
-import { useRecoilValue } from 'recoil'
-import { Snackbar } from '@/atoms/Text/Snackbar'
+import { ReactElement, useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import { showToast } from '@/localHelpers/ui'
 import { pageMessage } from '@/recoil/pageMessage'
 import { loginInfo } from '@/services/auth/loginInfo'
 import { authPageRedirectTo } from '@/services/helpers/ssrProps/authPageRedirectTo'
 import { Animation } from '@/templates/Animation'
-import { Layout } from '@/templates/Layout'
+import { AuthLayout } from '@/templates/AuthLayout'
 
 export const Dashboard: NextPageWithLayout = () => {
-  const { registerSucceeded } = useRecoilValue(pageMessage)
+  const [pageMessages, setPageMessages] = useRecoilState(pageMessage)
+  useEffect(() => {
+    if (pageMessages.registerSucceeded) {
+      showToast({ title: '登録が完了しました', status: 'success' })
+      setPageMessages({ ...pageMessages, registerSucceeded: false })
+    }
+  }, [pageMessages, setPageMessages])
 
   return (
     <Animation>
-      <Snackbar show={registerSucceeded}>登録が完了しました。</Snackbar>
       <div>dashboard</div>
     </Animation>
   )
 }
 
 Dashboard.getLayout = (page: ReactElement) => {
-  return <Layout>{page}</Layout>
+  return <AuthLayout>{page}</AuthLayout>
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
