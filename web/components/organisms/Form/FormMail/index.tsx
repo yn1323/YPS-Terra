@@ -9,6 +9,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FiMail } from 'react-icons/fi'
@@ -32,13 +33,20 @@ type FormTypes = {
 }
 
 export const FormMail: FC<PropTypes> = ({ mailFormType }) => {
+  const {
+    query: { shopId },
+  } = useRouter()
   const { handleSubmit, register } = useForm<FormTypes>()
   const { emailLogin, emailSignUp, emailReset, isLoading } = useEmailLogin()
   const isSignUp = mailFormType === 'signUp'
   const isLogin = mailFormType === 'login'
   const isReset = mailFormType === 'reset'
   const mailOptionButtons = [
-    { label: '新規登録', url: '/login/register', show: isLogin },
+    {
+      label: '新規登録',
+      url: `/login/register${shopId ? `?shopId=${shopId}` : ``}`,
+      show: isLogin,
+    },
     {
       label: 'パスワードを忘れた方',
       url: '/login/reset',

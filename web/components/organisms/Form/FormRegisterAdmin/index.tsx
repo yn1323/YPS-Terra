@@ -21,7 +21,7 @@ export type FormRegisterAdminType = {
   shopName: string
   openTime: string
   closeTime: string
-  timeUnit: ShiftTimeUnit
+  timeUnit: string
   shiftSubmitFrequency: ShiftSubmitFrequency
   timeCardAuth: boolean
 }
@@ -36,7 +36,7 @@ export const FormRegisterAdmin: FC = () => {
       openTime: '09:00',
       closeTime: '18:00',
       shiftSubmitFrequency: '0.5m',
-      timeUnit: 30,
+      timeUnit: '30',
       timeCardAuth: false,
     },
   })
@@ -94,6 +94,7 @@ export const FormRegisterAdmin: FC = () => {
       setError(key, { message: errorMessage })
       return
     }
+
     registerAdminUserAndShopMutation({
       variables: {
         userId: uid,
@@ -101,7 +102,7 @@ export const FormRegisterAdmin: FC = () => {
         shopName,
         openTime: timeStringToDate(openTime),
         closeTime: timeStringToDate(closeTime),
-        timeUnit,
+        timeUnit: parseInt(timeUnit),
         submitFrequency: shiftSubmitFrequency,
         useTimeCard: timeCardAuth,
       },

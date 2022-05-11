@@ -21,7 +21,7 @@ export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
   const showElement = Array.isArray(children) ? children : [children]
   const tasks = [MENU.TOP, MENU.SHIFT, MENU.ATTENDANCE, MENU.TIMECARD]
   const commons = [MENU.CONFIG, MENU.HOWTO, MENU.LOGOUT]
-  const [showLabel, setShowLabel] = useState(true)
+  const [showLabel, setShowLabel] = useState(false)
 
   useEffect(() => {
     setShowLabel(!!parseInt(localStorage.getItem('authLayoutPC') ?? '1', 10))
