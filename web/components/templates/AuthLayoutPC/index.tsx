@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { FcNext, FcPrevious } from 'react-icons/fc'
 import { MENU } from '@/ui/layout/menu'
 
@@ -22,6 +22,15 @@ export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
   const tasks = [MENU.TOP, MENU.SHIFT, MENU.ATTENDANCE, MENU.TIMECARD]
   const commons = [MENU.CONFIG, MENU.HOWTO, MENU.LOGOUT]
   const [showLabel, setShowLabel] = useState(true)
+
+  useEffect(() => {
+    setShowLabel(!!parseInt(localStorage.getItem('authLayoutPC') ?? '1', 10))
+  }, [])
+  const showLabelHandler = () => {
+    localStorage.setItem('authLayoutPC', showLabel ? '0' : '1')
+    setShowLabel(!showLabel)
+  }
+
   const buttonHoverColor = useColorModeValue('gray.100', 'gray.700')
 
   const buttonProps = ({ showLabel }: { showLabel: boolean }) => ({
@@ -53,7 +62,7 @@ export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
         >
           {showLabel && (
             <Button
-              onClick={() => setShowLabel(!showLabel)}
+              onClick={showLabelHandler}
               leftIcon={<FcPrevious />}
               {...buttonProps({ showLabel })}
               data-testid="closeButton"
@@ -62,7 +71,7 @@ export const AuthLayoutPC: FC<PropTypes> = ({ children }) => {
           )}
           {!showLabel && (
             <Button
-              onClick={() => setShowLabel(!showLabel)}
+              onClick={showLabelHandler}
               leftIcon={<FcNext />}
               {...buttonProps({ showLabel })}
               data-testid="openButton"
