@@ -16,6 +16,9 @@ export const env = {
     process.env.STORYBOOK_NEXT_PUBLIC_API_KEY,
   appId:
     process.env.NEXT_PUBLIC_APP_I || process.env.STORYBOOK_NEXT_PUBLIC_API_KEYD,
+  endpoint:
+    process.env.NEXT_PUBLIC_ENDPOINT_DOMAIN ||
+    process.env.STORYBOOK_NEXT_PUBLIC_API_KEYD,
 }
 
 export const isProduction = !env.projectId?.includes('development')

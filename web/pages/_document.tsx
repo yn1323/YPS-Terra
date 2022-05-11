@@ -9,6 +9,8 @@ export default class MyDocument extends Document {
         <Head>
           {/* eslint-disable-next-line */}
           {(this.props as any).emotionStyleTags}
+          {/* TODO: 最後に外す */}
+          <meta name="robots" content="noindex" />
         </Head>
         <body>
           <Main />
