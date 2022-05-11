@@ -1,6 +1,7 @@
 import type { GetServerSideProps, NextPageWithLayout } from 'next'
 import { ReactElement } from 'react'
-import { Shop } from '@/graphql/generated'
+import { Shop, User } from '@/graphql/generated'
+import { FormRegisterAddShop } from '@/organisms/Form/FormRegisterAddShop'
 import { FormRegisterAdmin } from '@/organisms/Form/FormRegisterAdmin'
 import { FormRegisterUser } from '@/organisms/Form/FormRegisterUser'
 import { registerPageRedirectTo } from '@/services/helpers/ssrProps/registerPageRedirectTo'
@@ -12,23 +13,23 @@ type PropTypes = {
   shopId: string
   shopInfo: Shop
   isUserExist: boolean
+  userInfo: User
 }
 
 export const Register: NextPageWithLayout<PropTypes> = ({
   shopId,
   shopInfo,
   isUserExist,
+  userInfo,
 }) => {
   return (
     <Animation>
-      {shopId ? (
-        <FormRegisterUser
-          shopId={shopId}
-          shopInfo={shopInfo}
-          isUserExist={isUserExist}
-        />
-      ) : (
+      {!shopId ? (
         <FormRegisterAdmin />
+      ) : !isUserExist ? (
+        <FormRegisterUser shopInfo={shopInfo} />
+      ) : (
+        <FormRegisterAddShop shopInfo={shopInfo} userInfo={userInfo} />
       )}
     </Animation>
   )
@@ -43,7 +44,9 @@ Register.getLayout = (page: ReactElement) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const { isUserExist, redirect } = await registerPageRedirectTo(context)
+  const { isUserExist, redirect, userInfo } = await registerPageRedirectTo(
+    context
+  )
   if (redirect) {
     return redirect
   }
@@ -69,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       shopId,
       shopInfo,
       isUserExist,
+      userInfo,
     },
   }
 }

@@ -3,27 +3,28 @@ import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
-import { Shop } from '@/graphql/generated'
+import { Shop, User } from '@/graphql/generated'
 import { showCommonServerError } from '@/localHelpers/ui'
-import { FormUserName } from '@/molecules/Form/FormUserName'
 import { userInfoState } from '@/recoil/userInfo'
 import { useRegisterUser } from '@/services/register/registerUser'
 import { Step } from '@/templates/Step'
 
-export type FormRegisterUserType = {
+export type FormRegisterAddShopType = {
   userName: string
 }
 
 type PropTypes = {
   shopInfo: Shop
+  userInfo: User
 }
 
-export const FormRegisterUser: FC<PropTypes> = ({
+export const FormRegisterAddShop: FC<PropTypes> = ({
   shopInfo: { shopId, shopName },
+  userInfo: { userName },
 }) => {
   const [defaultStep] = useState(-1)
   const labels = ['設定']
-  const methods = useForm<FormRegisterUserType>({
+  const methods = useForm<FormRegisterAddShopType>({
     defaultValues: {
       userName: '',
     },
@@ -50,7 +51,7 @@ export const FormRegisterUser: FC<PropTypes> = ({
     }
   }, [error, errorMessage])
 
-  const onSubmit: SubmitHandler<FormRegisterUserType> = ({ userName }) => {
+  const onSubmit: SubmitHandler<FormRegisterAddShopType> = ({ userName }) => {
     registerUserMutation({
       variables: {
         userId: uid,
@@ -62,7 +63,7 @@ export const FormRegisterUser: FC<PropTypes> = ({
 
   const props = {
     vstack: {
-      spacing: 8,
+      spacing: 4,
       alignItems: 'flex-start',
       w: ['100%', '100%', '50%'],
     },
@@ -77,11 +78,17 @@ export const FormRegisterUser: FC<PropTypes> = ({
         isLoading={loading}
       >
         <VStack {...props.vstack}>
+          <Box mb={8}>
+            <Text>下記店舗を追加します。</Text>
+          </Box>
           <Box>
             <Text>登録店舗</Text>
             <Input variant="flushed" disabled value={shopName} />
           </Box>
-          <FormUserName />
+          <Box>
+            <Text>ユーザー名(登録済み)</Text>
+            <Input variant="flushed" disabled value={userName} />
+          </Box>
         </VStack>
       </Step>
     </FormProvider>

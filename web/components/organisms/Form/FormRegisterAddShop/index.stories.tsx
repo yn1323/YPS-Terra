@@ -1,11 +1,11 @@
 import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
-import { FormRegisterUser } from '.'
+import { FormRegisterAddShop } from '.'
 import { Shop } from '@/graphql/generated'
 
-type StoryObj = ComponentStoryObj<typeof FormRegisterUser>
+type StoryObj = ComponentStoryObj<typeof FormRegisterAddShop>
 export default {
-  title: 'organisms/Form/FormRegisterUser',
-  component: FormRegisterUser,
+  title: 'organisms/Form/FormRegisterAddShop',
+  component: FormRegisterAddShop,
   decorators: [
     Story => (
       <div style={{ width: '100%', height: 'calc(100vh - 100px)' }}>
@@ -13,7 +13,7 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof FormRegisterUser>
+} as ComponentMeta<typeof FormRegisterAddShop>
 const args = {
   shopInfo: {
     closeTime: 1575385200000,
@@ -24,6 +24,12 @@ const args = {
     timeUnit: 5,
     useTimeCard: false,
   } as Shop,
+  userInfo: {
+    avatar: '',
+    memberOf: [],
+    userId: 'aaaaa',
+    userName: 'userName',
+  },
 }
 
 export const Basic: StoryObj = {

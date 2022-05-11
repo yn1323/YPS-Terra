@@ -8,6 +8,7 @@ export const registerPageRedirectTo = async (
   let destination = ''
   const ret: { [key: string]: any } = {
     isUserExist,
+    userInfo: userInfo.userExists,
   }
   const shopId = Array.isArray(context.query.shopId)
     ? context.query.shopId.join(',')
