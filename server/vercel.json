@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "go",
-  "builds": [{ "src": "*.ts", "use": "@vercel/node" }],
+  "builds": [{ "src": "main.ts", "use": "@vercel/node" }],
   "routes": [
     {
       "src": "/(.*)",
