@@ -10,6 +10,10 @@ type Announce {
   shopId: ID!
 }
 
+type DevOnly {
+  succeeded: Boolean!
+}
+
 type LoginInfo {
   names: Names!
   organizations: [Organization!]!
@@ -60,6 +64,7 @@ type Organization {
 
 type Query {
   announce(organizationId: ID!, shopId: ID!): [Announce!]!
+  deleteAllCollections: DevOnly!
   findOrganizationsByShopIds(shopIds: [ID!]!): [Organization!]!
   loginInfo(userId: ID!): LoginInfo!
   operations(shopId: ID!): [Operation!]!
