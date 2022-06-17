@@ -16,7 +16,7 @@
     "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN"
   },
   "dependencies": {
-    "@apollo/client": "3.6.2",
+    "@apollo/client": "3.6.8",
     "@date-io/dayjs": "2.13.2",
     "@emotion/react": "11.9.0",
     "@emotion/server": "11.4.0",
