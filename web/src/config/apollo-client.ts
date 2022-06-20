@@ -1,8 +1,9 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { env } from '@/config/env'
 import { getCookieValue } from '@/helpers/string'
 
-const DOMAIN = 'http://localhost:3000'
+const DOMAIN = env.endpoint
 
 const httpLink = createHttpLink({
   uri: `${DOMAIN}/graphql`,

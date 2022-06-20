@@ -3,14 +3,11 @@ import { FormUserName } from '.'
 
 type StoryObj = ComponentStoryObj<typeof FormUserName>
 export default {
-  title: 'molecules/Form/FormFormUserName',
+  title: 'molecules/Form/FormUserName',
   component: FormUserName,
 } as ComponentMeta<typeof FormUserName>
-const args = {
-  error: false,
-  defaultValue: '',
-  required: false,
-  helperText: '必ず入力してください。',
-}
+const args = {}
 
-export const Basic: StoryObj = { args }
+export const Basic: StoryObj = {
+  args,
+}

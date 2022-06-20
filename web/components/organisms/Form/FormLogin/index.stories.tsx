@@ -1,14 +1,17 @@
-import { ComponentMeta } from '@storybook/react'
-import { ComponentProps } from 'react'
+import { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import { FormLogin } from '.'
+import { MailFormType } from '@/organisms/Form/FormMail'
 
+type StoryObj = ComponentStoryObj<typeof FormLogin>
 export default {
   title: 'organisms/Form/FormLogin',
   component: FormLogin,
 } as ComponentMeta<typeof FormLogin>
-
-type Props = ComponentProps<typeof FormLogin>
-const Template = (props: Props) => {
-  return <FormLogin {...props} />
+const args = {
+  mailFormType: 'signUp' as MailFormType,
 }
-export const Basic = Template.bind({})
+
+export const Basic: StoryObj = {
+  args,
+  parameters: { chromatic: { viewports: [414, 1080] } },
+}

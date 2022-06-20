@@ -1,14 +1,11 @@
-import CssBaseline from '@mui/material/CssBaseline'
 import { ApolloProvider } from '@apollo/client'
-import { css } from '@emotion/react'
 import React, { useEffect } from 'react'
-import { ThemeProvider } from '@mui/material/styles'
 import client from '../src/config/apollo-client'
-import { theme } from '../src/ui/theme'
 import * as nextImage from 'next/image'
 import { RecoilRoot } from 'recoil'
 import { useRecoilSnapshot } from 'recoil'
 import { RouterContext } from 'next/dist/shared/lib/router-context'
+import { themeChakra } from '../src/ui/theme'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -23,6 +20,9 @@ export const parameters = {
     asPath: '/',
     query: {},
     push() {},
+  },
+  chakra: {
+    theme: themeChakra,
   },
 }
 
@@ -39,13 +39,10 @@ const withThemeProvider = (Story, context) => {
   }
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <RecoilRoot>
-          <DebugObserver />
-          <CssBaseline />
-          <Story {...context} />
-        </RecoilRoot>
-      </ThemeProvider>
+      <RecoilRoot>
+        <DebugObserver />
+        <Story {...context} />
+      </RecoilRoot>
     </ApolloProvider>
   )
 }

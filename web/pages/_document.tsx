@@ -1,16 +1,16 @@
 import createEmotionServer from '@emotion/server/create-instance'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionCache from '@/ui/createEmotionCache'
-import { theme } from '@/ui/theme'
 
 export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="ja">
         <Head>
-          <meta name="theme-color" content={theme.palette.primary.main} />
           {/* eslint-disable-next-line */}
           {(this.props as any).emotionStyleTags}
+          {/* TODO: 最後に外す */}
+          <meta name="robots" content="noindex" />
         </Head>
         <body>
           <Main />

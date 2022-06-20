@@ -1,31 +1,21 @@
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
-import { Dispatch, FC, SetStateAction } from 'react'
-import { Selectbox } from '@/atoms/Input/Selectbox'
-import { ShiftTimeUnit } from '@/config/appConfigs'
+import { Select, Text, VStack } from '@chakra-ui/react'
+import { FC } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { TIME_UNIT } from '@/constants/validations'
-import { Form } from '@/templates/Form'
 
-type PropTypes = {
-  _css?: SerializedStyles | SerializedStyles[]
-  initialValue: ShiftTimeUnit
-  setter: Dispatch<SetStateAction<ShiftTimeUnit>>
-}
-
-export const FormTimeUnit: FC<PropTypes> = ({ _css, initialValue, setter }) => {
+export const FormTimeUnit: FC = () => {
+  const form = useFormContext()
+  const props = form ? { ...form.register('timeUnit') } : {}
   return (
-    <Form css={[_css, styles.container]} definition="シフト作成時間単位">
-      <Selectbox
-        _css={styles.container}
-        options={TIME_UNIT}
-        setter={setter as (v: string) => void}
-        initialValue={initialValue}
-      />
-    </Form>
+    <VStack alignItems="flex-start">
+      <Text>シフト作成時間単位</Text>
+      <Select {...props}>
+        {TIME_UNIT.map(({ label, value }, i) => (
+          <option key={i} value={value}>
+            {label}
+          </option>
+        ))}
+      </Select>
+    </VStack>
   )
-}
-const styles = {
-  container: css`
-    width: 150px;
-  `,
 }

@@ -28,5 +28,6 @@ export const useOnAuthStateChanged = () => {
       document.cookie = `yps-token=${accessToken}`
       document.cookie = `uid=${uid}`
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }

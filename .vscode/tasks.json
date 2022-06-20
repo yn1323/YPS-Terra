@@ -10,7 +10,7 @@
     {
       "type": "npm",
       "script": "generate",
-      "label": "Scaffold: Generatte component",
+      "label": "Scaffold: Generate component",
       "detail": "テンプレートファイルを新規生成"
     },
     {

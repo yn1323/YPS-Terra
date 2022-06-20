@@ -1,23 +1,33 @@
-import { css } from '@emotion/react'
-import type { SerializedStyles } from '@emotion/react'
+import { Box, Input, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useRecoilValue } from 'recoil'
-import { Button } from '@/atoms/Button/Button'
-import { Heading } from '@/atoms/Text/Heading'
-import { FORM_ERROR_TEXT } from '@/constants/validations'
+import { Shop } from '@/graphql/generated'
+import { showCommonServerError } from '@/localHelpers/ui'
 import { FormUserName } from '@/molecules/Form/FormUserName'
-import { NotificationError } from '@/molecules/Notification/NotificationError'
 import { userInfoState } from '@/recoil/userInfo'
 import { useRegisterUser } from '@/services/register/registerUser'
-import { mediaQueries } from '@/ui/mixins/breakpoint'
+import { Step } from '@/templates/Step'
 
-type PropTypes = {
-  _css?: SerializedStyles | SerializedStyles[]
-  shopId: string
+export type FormRegisterUserType = {
+  userName: string
 }
 
-export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
+type PropTypes = {
+  shopInfo: Shop
+}
+
+export const FormRegisterUser: FC<PropTypes> = ({
+  shopInfo: { shopId, shopName },
+}) => {
+  const [defaultStep] = useState(-1)
+  const labels = ['設定']
+  const methods = useForm<FormRegisterUserType>({
+    defaultValues: {
+      userName: '',
+    },
+  })
   const {
     registerUserMutation,
     loading,
@@ -26,12 +36,7 @@ export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
     mutationSucceeded,
   } = useRegisterUser()
   const { uid } = useRecoilValue(userInfoState)
-  const userNameRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
-
-  const [success, setSuccess] = useState({
-    userName: true,
-  })
 
   useEffect(() => {
     if (mutationSucceeded) {
@@ -39,75 +44,46 @@ export const FormRegisterUser: FC<PropTypes> = ({ _css, shopId }) => {
     }
   }, [mutationSucceeded, router])
 
-  const handleSubmit = () => {
-    const targetValidation = [userNameRef.current?.value]
-
-    const allSuccess = targetValidation?.every(v => v)
-    if (!allSuccess) {
-      setSuccess({
-        userName: !!userNameRef.current?.value,
-      })
-    } else {
-      registerUserMutation({
-        variables: {
-          userId: uid,
-          shopId,
-          userName: userNameRef.current?.value ?? '',
-        },
-      })
+  useEffect(() => {
+    if (error) {
+      showCommonServerError(errorMessage)
     }
+  }, [error, errorMessage])
+
+  const onSubmit: SubmitHandler<FormRegisterUserType> = ({ userName }) => {
+    registerUserMutation({
+      variables: {
+        userId: uid,
+        shopId,
+        userName,
+      },
+    })
+  }
+
+  const props = {
+    vstack: {
+      spacing: 8,
+      alignItems: 'flex-start',
+      w: ['100%', '100%', '50%'],
+    },
   }
 
   return (
-    <div css={[_css, styles.container]}>
-      {error && (
-        <NotificationError show={true}>{errorMessage}</NotificationError>
-      )}
-
-      <section css={styles.section}>
-        <Heading underline>初期設定</Heading>
-        <div css={styles.items}>
-          <FormUserName
-            error={!success.userName}
-            helperText={FORM_ERROR_TEXT.USER_NAME}
-            ref={userNameRef}
-          />
-        </div>
-      </section>
-
-      <div css={styles.submitButton}>
-        <Button onClick={handleSubmit} loading={loading}>
-          登録
-        </Button>
-      </div>
-    </div>
+    <FormProvider {...methods}>
+      <Step
+        labels={labels}
+        onSubmit={onSubmit}
+        defaultStep={defaultStep}
+        isLoading={loading}
+      >
+        <VStack {...props.vstack}>
+          <Box>
+            <Text>登録店舗</Text>
+            <Input variant="flushed" disabled value={shopName} />
+          </Box>
+          <FormUserName />
+        </VStack>
+      </Step>
+    </FormProvider>
   )
-}
-
-const styles = {
-  container: css`
-    width: 100%;
-  `,
-  section: css`
-    margin-bottom: 32px;
-    ${mediaQueries('sm')} {
-      margin-bottom: 48px;
-    }
-  `,
-  items: css`
-    > * {
-      margin: 24px 0;
-      ${mediaQueries('sm')} {
-        margin: 12px 0;
-      }
-    }
-  `,
-  description: css`
-    margin-top: 4px;
-    font-size: 0.8rem;
-  `,
-  submitButton: css`
-    display: flex;
-    justify-content: flex-end;
-  `,
 }
