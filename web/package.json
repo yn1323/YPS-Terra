@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.6.9",
-    "@date-io/dayjs": "2.13.2",
+    "@date-io/dayjs": "2.14.0",
     "@emotion/react": "11.9.3",
     "@emotion/server": "11.4.0",
     "@emotion/styled": "11.9.3",
